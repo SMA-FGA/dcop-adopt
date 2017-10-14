@@ -9,6 +9,7 @@ dcop-adopt.iml
 
 # Binaries
 /bin/
+/out/
 
 # JADE files
 APDescription.txt
