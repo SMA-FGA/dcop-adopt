@@ -19,7 +19,7 @@ public class DcopAgent extends Agent {
         List<String> childrenNames;
         Object[] setupArgs = getArguments();
 
-        childrenNames = Arrays.asList((String[])setupArgs[1]);
+        childrenNames = Arrays.asList((String[])setupArgs[0]);
         System.out.println("Agent " + getLocalName() + " was created.");
 
         DFAgentDescription description = new DFAgentDescription();
