@@ -18,6 +18,7 @@ public class InstantiatorAgent extends Agent {
      */
     @Override
     protected void setup() {
+
         /*
          * For some unfortunate reason, nothing happens when passing the
          * ArrayList as an argument in the agent's creation. So we convert it
@@ -62,6 +63,6 @@ public class InstantiatorAgent extends Agent {
         }
 
         // We won't be needing this agent during the actual algorithm's execution
-        takeDown();
+        doDelete();
     }
 }
