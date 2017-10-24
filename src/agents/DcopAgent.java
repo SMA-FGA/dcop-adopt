@@ -23,9 +23,11 @@ public class DcopAgent extends Agent {
         lowerNeighbours = new ArrayList<>();
 
         List<String> childrenNames;
+        List<String> lowerNeighboursNames;
         Object[] setupArgs = getArguments();
 
         childrenNames = Arrays.asList((String[])setupArgs[0]);
+        lowerNeighboursNames = Arrays.asList((String[])setupArgs[1]);
         System.out.println("Agent " + getLocalName() + " was created.");
 
         DFAgentDescription description = new DFAgentDescription();
@@ -48,7 +50,7 @@ public class DcopAgent extends Agent {
 
         /*
          * Also registers itself with its own name, so that parents can search
-         * for their children.e.printStackTrace();
+         * for their children and lower neighbours.
          */
         ServiceDescription agentService = new ServiceDescription();
         agentService.setName(getLocalName());
@@ -63,6 +65,7 @@ public class DcopAgent extends Agent {
 
         addBehaviour(new searchForParentBehaviour(this, 5000));
         addBehaviour(new searchForChildrenBehaviour(this, 5000, childrenNames));
+        addBehaviour(new searchForLowerNeighboursBehaviour(this, 5000, lowerNeighboursNames));
     }
 
     private class searchForParentBehaviour extends WakerBehaviour {
@@ -129,4 +132,37 @@ public class DcopAgent extends Agent {
         }
     }
 
+    private class searchForLowerNeighboursBehaviour extends WakerBehaviour {
+        List<String> lowerNeighboursNames;
+
+        public searchForLowerNeighboursBehaviour(Agent a, long period, List<String> lowerNeighbours) {
+            super(a, period);
+            lowerNeighboursNames = lowerNeighbours;
+        }
+
+        @Override
+        protected void onWake() {
+            for (String lowerNeighbourName : lowerNeighboursNames) {
+                DFAgentDescription template = new DFAgentDescription();
+                ServiceDescription serviceTemplate = new ServiceDescription();
+                serviceTemplate.setType("agent-" + lowerNeighbourName);
+                template.addServices(serviceTemplate);
+
+                DFAgentDescription []resultSearch = null;
+
+                try {
+                    resultSearch = DFService.search(myAgent, template);
+                } catch (FIPAException e) {
+                    e.printStackTrace();
+                }
+
+                if (resultSearch.length != 0) {
+                    lowerNeighbours.add(resultSearch[0].getName());
+                    System.out.println("Registering agent " +
+                            resultSearch[0].getName().getLocalName() +
+                            " as " + getLocalName() + "'s lower neighbour");
+                }
+            }
+        }
+    }
 }

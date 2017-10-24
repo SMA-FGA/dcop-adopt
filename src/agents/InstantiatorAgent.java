@@ -25,25 +25,39 @@ public class InstantiatorAgent extends Agent {
          * to a regular array, then convert it back once inside the DcopAgent.
          */
         List<String> children = new ArrayList<>();
+        List<String> lowerNeighbours = new ArrayList<>();
+
         children.add("x2");
 
-        Object x1Args[] = new Object[1];
+        lowerNeighbours.add("x2");
+        lowerNeighbours.add("x3");
+
+        Object x1Args[] = new Object[2];
         x1Args[0] = children.toArray(new String[]{});
+        x1Args[1] = lowerNeighbours.toArray(new String[]{});
 
         children.clear();
         children.add("x3");
         children.add("x4");
 
-        Object x2Args[] = new Object[1];
+        lowerNeighbours.clear();
+        lowerNeighbours.add("x3");
+        lowerNeighbours.add("x4");
+
+        Object x2Args[] = new Object[2];
         x2Args[0] = children.toArray(new String[]{});
+        x2Args[1] = lowerNeighbours.toArray(new String[]{});
 
         children.clear();
+        lowerNeighbours.clear();
 
-        Object x3Args[] = new Object[1];
+        Object x3Args[] = new Object[2];
         x3Args[0] = children.toArray(new String[]{});
+        x3Args[1] = lowerNeighbours.toArray(new String[]{});
 
-        Object x4Args[] = new Object[1];
+        Object x4Args[] = new Object[2];
         x4Args[0] = children.toArray(new String[]{});
+        x4Args[1] = lowerNeighbours.toArray(new String[]{});
 
         try {
             getContainerController().createNewAgent("x1",
