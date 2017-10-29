@@ -26,15 +26,18 @@ public class InstantiatorAgent extends Agent {
          */
         List<String> children = new ArrayList<>();
         List<String> lowerNeighbours = new ArrayList<>();
+        int domain = 2; // In the example, the domain's range is [0, 1]
+
 
         children.add("x2");
 
         lowerNeighbours.add("x2");
         lowerNeighbours.add("x3");
 
-        Object x1Args[] = new Object[2];
+        Object x1Args[] = new Object[3];
         x1Args[0] = children.toArray(new String[]{});
         x1Args[1] = lowerNeighbours.toArray(new String[]{});
+        x1Args[2] = domain;
 
         children.clear();
         children.add("x3");
@@ -44,20 +47,23 @@ public class InstantiatorAgent extends Agent {
         lowerNeighbours.add("x3");
         lowerNeighbours.add("x4");
 
-        Object x2Args[] = new Object[2];
+        Object x2Args[] = new Object[3];
         x2Args[0] = children.toArray(new String[]{});
         x2Args[1] = lowerNeighbours.toArray(new String[]{});
+        x2Args[2] = domain;
 
         children.clear();
         lowerNeighbours.clear();
 
-        Object x3Args[] = new Object[2];
+        Object x3Args[] = new Object[3];
         x3Args[0] = children.toArray(new String[]{});
         x3Args[1] = lowerNeighbours.toArray(new String[]{});
+        x3Args[2] = domain;
 
-        Object x4Args[] = new Object[2];
+        Object x4Args[] = new Object[3];
         x4Args[0] = children.toArray(new String[]{});
         x4Args[1] = lowerNeighbours.toArray(new String[]{});
+        x4Args[2] = domain;
 
         try {
             getContainerController().createNewAgent("x1",

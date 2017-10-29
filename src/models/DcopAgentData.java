@@ -1,9 +1,6 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DcopAgentData {
     private int lowerBound;
@@ -25,25 +22,37 @@ public class DcopAgentData {
         childrenUpperBounds = new ArrayList<>(children);
         childrenThresholds = new ArrayList<>(children);
 
-        initializeBounds(domain);
+        initializeBounds(children, domain);
     }
 
-    private void initializeBounds(int domain) {
-        for (List<Integer> child : childrenLowerBounds) {
-            for (int i = 0; i < domain; i++) {
+    private void initializeBounds(int children, int domain) {
+        for (int i = 0; i < children; i++) {
+            childrenLowerBounds.add(new ArrayList<>());
+            List<Integer> child = childrenLowerBounds.get(i);
+
+            for (int j = 0; j < domain; j++) {
                 child.add(0);
+                System.out.println("lb(" + i + "," + j + ")" + " = " + child.get(j));
             }
         }
 
-        for (List<Integer> child : childrenUpperBounds) {
-            for (int i = 0; i < domain; i++) {
+        for (int i = 0; i < children; i++) {
+            childrenUpperBounds.add(new ArrayList<>());
+            List<Integer> child = childrenUpperBounds.get(i);
+
+            for (int j = 0; j < domain; j++) {
                 child.add(Integer.MAX_VALUE);
+                System.out.println("ub(" + i + "," + j + ")" + " = " + child.get(j));
             }
         }
 
-        for (List<Integer> child : childrenThresholds) {
-            for (int i = 0; i < domain; i++) {
+        for (int i = 0; i < children; i++) {
+            childrenThresholds.add(new ArrayList<>());
+            List<Integer> child = childrenThresholds.get(i);
+
+            for (int j = 0; j < domain; j++) {
                 child.add(0);
+                System.out.println("t(" + i + "," + j + ")" + " = " + child.get(j));
             }
         }
     }

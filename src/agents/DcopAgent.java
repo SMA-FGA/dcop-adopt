@@ -7,6 +7,7 @@ import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
+import models.DcopAgentData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +17,7 @@ public class DcopAgent extends Agent {
     private AID parentAgent;
     private List<AID> children;
     private List<AID> lowerNeighbours;
+    private DcopAgentData data;
 
     @Override
     protected void setup() {
@@ -24,10 +26,14 @@ public class DcopAgent extends Agent {
 
         List<String> childrenNames;
         List<String> lowerNeighboursNames;
+        int domain;
         Object[] setupArgs = getArguments();
 
         childrenNames = Arrays.asList((String[])setupArgs[0]);
         lowerNeighboursNames = Arrays.asList((String[])setupArgs[1]);
+        domain = (int) setupArgs[2];
+
+        data = new DcopAgentData(childrenNames.size(), domain);
         System.out.println("Agent " + getLocalName() + " was created.");
 
         DFAgentDescription description = new DFAgentDescription();
