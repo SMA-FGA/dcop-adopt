@@ -76,7 +76,9 @@ public class DcopAgent extends Agent {
 
     private class searchForParentBehaviour extends WakerBehaviour {
 
-        public searchForParentBehaviour(Agent a, long period) {
+		private static final long serialVersionUID = -7370214749961979377L;
+
+		public searchForParentBehaviour(Agent a, long period) {
             super(a, period);
         }
 
@@ -105,7 +107,8 @@ public class DcopAgent extends Agent {
     }
 
     private class searchForChildrenBehaviour extends WakerBehaviour {
-        private List<String> childrenName;
+		private static final long serialVersionUID = -3081227894323949053L;
+		private List<String> childrenName;
 
         public searchForChildrenBehaviour(Agent a, long period, List<String> children) {
             super(a, period);
@@ -139,7 +142,8 @@ public class DcopAgent extends Agent {
     }
 
     private class searchForLowerNeighboursBehaviour extends WakerBehaviour {
-        List<String> lowerNeighboursNames;
+		private static final long serialVersionUID = 2788042325314110781L;
+		List<String> lowerNeighboursNames;
 
         public searchForLowerNeighboursBehaviour(Agent a, long period, List<String> lowerNeighbours) {
             super(a, period);

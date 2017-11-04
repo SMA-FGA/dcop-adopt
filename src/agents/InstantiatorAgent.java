@@ -13,7 +13,9 @@ import java.util.List;
  */
 public class InstantiatorAgent extends Agent {
 
-    /*
+	private static final long serialVersionUID = -7764996125444199018L;
+
+	/*
      * Each created agent contains a list with the names of its children.
      */
     @Override
