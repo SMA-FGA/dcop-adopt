@@ -2,13 +2,18 @@ package agents;
 
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.OneShotBehaviour;
 import jade.core.behaviours.WakerBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
+import jade.lang.acl.ACLMessage;
 import models.DcopAgentData;
+import models.Value;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -66,10 +71,61 @@ public class DcopAgent extends Agent {
         addBehaviour(new searchForParentBehaviour(this, 5000));
         addBehaviour(new searchForChildrenBehaviour(this, 5000, childrenNames));
         addBehaviour(new searchForLowerNeighboursBehaviour(this, 5000, lowerNeighboursNames));
+        addBehaviour(new sendValueMessage(this, 7000));
+        addBehaviour(new receiveValueMessage(this));
     }
+    
+    private class sendValueMessage extends WakerBehaviour {
+    	
+    	private static final long serialVersionUID = 2659869091649149638L;
+    	
+    	public sendValueMessage(Agent a, long period) {
+            super(a, period);
+        }
+		
+		@Override
+		public void onWake() {
+			data.setChosenValue(0); // Assigning a value in the agent domain
+			
+			ACLMessage valueMessage = new ACLMessage(ACLMessage.INFORM);
+			for(AID lowerNeighbour : data.getLowerNeighbours()) {
+				valueMessage.addReceiver(lowerNeighbour);
+				System.out.println(getLocalName()+" send value message to: "+lowerNeighbour.getLocalName());
+			}
+			valueMessage.setContent(""+data.getChosenValue());
+			
+			try {
+				myAgent.send(valueMessage);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+    }
+    
+    private class receiveValueMessage extends CyclicBehaviour {
+    	
+    	private static final long serialVersionUID = -6895391790742950856L;
+    	
+    	public receiveValueMessage(Agent a) {
+            super(a);
+        }
 
+		@Override
+		public void action() {
+			ACLMessage message = receive() ;
+			
+			if(message != null) {
+				System.out.println(getLocalName()+" receive value message:" + message.getContent());
+			}else {
+				block();
+			}
+		}
+    }
+    
+       
     private class searchForParentBehaviour extends WakerBehaviour {
-
+    	
 		private static final long serialVersionUID = -7370214749961979377L;
 
 		public searchForParentBehaviour(Agent a, long period) {
