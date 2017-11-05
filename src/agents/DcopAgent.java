@@ -11,7 +11,6 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import models.DcopAgentData;
-import models.Value;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,9 +30,10 @@ public class DcopAgent extends Agent {
         childrenNames = Arrays.asList((String[])setupArgs[0]);
         lowerNeighboursNames = Arrays.asList((String[])setupArgs[1]);
         domain = (int) setupArgs[2];
+        System.out.println("[DOMAIN     ] "+domain);
 
         data = new DcopAgentData(childrenNames.size(), domain);
-        System.out.println("Agent " + getLocalName() + " was created.");
+        System.out.println("[CREATE     ] Agent " + getLocalName() + " was created.");
 
         DFAgentDescription description = new DFAgentDescription();
         description.setName(getAID());
@@ -50,7 +50,7 @@ public class DcopAgent extends Agent {
             parentOfService.setType("parent-of-" + childName);
             description.addServices(parentOfService);
 
-            System.out.println(parentOfService.getType());
+            System.out.println("[CREATE     ] Register "+getLocalName()+" as "+parentOfService.getType());
         }
 
         /*
@@ -71,26 +71,61 @@ public class DcopAgent extends Agent {
         addBehaviour(new searchForParentBehaviour(this, 5000));
         addBehaviour(new searchForChildrenBehaviour(this, 5000, childrenNames));
         addBehaviour(new searchForLowerNeighboursBehaviour(this, 5000, lowerNeighboursNames));
-        addBehaviour(new sendValueMessage(this, 7000));
+        addBehaviour(new initialize(this, 7000));
         addBehaviour(new receiveValueMessage(this));
     }
+
+    private class initialize extends WakerBehaviour {
+    	
+		private static final long serialVersionUID = -2905010008367981124L;
+
+		public initialize(Agent a, long period) {
+    		super(a, period);
+    	}
+    	
+		@Override
+    	public void onWake() {
+			System.out.println("[INITIALIZE ]" +myAgent.getLocalName()+" starting initialize procedure");
+			
+			data.setChosenValue(1); // to do: di <- d that minimizes LB(d) 
+			addBehaviour(new backTrack(myAgent));
+    	}
+    	
+    	
+    }
     
-    private class sendValueMessage extends WakerBehaviour {
+    private class backTrack extends OneShotBehaviour {
+    	
+    	static final long serialVersionUID = 6074892213023310464L;
+
+		public backTrack(Agent a) {
+            super(a);
+        }
+
+		@Override
+		public void action() {
+			//simple backTrack implementation
+			System.out.println("[BACK TRACK ]" +myAgent.getLocalName()+" starting backTrack procedure");
+			addBehaviour(new sendValueMessage(myAgent));			
+		}
+    	
+    }
+    
+    private class sendValueMessage extends OneShotBehaviour {
     	
     	private static final long serialVersionUID = 2659869091649149638L;
     	
-    	public sendValueMessage(Agent a, long period) {
-            super(a, period);
+    	public sendValueMessage(Agent a) {
+            super(a);
         }
 		
 		@Override
-		public void onWake() {
-			data.setChosenValue(0); // Assigning a value in the agent domain
-			
+		public void action() {
+						
 			ACLMessage valueMessage = new ACLMessage(ACLMessage.INFORM);
 			for(AID lowerNeighbour : data.getLowerNeighbours()) {
 				valueMessage.addReceiver(lowerNeighbour);
-				System.out.println(getLocalName()+" send value message to: "+lowerNeighbour.getLocalName());
+				System.out.println("[SEND VALUE ] "+getLocalName()+" send value message to: "+lowerNeighbour.getLocalName());
 			}
 			valueMessage.setContent(""+data.getChosenValue());
 			
@@ -116,7 +151,7 @@ public class DcopAgent extends Agent {
 			ACLMessage message = receive() ;
 			
 			if(message != null) {
-				System.out.println(getLocalName()+" receive value message:" + message.getContent());
+				System.out.println("[REC VALUE  ] "+getLocalName()+" receive value message: " + message.getContent());
 			}else {
 				block();
 			}
@@ -139,8 +174,6 @@ public class DcopAgent extends Agent {
             serviceTemplate.setType("parent-of-" + getLocalName());
             template.addServices(serviceTemplate);
 
-            System.out.println("Searching for " + serviceTemplate.getType());
-
             DFAgentDescription []resultSearch = null;
 
             try {
@@ -151,7 +184,7 @@ public class DcopAgent extends Agent {
 
             if (resultSearch.length != 0) {
                 data.setParent(resultSearch[0].getName());
-                System.out.println("Found parent for " + getLocalName() + ": " + data.getParent().getLocalName());
+                System.out.println("[PARENT     ] Found parent for " + getLocalName() + ": " + data.getParent().getLocalName());
             }
         }
     }
@@ -185,7 +218,7 @@ public class DcopAgent extends Agent {
 
                 if (resultSearch.length != 0) {
                     data.setChild(resultSearch[0].getName());
-                    System.out.println("Registering agent " +
+                    System.out.println("[CHILD      ] Registering agent " +
                                         resultSearch[0].getName().getLocalName() +
                                         " as " + getLocalName() + "'s child");
                 }
@@ -222,7 +255,7 @@ public class DcopAgent extends Agent {
 
                 if (resultSearch.length != 0) {
                     data.setLowerNeighbour(resultSearch[0].getName());
-                    System.out.println("Registering agent " +
+                    System.out.println("[NEIGH      ] Registering agent " +
                             resultSearch[0].getName().getLocalName() +
                             " as " + getLocalName() + "'s lower neighbour");
                 }

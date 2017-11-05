@@ -38,7 +38,7 @@ public class DcopAgentData {
 
             for (int j = 0; j < domain; j++) {
                 child.add(0);
-                System.out.println("lb(" + i + "," + j + ")" + " = " + child.get(j));
+                System.out.println("[LOWER BOUND] lb(" + i + "," + j + ")" + " = " + child.get(j));
             }
         }
 
@@ -48,7 +48,7 @@ public class DcopAgentData {
 
             for (int j = 0; j < domain; j++) {
                 child.add(Integer.MAX_VALUE);
-                System.out.println("ub(" + i + "," + j + ")" + " = " + child.get(j));
+                System.out.println("[UPER BOUND ] ub(" + i + "," + j + ")" + " = " + child.get(j));
             }
         }
 
@@ -58,7 +58,7 @@ public class DcopAgentData {
 
             for (int j = 0; j < domain; j++) {
                 child.add(0);
-                System.out.println("t(" + i + "," + j + ")" + " = " + child.get(j));
+                System.out.println("[TRHESHOLD  ] t(" + i + "," + j + ")" + " = " + child.get(j));
             }
         }
     }

@@ -68,18 +68,10 @@ public class InstantiatorAgent extends Agent {
         x4Args[2] = domain;
 
         try {
-            getContainerController().createNewAgent("x1",
-                                                    "agents.DcopAgent",
-                                                    x1Args).start();
-            getContainerController().createNewAgent("x2",
-                                                    "agents.DcopAgent",
-                                                    x2Args).start();
-            getContainerController().createNewAgent("x3",
-                                                    "agents.DcopAgent",
-                                                    x3Args).start();
-            getContainerController().createNewAgent("x4",
-                                                    "agents.DcopAgent",
-                                                    x4Args).start();
+            getContainerController().createNewAgent("x1", "agents.DcopAgent", x1Args).start();
+            getContainerController().createNewAgent("x2", "agents.DcopAgent", x2Args).start();
+            getContainerController().createNewAgent("x3", "agents.DcopAgent", x3Args).start();
+            getContainerController().createNewAgent("x4", "agents.DcopAgent", x4Args).start();
         } catch (StaleProxyException e) {
             e.printStackTrace();
         }
