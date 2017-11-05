@@ -2,12 +2,18 @@ package models;
 
 import java.util.*;
 
+import jade.core.AID;
+
 public class DcopAgentData {
     private int lowerBound;
     private int upperBound;
     private int threshold;
+    private int chosenValue;
 
     private Map<String, Integer> currentContext;
+    private AID parentAgent;
+    private List<AID> children = new ArrayList<>();
+    private List<AID> lowerNeighbours = new ArrayList<>();
     private List<List<Integer>> childrenLowerBounds;
     private List<List<Integer>> childrenUpperBounds;
     private List<List<Integer>> childrenThresholds;
@@ -24,7 +30,7 @@ public class DcopAgentData {
 
         initializeBounds(children, domain);
     }
-
+    
     private void initializeBounds(int children, int domain) {
         for (int i = 0; i < children; i++) {
             childrenLowerBounds.add(new ArrayList<>());
@@ -57,6 +63,38 @@ public class DcopAgentData {
         }
     }
 
+    public AID getParent() {
+    	return this.parentAgent;
+    }
+    
+    public void setParent(AID parentAID) {
+    	this.parentAgent = parentAID;
+    }
+    
+    public List<AID> getLowerNeighbours() {
+    	return this.lowerNeighbours;
+    }
+    
+    public void setLowerNeighbour(AID agentAID) {
+    	this.lowerNeighbours.add(agentAID);
+    }
+    
+    public List<AID> getChildren() {
+    	return this.children;
+    }
+    
+    public void setChild(AID agentAID) {
+    	this.children.add(agentAID);
+    }
+    
+    public int getChosenValue() {
+    	return this.chosenValue;
+    }
+    
+    public void setChosenValue(int chosenValue) {
+    	this.chosenValue = chosenValue;
+    }
+    
     public int getLowerBound() {
         return lowerBound;
     }

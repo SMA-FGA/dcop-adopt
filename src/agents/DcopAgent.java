@@ -14,16 +14,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DcopAgent extends Agent {
-    private AID parentAgent;
-    private List<AID> children;
-    private List<AID> lowerNeighbours;
     private DcopAgentData data;
 
     @Override
     protected void setup() {
-        children = new ArrayList<>();
-        lowerNeighbours = new ArrayList<>();
-
         List<String> childrenNames;
         List<String> lowerNeighboursNames;
         int domain;
@@ -100,24 +94,26 @@ public class DcopAgent extends Agent {
             }
 
             if (resultSearch.length != 0) {
-                parentAgent = resultSearch[0].getName();
-                System.out.println("Found parent for " + getLocalName() + ": " + parentAgent.getLocalName());
+                data.setParent(resultSearch[0].getName());
+                System.out.println("Found parent for " + getLocalName() + ": " + data.getParent().getLocalName());
             }
         }
     }
+    
 
     private class searchForChildrenBehaviour extends WakerBehaviour {
+    	
 		private static final long serialVersionUID = -3081227894323949053L;
-		private List<String> childrenName;
+		List<String> childrenNames;
 
-        public searchForChildrenBehaviour(Agent a, long period, List<String> children) {
+        public searchForChildrenBehaviour(Agent a, long period, List<String> childrenNames) {
             super(a, period);
-            childrenName = children;
+            this.childrenNames = childrenNames;
         }
 
         @Override
         protected void onWake() {
-            for (String childName : childrenName) {
+            for (String childName : childrenNames) {
                 DFAgentDescription template = new DFAgentDescription();
                 ServiceDescription serviceTemplate = new ServiceDescription();
                 serviceTemplate.setType("agent-" + childName);
@@ -132,7 +128,7 @@ public class DcopAgent extends Agent {
                 }
 
                 if (resultSearch.length != 0) {
-                    children.add(resultSearch[0].getName());
+                    data.setChild(resultSearch[0].getName());
                     System.out.println("Registering agent " +
                                         resultSearch[0].getName().getLocalName() +
                                         " as " + getLocalName() + "'s child");
@@ -140,14 +136,16 @@ public class DcopAgent extends Agent {
             }
         }
     }
+    
 
     private class searchForLowerNeighboursBehaviour extends WakerBehaviour {
+    	
 		private static final long serialVersionUID = 2788042325314110781L;
 		List<String> lowerNeighboursNames;
 
-        public searchForLowerNeighboursBehaviour(Agent a, long period, List<String> lowerNeighbours) {
+        public searchForLowerNeighboursBehaviour(Agent a, long period, List<String> lowerNeighboursNames) {
             super(a, period);
-            lowerNeighboursNames = lowerNeighbours;
+            this.lowerNeighboursNames = lowerNeighboursNames;
         }
 
         @Override
@@ -167,7 +165,7 @@ public class DcopAgent extends Agent {
                 }
 
                 if (resultSearch.length != 0) {
-                    lowerNeighbours.add(resultSearch[0].getName());
+                    data.setLowerNeighbour(resultSearch[0].getName());
                     System.out.println("Registering agent " +
                             resultSearch[0].getName().getLocalName() +
                             " as " + getLocalName() + "'s lower neighbour");
