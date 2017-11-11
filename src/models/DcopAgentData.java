@@ -19,6 +19,7 @@ public class DcopAgentData {
     private List<List<Integer>> childrenLowerBounds;
     private List<List<Integer>> childrenUpperBounds;
     private List<List<Integer>> childrenThresholds;
+    private List<List<Map<String, Integer>>> childrenContexts;
 
     public DcopAgentData() {
         System.out.println("[CREATE     ] Agent data was created.");
@@ -108,4 +109,10 @@ public class DcopAgentData {
     public void setChildrenThresholds(List<List<Integer>> childrenThresholds) {
         this.childrenThresholds = childrenThresholds;
     }
+	public List<List<Map<String, Integer>>> getChildrenContexts() {
+		return childrenContexts;
+	}
+	public void setChildrenContexts(List<List<Map<String, Integer>>> childrenContexts) {
+		this.childrenContexts = childrenContexts;
+	}
 }

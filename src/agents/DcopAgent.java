@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DcopAgent extends Agent {
 	private static final long serialVersionUID = 783786161678161415L;
@@ -97,6 +98,20 @@ public class DcopAgent extends Agent {
 	            childrenThresholds.add(childrenThresholdsForDomain);
 	        }
 	        data.setChildrenThresholds(childrenThresholds);
+	        
+	        // Initialize children contexts
+	        List<List<Map<String, Integer>>> childrenContexts = new ArrayList<>();
+	        for (int i = 0; i < data.getDomain().size(); i++) {
+	        	List<Map<String, Integer>> childrenContextsForDomain = new ArrayList<>();
+	            
+	            for(int j = 0; j < data.getChildren().size(); j++) {
+	            	childrenContextsForDomain.add(new HashMap<String, Integer>());
+	            	System.out.println("[CONTEXT    ] c(" + i + "," + j + ") = " + childrenContextsForDomain.get(j));
+	            }
+	            
+	            childrenContexts.add(childrenContextsForDomain);
+	        }
+	        data.setChildrenContexts(childrenContexts);
 	        
 	        
 			data.setChosenValue(data.getDomain().get(0)); // to do: di <- d that minimizes LB(d) 
