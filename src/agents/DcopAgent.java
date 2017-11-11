@@ -12,67 +12,32 @@ import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import models.DcopAgentData;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class DcopAgent extends Agent {
-    private DcopAgentData data;
+	private static final long serialVersionUID = 783786161678161415L;
+	private DcopAgentData data;
 
     @Override
     protected void setup() {
-        List<String> childrenNames;
-        List<String> lowerNeighboursNames;
-        int domain;
+        
+    	System.out.println("[CREATE     ] Agent " + getLocalName() + " was created.");
+        data = new DcopAgentData();
         Object[] setupArgs = getArguments();
+        data.setChildrenNames(Arrays.asList((String[])setupArgs[0]));
+        data.setLowerNeighboursNames(Arrays.asList((String[])setupArgs[1]));
+        data.setDomain(Arrays.asList((Integer[])setupArgs[2]));
+        
+        System.out.println("[DOMAIN     ] "+data.getDomain());
 
-        childrenNames = Arrays.asList((String[])setupArgs[0]);
-        lowerNeighboursNames = Arrays.asList((String[])setupArgs[1]);
-        domain = (int) setupArgs[2];
-        System.out.println("[DOMAIN     ] "+domain);
-
-        data = new DcopAgentData(childrenNames.size(), domain);
-        System.out.println("[CREATE     ] Agent " + getLocalName() + " was created.");
-
-        DFAgentDescription description = new DFAgentDescription();
-        description.setName(getAID());
-
-        /*
-         * Registers itself on the DF as parent of each name received as
-         * argument. These services will be used so that each agent can find
-         * the AID of its respective father after all DCOP agents
-         * have been generated.
-         */
-        for (String childName : childrenNames) {
-            ServiceDescription parentOfService = new ServiceDescription();
-            parentOfService.setName(getLocalName());
-            parentOfService.setType("parent-of-" + childName);
-            description.addServices(parentOfService);
-
-            System.out.println("[CREATE     ] Register "+getLocalName()+" as "+parentOfService.getType());
-        }
-
-        /*
-         * Also registers itself with its own name, so that parents can search
-         * for their children and lower neighbours.
-         */
-        ServiceDescription agentService = new ServiceDescription();
-        agentService.setName(getLocalName());
-        agentService.setType("agent-" + getLocalName());
-        description.addServices(agentService);
-
-        try {
-            DFService.register(this, description);
-        } catch (FIPAException e) {
-            e.printStackTrace();
-        }
-
+        addBehaviour(new registerChilrenOnDFBehaviour(this));
         addBehaviour(new searchForParentBehaviour(this, 5000));
-        addBehaviour(new searchForChildrenBehaviour(this, 5000, childrenNames));
-        addBehaviour(new searchForLowerNeighboursBehaviour(this, 5000, lowerNeighboursNames));
+        addBehaviour(new searchForChildrenBehaviour(this, 5000));
+        addBehaviour(new searchForLowerNeighboursBehaviour(this, 5000));
         addBehaviour(new initialize(this, 7000));
-        addBehaviour(new receiveValueMessage(this));
     }
 
     private class initialize extends WakerBehaviour {
@@ -86,12 +51,59 @@ public class DcopAgent extends Agent {
 		@Override
     	public void onWake() {
 			System.out.println("[INITIALIZE ]" +myAgent.getLocalName()+" starting initialize procedure");
+			data.setLowerBound(0);
+	        data.setUpperBound(Integer.MAX_VALUE);
+	        data.setThreshold(0);
+	        data.setCurrentContext(new HashMap<>());		
+	        
+	        // Initialize children lower bounds
+	        List<List<Integer>> childrenLowerBounds = new ArrayList<>();
+	        for (int i = 0; i < data.getDomain().size(); i++) {
+	            List<Integer> childrenLowerBoundsForDomain = new ArrayList<>();
+	            
+	            for(int j = 0; j < data.getChildren().size(); j++) {
+	            	childrenLowerBoundsForDomain.add(0);
+	            	System.out.println("[LOWER BOUND] lb(" + i + "," + j + ") = " + childrenLowerBoundsForDomain.get(j));
+	            }
+	            
+	            childrenLowerBounds.add(childrenLowerBoundsForDomain);
+	        }
+	        data.setChildrenLowerBounds(childrenLowerBounds);
+	        
+	        // Initialize children upper bounds
+	        List<List<Integer>> childrenUpperBounds = new ArrayList<>();
+	        for (int i = 0; i < data.getDomain().size(); i++) {
+	            List<Integer> childrenUpperBoundsForDomain = new ArrayList<>();
+	            
+	            for(int j = 0; j < data.getChildren().size(); j++) {
+	            	childrenUpperBoundsForDomain.add(Integer.MAX_VALUE);
+	            	System.out.println("[UPPER BOUND] ub(" + i + "," + j + ") = " + childrenUpperBoundsForDomain.get(j));
+	            }
+	            
+	            childrenLowerBounds.add(childrenUpperBoundsForDomain);
+	        }
+	        data.setChildrenUpperBounds(childrenUpperBounds);
+	        
+	        // Initialize children thresholds
+	        List<List<Integer>> childrenThresholds = new ArrayList<>();
+	        for (int i = 0; i < data.getDomain().size(); i++) {
+	            List<Integer> childrenThresholdsForDomain = new ArrayList<>();
+	            
+	            for(int j = 0; j < data.getChildren().size(); j++) {
+	            	childrenThresholdsForDomain.add(0);
+	            	System.out.println("[TRHESHOLD  ] t(" + i + "," + j + ") = " + childrenThresholdsForDomain.get(j));
+	            }
+	            
+	            childrenThresholds.add(childrenThresholdsForDomain);
+	        }
+	        data.setChildrenThresholds(childrenThresholds);
+	        
+	        
+			data.setChosenValue(data.getDomain().get(0)); // to do: di <- d that minimizes LB(d) 
 			
-			data.setChosenValue(1); // to do: di <- d that minimizes LB(d) 
+			addBehaviour(new receiveValueMessage(myAgent));
 			addBehaviour(new backTrack(myAgent));
     	}
-    	
-    	
     }
     
     private class backTrack extends OneShotBehaviour {
@@ -105,10 +117,9 @@ public class DcopAgent extends Agent {
 		@Override
 		public void action() {
 			//simple backTrack implementation
-			System.out.println("[BACK TRACK ]" +myAgent.getLocalName()+" starting backTrack procedure");
+			System.out.println("[BACK TRACK ] "+myAgent.getLocalName()+" starting backTrack procedure");
 			addBehaviour(new sendValueMessage(myAgent));			
 		}
-    	
     }
     
     private class sendValueMessage extends OneShotBehaviour {
@@ -133,8 +144,7 @@ public class DcopAgent extends Agent {
 				myAgent.send(valueMessage);
 			}catch(Exception e) {
 				e.printStackTrace();
-			}
-			
+			}	
 		}
     }
     
@@ -158,6 +168,50 @@ public class DcopAgent extends Agent {
 		}
     }
     
+    public class registerChilrenOnDFBehaviour extends OneShotBehaviour {
+
+		private static final long serialVersionUID = 1L;
+		
+		public registerChilrenOnDFBehaviour(Agent a) {
+			super(a);
+		}
+
+		@Override
+		public void action() {
+	        DFAgentDescription description = new DFAgentDescription();
+	        //description.setName(getAID());
+
+	        /*
+	         * Registers itself on the DF as parent of each name received as
+	         * argument. These services will be used so that each agent can find
+	         * the AID of its respective father after all DCOP agents
+	         * have been generated.
+	         */
+	        for (String childName : data.getChildrenNames()) {
+	            ServiceDescription parentOfService = new ServiceDescription();
+	            parentOfService.setName(getLocalName());
+	            parentOfService.setType("parent-of-" + childName);
+	            description.addServices(parentOfService);
+
+	            System.out.println("[CREATE     ] Register "+getLocalName()+" as "+parentOfService.getType());
+	        }
+	        
+	        /*
+	         * Also registers itself with its own name, so that parents can search
+	         * for their children and lower neighbours.
+	         */
+	        ServiceDescription agentService = new ServiceDescription();
+	        agentService.setName(getLocalName());
+	        agentService.setType("agent-" + getLocalName());
+	        description.addServices(agentService);
+	        
+	        try {
+	            DFService.register(myAgent, description);
+	        } catch (FIPAException e) {
+	            e.printStackTrace();
+	        }
+		}
+    }
        
     private class searchForParentBehaviour extends WakerBehaviour {
     	
@@ -189,20 +243,17 @@ public class DcopAgent extends Agent {
         }
     }
     
-
     private class searchForChildrenBehaviour extends WakerBehaviour {
     	
 		private static final long serialVersionUID = -3081227894323949053L;
-		List<String> childrenNames;
 
-        public searchForChildrenBehaviour(Agent a, long period, List<String> childrenNames) {
+        public searchForChildrenBehaviour(Agent a, long period) {
             super(a, period);
-            this.childrenNames = childrenNames;
         }
 
         @Override
         protected void onWake() {
-            for (String childName : childrenNames) {
+            for (String childName : data.getChildrenNames()) {
                 DFAgentDescription template = new DFAgentDescription();
                 ServiceDescription serviceTemplate = new ServiceDescription();
                 serviceTemplate.setType("agent-" + childName);
@@ -226,20 +277,17 @@ public class DcopAgent extends Agent {
         }
     }
     
-
     private class searchForLowerNeighboursBehaviour extends WakerBehaviour {
     	
 		private static final long serialVersionUID = 2788042325314110781L;
-		List<String> lowerNeighboursNames;
 
-        public searchForLowerNeighboursBehaviour(Agent a, long period, List<String> lowerNeighboursNames) {
+        public searchForLowerNeighboursBehaviour(Agent a, long period) {
             super(a, period);
-            this.lowerNeighboursNames = lowerNeighboursNames;
         }
 
         @Override
         protected void onWake() {
-            for (String lowerNeighbourName : lowerNeighboursNames) {
+            for (String lowerNeighbourName : data.getLowerNeighboursNames()) {
                 DFAgentDescription template = new DFAgentDescription();
                 ServiceDescription serviceTemplate = new ServiceDescription();
                 serviceTemplate.setType("agent-" + lowerNeighbourName);
