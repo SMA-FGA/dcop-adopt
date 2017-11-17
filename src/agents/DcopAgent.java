@@ -31,8 +31,11 @@ public class DcopAgent extends Agent {
         data.setChildrenNames(Arrays.asList((String[])setupArgs[0]));
         data.setLowerNeighboursNames(Arrays.asList((String[])setupArgs[1]));
         data.setDomain(Arrays.asList((Integer[])setupArgs[2]));
+        data.setUpperNeighboursNames(Arrays.asList((String[])setupArgs[3]));
+        data.setConstraints();
         
         System.out.println("[DOMAIN     ] "+data.getDomain());
+        System.out.println("[CONSTRAINTS] "+data.getConstraints());
 
         addBehaviour(new registerChilrenOnDFBehaviour(this));
         addBehaviour(new searchForParentBehaviour(this, 5000));
@@ -106,7 +109,7 @@ public class DcopAgent extends Agent {
 	            
 	            for(int j = 0; j < data.getChildren().size(); j++) {
 	            	childrenContextsForDomain.add(new HashMap<String, Integer>());
-	            	System.out.println("[CONTEXT    ] c(" + i + "," + j + ") = " + childrenContextsForDomain.get(j));
+	            	System.out.println("[CONTEXT    ] context(" + i + "," + j + ") = " + childrenContextsForDomain.get(j));
 	            }
 	            
 	            childrenContexts.add(childrenContextsForDomain);

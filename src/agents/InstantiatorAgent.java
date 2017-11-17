@@ -28,7 +28,9 @@ public class InstantiatorAgent extends Agent {
          */
         List<String> children = new ArrayList<>();
         List<String> lowerNeighbours = new ArrayList<>();
+        List<String> upperNeighbours = new ArrayList<>();
         List<Integer> domain = new ArrayList<>(); // In the example, the domain's range is [0, 1]
+        //Map<String, List<List<Integer>>> constraints = new HashMap<String, List<List<Integer>>>();
 
         // Add arguments to create x1
         children.add("x2");
@@ -36,50 +38,63 @@ public class InstantiatorAgent extends Agent {
         lowerNeighbours.add("x3");
         domain.add(0);
         domain.add(1);
-        Object x1Args[] = new Object[3];
+        Object x1Args[] = new Object[4];
         x1Args[0] = children.toArray(new String[]{});
         x1Args[1] = lowerNeighbours.toArray(new String[]{});
         x1Args[2] = domain.toArray(new Integer[]{});
+        x1Args[3] = upperNeighbours.toArray(new String[]{});
         children.clear();
         lowerNeighbours.clear();
+        upperNeighbours.clear();
         domain.clear();
         
         // Add arguments to create x2
         children.add("x3");
         children.add("x4");
+        upperNeighbours.add("x1");
         lowerNeighbours.add("x3");
         lowerNeighbours.add("x4");
         domain.add(0);
         domain.add(1);
-        Object x2Args[] = new Object[3];
+        Object x2Args[] = new Object[4];
         x2Args[0] = children.toArray(new String[]{});
         x2Args[1] = lowerNeighbours.toArray(new String[]{});
         x2Args[2] = domain.toArray(new Integer[]{});
+        x2Args[3] = upperNeighbours.toArray(new String[]{});
         children.clear();
         lowerNeighbours.clear();
+        upperNeighbours.clear();
         domain.clear();
         
         // Add arguments to create x3
         domain.add(0);
         domain.add(1);
-        Object x3Args[] = new Object[3];
+        upperNeighbours.add("x1");
+        upperNeighbours.add("x2");
+        Object x3Args[] = new Object[4];
         x3Args[0] = children.toArray(new String[]{});
         x3Args[1] = lowerNeighbours.toArray(new String[]{});
         x3Args[2] = domain.toArray(new Integer[]{});
+        x3Args[3] = upperNeighbours.toArray(new String[]{});
         children.clear();
         lowerNeighbours.clear();
+        upperNeighbours.clear();
         domain.clear();
 
         // Add arguments to create x4
+        upperNeighbours.add("x2");
         domain.add(0);
-        domain.add(1);
-        Object x4Args[] = new Object[3];
+        domain.add(1);    
+        Object x4Args[] = new Object[4];
         x4Args[0] = children.toArray(new String[]{});
         x4Args[1] = lowerNeighbours.toArray(new String[]{});
         x4Args[2] = domain.toArray(new Integer[]{});
+        x4Args[3] = upperNeighbours.toArray(new String[]{});
         children.clear();
         lowerNeighbours.clear();
+        upperNeighbours.clear();
         domain.clear();
+        
 
         try {
             getContainerController().createNewAgent("x1", "agents.DcopAgent", x1Args).start();
