@@ -4,7 +4,7 @@ import java.util.*;
 
 import jade.core.AID;
 
-public class DcopAgentData {
+public class NodeAgentData {
     private int lowerBound;
     private int upperBound;
     private int threshold;
@@ -23,10 +23,6 @@ public class DcopAgentData {
     private List<List<Map<String, Integer>>> childrenContexts;
     private Map<String, List<List<Integer>>> constraints;
 
-    public DcopAgentData() {
-        System.out.println("[CREATE     ] Agent data was created.");
-    }
-    
     public List<Integer> getDomain() {
     	return this.domain;
     }

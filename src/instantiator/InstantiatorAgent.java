@@ -1,4 +1,4 @@
-package agents;
+package instantiator;
 
 import jade.core.Agent;
 import jade.wrapper.StaleProxyException;
@@ -97,10 +97,10 @@ public class InstantiatorAgent extends Agent {
         
 
         try {
-            getContainerController().createNewAgent("x1", "agents.DcopAgent", x1Args).start();
-            getContainerController().createNewAgent("x2", "agents.DcopAgent", x2Args).start();
-            getContainerController().createNewAgent("x3", "agents.DcopAgent", x3Args).start();
-            getContainerController().createNewAgent("x4", "agents.DcopAgent", x4Args).start();
+            getContainerController().createNewAgent("x1", "node.NodeAgent", x1Args).start();
+            getContainerController().createNewAgent("x2", "node.NodeAgent", x2Args).start();
+            getContainerController().createNewAgent("x3", "node.NodeAgent", x3Args).start();
+            getContainerController().createNewAgent("x4", "node.NodeAgent", x4Args).start();
         } catch (StaleProxyException e) {
             e.printStackTrace();
         }
