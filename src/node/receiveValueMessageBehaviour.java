@@ -3,6 +3,9 @@ package node;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
+import jade.lang.acl.UnreadableException;
+import models.AdoptMessage;
+import models.ValueMessage;
 
 public class receiveValueMessageBehaviour extends CyclicBehaviour {
 	
@@ -17,7 +20,13 @@ public class receiveValueMessageBehaviour extends CyclicBehaviour {
 		ACLMessage message = myAgent.receive() ;
 		
 		if(message != null) {
-			System.out.println("[REC VALUE  ] "+myAgent.getLocalName()+" receive value message: " + message.getContent());
+			ValueMessage value = null;
+			try {
+				value = (ValueMessage) message.getContentObject();
+			} catch (UnreadableException e) {
+				e.printStackTrace();
+			}
+			System.out.println("[REC VALUE  ] "+myAgent.getLocalName()+" receive value message: " + value.toString());
 		}else {
 			block();
 		}

@@ -1,33 +1,45 @@
 package node;
 
+import java.io.IOException;
+import java.io.Serializable;
+
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
+import models.AdoptMessage;
 import models.NodeAgentData;
+import models.ValueMessage;
 
-public class sendValueMessageBehaviour extends OneShotBehaviour {
+public class sendMessageBehaviour extends OneShotBehaviour {
 	
 	private static final long serialVersionUID = 2659869091649149638L;
 	NodeAgentData data = new NodeAgentData();
+	AdoptMessage adoptMessage;
 	
-	public sendValueMessageBehaviour(Agent a, NodeAgentData data) {
+	public sendMessageBehaviour(Agent a, NodeAgentData data, AdoptMessage adoptMessage) {
         super(a);
         this.data = data;
+        this.adoptMessage = adoptMessage;
     }
 	
 	@Override
 	public void action() {
 					
-		ACLMessage valueMessage = new ACLMessage(ACLMessage.INFORM);
+		ACLMessage message = new ACLMessage(ACLMessage.INFORM);
 		for(AID lowerNeighbour : data.getLowerNeighbours()) {
-			valueMessage.addReceiver(lowerNeighbour);
+			message.addReceiver(lowerNeighbour);
 			System.out.println("[SEND VALUE ] "+myAgent.getLocalName()+" send value message to: "+lowerNeighbour.getLocalName());
 		}
-		valueMessage.setContent(""+data.getChosenValue());
+		try {
+			message.setContentObject(adoptMessage);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		try {
-			myAgent.send(valueMessage);
+			myAgent.send(message);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}	
