@@ -2,6 +2,7 @@ package node;
 
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
+import models.CostMessage;
 import models.NodeAgentData;
 import models.ValueMessage;
 
@@ -18,6 +19,7 @@ public class backTrackBehaviour extends OneShotBehaviour {
 	@Override
 	public void action() {
 		System.out.println("[BACK TRACK ] "+myAgent.getLocalName()+" starting backTrack procedure");
-		myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new ValueMessage(5)));
+		myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new ValueMessage(3)));
+		myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new CostMessage(9, 6, data.getCurrentContext())));
 	}
 }

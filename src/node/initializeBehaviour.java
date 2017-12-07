@@ -51,7 +51,10 @@ public class initializeBehaviour extends WakerBehaviour {
 
 		data.setChosenValue(data.getDomain().get(0)); // to do: di <- d that minimizes LB(d) 
 		
+		// Adding behaviours to receive adopt messages
 		myAgent.addBehaviour(new receiveValueMessageBehaviour(myAgent));
+		myAgent.addBehaviour(new receiveCostMessageBehaviour(myAgent));
+		
 		myAgent.addBehaviour(new backTrackBehaviour(myAgent, data));
 	}
 

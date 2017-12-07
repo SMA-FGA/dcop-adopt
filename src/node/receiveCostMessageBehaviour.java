@@ -5,13 +5,13 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import models.AdoptMessage;
-import models.ValueMessage;
+import models.CostMessage;
 
-public class receiveValueMessageBehaviour extends CyclicBehaviour {
+public class receiveCostMessageBehaviour extends CyclicBehaviour {
 	
 	private static final long serialVersionUID = -6895391790742950856L;
 	
-	public receiveValueMessageBehaviour(Agent a) {
+	public receiveCostMessageBehaviour(Agent a) {
         super(a);
     }
 
@@ -29,14 +29,14 @@ public class receiveValueMessageBehaviour extends CyclicBehaviour {
 				e1.printStackTrace();
 			}
 			
-			if(adoptMessage.getMessageType() == 0) {
-				ValueMessage value = null;
+			if(adoptMessage.getMessageType() == 1) {
+				CostMessage cost = null;
 				try {
-					value = (ValueMessage) message.getContentObject();
+					cost = (CostMessage) message.getContentObject();
 				} catch (UnreadableException e) {
 					e.printStackTrace();
 				}
-				System.out.println("[REC VALUE  ] "+myAgent.getLocalName()+" receive value message: " + value.toString());
+				System.out.println("[REC COST   ] "+myAgent.getLocalName()+" receive cost message: " + cost.toString());
 			}
 			
 		}else {

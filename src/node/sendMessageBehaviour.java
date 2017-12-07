@@ -29,7 +29,7 @@ public class sendMessageBehaviour extends OneShotBehaviour {
 		ACLMessage message = new ACLMessage(ACLMessage.INFORM);
 		for(AID lowerNeighbour : data.getLowerNeighbours()) {
 			message.addReceiver(lowerNeighbour);
-			System.out.println("[SEND VALUE ] "+myAgent.getLocalName()+" send value message to: "+lowerNeighbour.getLocalName());
+			System.out.println("[SEND "+adoptMessage.getMessageType()+"     ] "+myAgent.getLocalName()+" send message to: "+lowerNeighbour.getLocalName());
 		}
 		try {
 			message.setContentObject(adoptMessage);
