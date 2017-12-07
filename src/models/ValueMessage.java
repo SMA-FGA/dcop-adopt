@@ -15,4 +15,10 @@ public class ValueMessage extends AdoptMessage implements Serializable{
 	public String toString() {
 		return this.value.toString();
 	}
+
+	@Override
+	public Integer getMessageType() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
