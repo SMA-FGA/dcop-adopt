@@ -5,19 +5,19 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import models.AdoptMessage;
-import models.ValueMessage;
+import models.TerminateMessage;
 
-public class receiveValueMessageBehaviour extends CyclicBehaviour {
+public class receiveTerminateMessageBehaviour extends CyclicBehaviour {
 	
 	private static final long serialVersionUID = -6895391790742950856L;
 	
-	public receiveValueMessageBehaviour(Agent a) {
+	public receiveTerminateMessageBehaviour(Agent a) {
         super(a);
     }
 
 	@Override
 	public void action() {
-		ACLMessage message = myAgent.receive() ;
+		ACLMessage message = myAgent.receive();
 		
 		if(message != null) {
 			AdoptMessage adoptMessage = null;
@@ -28,14 +28,14 @@ public class receiveValueMessageBehaviour extends CyclicBehaviour {
 				e1.printStackTrace();
 			}
 			
-			if(adoptMessage.getMessageType() == 0) {
-				ValueMessage value = null;
+			if(adoptMessage.getMessageType() == 3) {
+				TerminateMessage terminate = null;
 				try {
-					value = (ValueMessage) message.getContentObject();
+					terminate = (TerminateMessage) message.getContentObject();
 				} catch (UnreadableException e) {
 					e.printStackTrace();
 				}
-				System.out.println("[REC VALUE  ] "+myAgent.getLocalName()+" receive value message: " + value.toString());
+				System.out.println("[REC TERMI  ] "+myAgent.getLocalName()+" receive terminate message: " + terminate.toString());
 			}
 			
 		}else {

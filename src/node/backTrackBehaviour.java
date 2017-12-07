@@ -4,6 +4,8 @@ import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
 import models.CostMessage;
 import models.NodeAgentData;
+import models.TerminateMessage;
+import models.ThresholdMessage;
 import models.ValueMessage;
 
 public class backTrackBehaviour extends OneShotBehaviour {
@@ -19,7 +21,12 @@ public class backTrackBehaviour extends OneShotBehaviour {
 	@Override
 	public void action() {
 		System.out.println("[BACK TRACK ] "+myAgent.getLocalName()+" starting backTrack procedure");
+		
 		myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new ValueMessage(3)));
-		myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new CostMessage(9, 6, data.getCurrentContext())));
+		
+		// Example to send other types of adopt messages
+		//myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new CostMessage(9, 6, data.getCurrentContext())));
+		//myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new ThresholdMessage(89)));
+		//myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new TerminateMessage()));
 	}
 }

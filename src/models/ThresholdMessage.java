@@ -18,7 +18,6 @@ public class ThresholdMessage extends AdoptMessage implements Serializable{
 
 	@Override
 	public Integer getMessageType() {
-		// TODO Auto-generated method stub
 		return 2;
 	}
 }

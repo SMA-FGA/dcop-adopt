@@ -5,13 +5,13 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import models.AdoptMessage;
-import models.ValueMessage;
+import models.ThresholdMessage;
 
-public class receiveValueMessageBehaviour extends CyclicBehaviour {
+public class receiveThresholdMessageBehaviour extends CyclicBehaviour {
 	
 	private static final long serialVersionUID = -6895391790742950856L;
 	
-	public receiveValueMessageBehaviour(Agent a) {
+	public receiveThresholdMessageBehaviour(Agent a) {
         super(a);
     }
 
@@ -28,14 +28,14 @@ public class receiveValueMessageBehaviour extends CyclicBehaviour {
 				e1.printStackTrace();
 			}
 			
-			if(adoptMessage.getMessageType() == 0) {
-				ValueMessage value = null;
+			if(adoptMessage.getMessageType() == 2) {
+				ThresholdMessage threshold = null;
 				try {
-					value = (ValueMessage) message.getContentObject();
+					threshold = (ThresholdMessage) message.getContentObject();
 				} catch (UnreadableException e) {
 					e.printStackTrace();
 				}
-				System.out.println("[REC VALUE  ] "+myAgent.getLocalName()+" receive value message: " + value.toString());
+				System.out.println("[REC THRES  ] "+myAgent.getLocalName()+" receive thereshold message: " + threshold.toString());
 			}
 			
 		}else {
