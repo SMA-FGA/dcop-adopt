@@ -1,16 +1,14 @@
 package node;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.List;
 
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
-import models.AdoptMessage;
+import messages.AdoptMessage;
 import models.NodeAgentData;
-import models.ValueMessage;
 
 public class sendMessageBehaviour extends OneShotBehaviour {
 	

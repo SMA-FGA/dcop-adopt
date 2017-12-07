@@ -1,4 +1,4 @@
-package models;
+package messages;
 
 import java.util.Map;
 
@@ -10,7 +10,6 @@ public class CostMessage extends AdoptMessage implements Serializable{
 	Integer upperBound;
 	Integer lowerBound;
 	Map<String, Integer> currentContext;
-	private static final int COST_MESSAGE = 1;
 
 	public CostMessage(Integer upperBound, Integer lowerBound, Map<String, Integer> currentContext) {
 		super();
@@ -19,12 +18,13 @@ public class CostMessage extends AdoptMessage implements Serializable{
 		this.currentContext = currentContext;
 	}
 	
+	@Override
 	public String toString() {
 		return "ub: "+this.upperBound+" lb: "+this.lowerBound+" context: "+this.currentContext;
 	}
 
 	@Override
 	public Integer getMessageType() {
-		return COST_MESSAGE;
+		return super.COST_MESSAGE;
 	}
 }

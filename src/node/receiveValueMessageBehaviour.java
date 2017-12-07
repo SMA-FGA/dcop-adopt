@@ -4,8 +4,8 @@ import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
-import models.AdoptMessage;
-import models.ValueMessage;
+import messages.AdoptMessage;
+import messages.ValueMessage;
 
 public class receiveValueMessageBehaviour extends CyclicBehaviour {
 	

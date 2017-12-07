@@ -4,8 +4,8 @@ import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
-import models.AdoptMessage;
-import models.ThresholdMessage;
+import messages.AdoptMessage;
+import messages.ThresholdMessage;
 
 public class receiveThresholdMessageBehaviour extends CyclicBehaviour {
 	
