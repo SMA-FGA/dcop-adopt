@@ -35,7 +35,7 @@ public class receiveThresholdMessageBehaviour extends CyclicBehaviour {
 				} catch (UnreadableException e) {
 					e.printStackTrace();
 				}
-				System.out.println("[REC THRES  ] "+myAgent.getLocalName()+" receive thereshold message: " + threshold.toString());
+				System.out.println("[REC THRES  ] "+myAgent.getLocalName()+" receive thereshold message: " + threshold.toString()+" from "+message.getSender().getLocalName());
 			}
 			
 		}else {

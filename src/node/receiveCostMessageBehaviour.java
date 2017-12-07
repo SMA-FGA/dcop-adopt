@@ -36,7 +36,7 @@ public class receiveCostMessageBehaviour extends CyclicBehaviour {
 				} catch (UnreadableException e) {
 					e.printStackTrace();
 				}
-				System.out.println("[REC COST   ] "+myAgent.getLocalName()+" receive cost message: " + cost.toString());
+				System.out.println("[REC COST   ] "+myAgent.getLocalName()+" receive cost message: " + cost.toString()+" from "+message.getSender().getLocalName());
 			}
 			
 		}else {

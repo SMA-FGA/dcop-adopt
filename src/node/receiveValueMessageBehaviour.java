@@ -35,7 +35,7 @@ public class receiveValueMessageBehaviour extends CyclicBehaviour {
 				} catch (UnreadableException e) {
 					e.printStackTrace();
 				}
-				System.out.println("[REC VALUE  ] "+myAgent.getLocalName()+" receive value message: " + value.toString());
+				System.out.println("[REC VALUE  ] "+myAgent.getLocalName()+" receive value message: " + value.toString()+" from "+message.getSender().getLocalName());
 			}
 			
 		}else {

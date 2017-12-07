@@ -2,6 +2,7 @@ package node;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 
 import jade.core.AID;
 import jade.core.Agent;
@@ -16,20 +17,22 @@ public class sendMessageBehaviour extends OneShotBehaviour {
 	private static final long serialVersionUID = 2659869091649149638L;
 	NodeAgentData data = new NodeAgentData();
 	AdoptMessage adoptMessage;
+	List<AID> receivers;
 	
-	public sendMessageBehaviour(Agent a, NodeAgentData data, AdoptMessage adoptMessage) {
+	public sendMessageBehaviour(Agent a, NodeAgentData data, AdoptMessage adoptMessage, List<AID> receivers) {
         super(a);
         this.data = data;
         this.adoptMessage = adoptMessage;
+        this.receivers = receivers;
     }
 	
 	@Override
 	public void action() {
 					
 		ACLMessage message = new ACLMessage(ACLMessage.INFORM);
-		for(AID lowerNeighbour : data.getLowerNeighbours()) {
-			message.addReceiver(lowerNeighbour);
-			System.out.println("[SEND "+adoptMessage.getMessageType()+"     ] "+myAgent.getLocalName()+" send message to: "+lowerNeighbour.getLocalName());
+		for(AID receiver : this.receivers) {
+			message.addReceiver(receiver);
+			System.out.println("[SEND "+adoptMessage.getMessageType()+"     ] "+myAgent.getLocalName()+" send message to: "+receiver.getLocalName());
 		}
 		try {
 			message.setContentObject(adoptMessage);

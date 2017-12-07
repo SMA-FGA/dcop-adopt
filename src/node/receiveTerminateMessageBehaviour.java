@@ -35,7 +35,7 @@ public class receiveTerminateMessageBehaviour extends CyclicBehaviour {
 				} catch (UnreadableException e) {
 					e.printStackTrace();
 				}
-				System.out.println("[REC TERMI  ] "+myAgent.getLocalName()+" receive terminate message: " + terminate.toString());
+				System.out.println("[REC TERMI  ] "+myAgent.getLocalName()+" receive terminate message: " + terminate.toString()+" from "+message.getSender().getLocalName());
 			}
 			
 		}else {
