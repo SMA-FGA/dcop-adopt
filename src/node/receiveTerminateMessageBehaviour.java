@@ -10,6 +10,7 @@ import models.TerminateMessage;
 public class receiveTerminateMessageBehaviour extends CyclicBehaviour {
 	
 	private static final long serialVersionUID = -6895391790742950856L;
+	private static final int TERMINATE_MESSAGE = 3;
 	
 	public receiveTerminateMessageBehaviour(Agent a) {
         super(a);
@@ -28,7 +29,7 @@ public class receiveTerminateMessageBehaviour extends CyclicBehaviour {
 				e1.printStackTrace();
 			}
 			
-			if(adoptMessage.getMessageType() == 3) {
+			if(adoptMessage.getMessageType() == TERMINATE_MESSAGE) {
 				TerminateMessage terminate = null;
 				try {
 					terminate = (TerminateMessage) message.getContentObject();

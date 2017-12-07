@@ -5,6 +5,7 @@ import jade.util.leap.Serializable;
 public class ThresholdMessage extends AdoptMessage implements Serializable{
 	
 	private static final long serialVersionUID = 2130899758727979611L;
+	private static final int THRESHOLD_MESSAGE = 2;
 	Integer threshold;
 
 	public ThresholdMessage(Integer threshold) {
@@ -18,6 +19,6 @@ public class ThresholdMessage extends AdoptMessage implements Serializable{
 
 	@Override
 	public Integer getMessageType() {
-		return 2;
+		return THRESHOLD_MESSAGE;
 	}
 }

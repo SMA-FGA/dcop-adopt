@@ -10,6 +10,7 @@ import models.ThresholdMessage;
 public class receiveThresholdMessageBehaviour extends CyclicBehaviour {
 	
 	private static final long serialVersionUID = -6895391790742950856L;
+	private static final int THRESHOLD_MESSAGE = 2;
 	
 	public receiveThresholdMessageBehaviour(Agent a) {
         super(a);
@@ -28,7 +29,7 @@ public class receiveThresholdMessageBehaviour extends CyclicBehaviour {
 				e1.printStackTrace();
 			}
 			
-			if(adoptMessage.getMessageType() == 2) {
+			if(adoptMessage.getMessageType() == THRESHOLD_MESSAGE) {
 				ThresholdMessage threshold = null;
 				try {
 					threshold = (ThresholdMessage) message.getContentObject();

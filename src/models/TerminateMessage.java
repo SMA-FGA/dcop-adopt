@@ -5,6 +5,7 @@ import jade.util.leap.Serializable;
 public class TerminateMessage extends AdoptMessage implements Serializable{
 	
 	private static final long serialVersionUID = 2130899758727979611L;
+	private static final int TERMINATE_MESSAGE = 3;
 	Integer value;
 
 	public TerminateMessage() {
@@ -17,6 +18,6 @@ public class TerminateMessage extends AdoptMessage implements Serializable{
 
 	@Override
 	public Integer getMessageType() {
-		return 3;
+		return TERMINATE_MESSAGE;
 	}
 }

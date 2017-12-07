@@ -10,6 +10,7 @@ public class CostMessage extends AdoptMessage implements Serializable{
 	Integer upperBound;
 	Integer lowerBound;
 	Map<String, Integer> currentContext;
+	private static final int COST_MESSAGE = 1;
 
 	public CostMessage(Integer upperBound, Integer lowerBound, Map<String, Integer> currentContext) {
 		super();
@@ -24,6 +25,6 @@ public class CostMessage extends AdoptMessage implements Serializable{
 
 	@Override
 	public Integer getMessageType() {
-		return 1;
+		return COST_MESSAGE;
 	}
 }

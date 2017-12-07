@@ -10,6 +10,7 @@ import models.CostMessage;
 public class receiveCostMessageBehaviour extends CyclicBehaviour {
 	
 	private static final long serialVersionUID = -6895391790742950856L;
+	private static final int COST_MESSAGE = 1;
 	
 	public receiveCostMessageBehaviour(Agent a) {
         super(a);
@@ -29,7 +30,7 @@ public class receiveCostMessageBehaviour extends CyclicBehaviour {
 				e1.printStackTrace();
 			}
 			
-			if(adoptMessage.getMessageType() == 1) {
+			if(adoptMessage.getMessageType() == COST_MESSAGE) {
 				CostMessage cost = null;
 				try {
 					cost = (CostMessage) message.getContentObject();

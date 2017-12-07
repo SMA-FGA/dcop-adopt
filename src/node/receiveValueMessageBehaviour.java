@@ -10,6 +10,7 @@ import models.ValueMessage;
 public class receiveValueMessageBehaviour extends CyclicBehaviour {
 	
 	private static final long serialVersionUID = -6895391790742950856L;
+	private static final int VALUE_MESSAGE = 0;
 	
 	public receiveValueMessageBehaviour(Agent a) {
         super(a);
@@ -28,7 +29,7 @@ public class receiveValueMessageBehaviour extends CyclicBehaviour {
 				e1.printStackTrace();
 			}
 			
-			if(adoptMessage.getMessageType() == 0) {
+			if(adoptMessage.getMessageType() == VALUE_MESSAGE) {
 				ValueMessage value = null;
 				try {
 					value = (ValueMessage) message.getContentObject();
