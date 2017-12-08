@@ -110,6 +110,11 @@ public class NodeAgentData {
     public void setChildrenUpperBounds(List<List<Integer>> childrenUpperBounds) {
         this.childrenUpperBounds = childrenUpperBounds;
     }
+    public void setChildThreshold(Integer i, Integer j, Integer threshold) {
+    	List<Integer> thresholds = this.childrenThresholds.get(i);
+    	thresholds.set(j, threshold);
+    	this.childrenThresholds.set(i, thresholds);
+    }
     public List<List<Integer>> getChildrenThresholds() {
         return childrenThresholds;
     }
