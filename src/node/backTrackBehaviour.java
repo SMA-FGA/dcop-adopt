@@ -19,11 +19,7 @@ public class backTrackBehaviour extends OneShotBehaviour {
 	public void action() {
 		System.out.println("[BACK TRACK ] "+myAgent.getLocalName()+" starting backTrack procedure");
 		
+		// send value messages to children
 		myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new ValueMessage(80), data.getChildren()));
-		
-		// Example to send other types of adopt messages
-		//myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new CostMessage(9, 6, data.getCurrentContext()), List<AID> receivers));
-		//myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new ThresholdMessage(89), List<AID> receivers));
-		//myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new TerminateMessage()), List<AID> receivers);
 	}
 }
