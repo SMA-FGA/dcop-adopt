@@ -5,6 +5,7 @@ import jade.wrapper.StaleProxyException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 /*
  * Creates the agents that will be used in the DCOP.
@@ -30,7 +31,22 @@ public class InstantiatorAgent extends Agent {
         List<String> lowerNeighbours = new ArrayList<>();
         List<String> upperNeighbours = new ArrayList<>();
         List<Integer> domain = new ArrayList<>(); // In the example, the domain's range is [0, 1]
-        //Map<String, List<List<Integer>>> constraints = new HashMap<String, List<List<Integer>>>();
+
+        // Constraints map is as follows:
+        // (di, dj) = f(di, dj)
+        // (0, 0) = 1
+        // (0, 1) = 2
+        // (1, 0) = 2
+        // (1, 1) = 0
+        Vector<Vector<Integer>> constraints = new Vector<>();
+        Vector<Integer> constraintLine1 = new Vector<>();
+        Vector<Integer> constraintLine2 = new Vector<>();
+        constraintLine1.add(1);
+        constraintLine1.add(2);
+        constraintLine2.add(2);
+        constraintLine2.add(0);
+        constraints.add(constraintLine1);
+        constraints.add(constraintLine2);
 
         // Add arguments to create x1
         children.add("x2");
@@ -38,11 +54,12 @@ public class InstantiatorAgent extends Agent {
         lowerNeighbours.add("x3");
         domain.add(0);
         domain.add(1);
-        Object x1Args[] = new Object[4];
+        Object x1Args[] = new Object[5];
         x1Args[0] = children.toArray(new String[]{});
         x1Args[1] = lowerNeighbours.toArray(new String[]{});
         x1Args[2] = domain.toArray(new Integer[]{});
         x1Args[3] = upperNeighbours.toArray(new String[]{});
+        x1Args[4] = constraints;
         children.clear();
         lowerNeighbours.clear();
         upperNeighbours.clear();
@@ -56,11 +73,12 @@ public class InstantiatorAgent extends Agent {
         lowerNeighbours.add("x4");
         domain.add(0);
         domain.add(1);
-        Object x2Args[] = new Object[4];
+        Object x2Args[] = new Object[5];
         x2Args[0] = children.toArray(new String[]{});
         x2Args[1] = lowerNeighbours.toArray(new String[]{});
         x2Args[2] = domain.toArray(new Integer[]{});
         x2Args[3] = upperNeighbours.toArray(new String[]{});
+        x2Args[4] = constraints;
         children.clear();
         lowerNeighbours.clear();
         upperNeighbours.clear();
@@ -71,11 +89,12 @@ public class InstantiatorAgent extends Agent {
         domain.add(1);
         upperNeighbours.add("x1");
         upperNeighbours.add("x2");
-        Object x3Args[] = new Object[4];
+        Object x3Args[] = new Object[5];
         x3Args[0] = children.toArray(new String[]{});
         x3Args[1] = lowerNeighbours.toArray(new String[]{});
         x3Args[2] = domain.toArray(new Integer[]{});
         x3Args[3] = upperNeighbours.toArray(new String[]{});
+        x3Args[4] = constraints;
         children.clear();
         lowerNeighbours.clear();
         upperNeighbours.clear();
@@ -85,11 +104,12 @@ public class InstantiatorAgent extends Agent {
         upperNeighbours.add("x2");
         domain.add(0);
         domain.add(1);    
-        Object x4Args[] = new Object[4];
+        Object x4Args[] = new Object[5];
         x4Args[0] = children.toArray(new String[]{});
         x4Args[1] = lowerNeighbours.toArray(new String[]{});
         x4Args[2] = domain.toArray(new Integer[]{});
         x4Args[3] = upperNeighbours.toArray(new String[]{});
+        x4Args[4] = constraints;
         children.clear();
         lowerNeighbours.clear();
         upperNeighbours.clear();

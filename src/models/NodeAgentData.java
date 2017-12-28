@@ -21,7 +21,7 @@ public class NodeAgentData {
     private List<List<Integer>> childrenUpperBounds;
     private List<List<Integer>> childrenThresholds;
     private List<List<Map<String, Integer>>> childrenContexts;
-    private Map<String, List<List<Integer>>> constraints;
+    private Map<String, Vector<Vector<Integer>>> constraints;
 
     public List<Integer> getDomain() {
     	return this.domain;
@@ -122,18 +122,8 @@ public class NodeAgentData {
 	public void setChildrenContexts(List<List<Map<String, Integer>>> childrenContexts) {
 		this.childrenContexts = childrenContexts;
 	}
-    public void setConstraints() {
-    	Map<String, List<List<Integer>>> constraintsMap = new HashMap<String, List<List<Integer>>>();
-
-    	List<List<Integer>> constraint = new ArrayList<>();
-        List<Integer> constraintLine1 = new ArrayList<>();
-        List<Integer> constraintLine2 = new ArrayList<>();
-        constraintLine1.add(1);
-        constraintLine1.add(2);
-        constraintLine2.add(2);
-        constraintLine2.add(0);
-        constraint.add(constraintLine1);
-        constraint.add(constraintLine2);
+    public void setConstraints(Vector<Vector<Integer>> constraint) {
+    	Map<String, Vector<Vector<Integer>>> constraintsMap = new HashMap<>();
 
     	for (String upper : upperNeighboursNames) {
 	        constraintsMap.put(upper, constraint);
@@ -145,7 +135,7 @@ public class NodeAgentData {
     	
     	this.constraints = constraintsMap;
     }
-    public Map<String, List<List<Integer>>> getConstraints() {
+    public Map<String, Vector<Vector<Integer>>> getConstraints() {
         return this.constraints;
     }
 }
