@@ -38,9 +38,9 @@ public class InstantiatorAgent extends Agent {
         // (0, 1) = 2
         // (1, 0) = 2
         // (1, 1) = 0
-        Vector<Vector<Integer>> constraints = new Vector<>();
-        Vector<Integer> constraintLine1 = new Vector<>();
-        Vector<Integer> constraintLine2 = new Vector<>();
+        List<List<Integer>> constraints = new Vector<>();
+        List<Integer> constraintLine1 = new Vector<>();
+        List<Integer> constraintLine2 = new Vector<>();
         constraintLine1.add(1);
         constraintLine1.add(2);
         constraintLine2.add(2);
