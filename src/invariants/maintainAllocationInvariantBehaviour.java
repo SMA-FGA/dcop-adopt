@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class maintainAllocationInvariantBehaviour extends OneShotBehaviour {
-    NodeAgentData data;
+	private static final long serialVersionUID = -1528722360569048677L;
+	NodeAgentData data;
 
     public maintainAllocationInvariantBehaviour(Agent a, NodeAgentData data) {
         super(a);
@@ -24,19 +25,12 @@ public class maintainAllocationInvariantBehaviour extends OneShotBehaviour {
         System.out.println("[INV MAIB   ] " + myAgent.getLocalName() +
                            " starting maintain allocation invariant");
 
-        int childrenThresholds;
-        int currentValue;
-        List<List<Integer>> childrenThresholdsList;
-        List<List<Integer>> childrenUpperBoundsList;
-        List<List<Integer>> childrenLowerBoundsList;
-        List<AID> childrenList;
-
-        childrenThresholds = 0;
-        currentValue = data.getChosenValue(); // unsure about this
-        childrenThresholdsList = data.getChildrenThresholds();
-        childrenUpperBoundsList = data.getChildrenUpperBounds();
-        childrenLowerBoundsList = data.getChildrenLowerBounds();
-        childrenList = data.getChildren();
+        int childrenThresholds = 0;
+        int currentValue = data.getCurrentValue();
+        List<List<Integer>> childrenThresholdsList = data.getChildrenThresholds();
+        List<List<Integer>> childrenUpperBoundsList = data.getChildrenUpperBounds();
+        List<List<Integer>> childrenLowerBoundsList = data.getChildrenLowerBounds();
+        List<AID> childrenList = data.getChildren();
 
         for (int childThreshold : childrenThresholdsList.get(currentValue)) {
             childrenThresholds += childThreshold;

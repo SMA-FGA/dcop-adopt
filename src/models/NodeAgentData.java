@@ -10,7 +10,7 @@ public class NodeAgentData {
     private int threshold;
     private Map<String, Integer> currentContext;
     private List<Integer> domain;
-    private int chosenValue;
+    private int currentValue;
     private AID parentAID;
     private List<AID> childrenAID = new ArrayList<>();
     private List<AID> lowerNeighboursAID = new ArrayList<>();
@@ -65,11 +65,11 @@ public class NodeAgentData {
     public void setChild(AID agentAID) {
     	this.childrenAID.add(agentAID);
     }
-    public int getChosenValue() {
-    	return this.chosenValue;
+    public int getCurrentValue() {
+    	return this.currentValue;
     }
-    public void setChosenValue(int chosenValue) {
-    	this.chosenValue = chosenValue;
+    public void setCurrentValue(int currentValue) {
+    	this.currentValue = currentValue;
     }
     public int getLowerBound() {
         return lowerBound;

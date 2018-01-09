@@ -14,15 +14,19 @@ public class maintainThresholdInvariantBehaviour extends OneShotBehaviour{
 		this.data = data;
 	}
 
+	int lowerBound = data.getLowerBound();
+	int upperBound = data.getUpperBound();
+	int threshold = data.getThreshold();
+	
 	@Override
 	public void action() {
 		System.out.println("[INV MTI    ] "+myAgent.getLocalName()+" starting maintain threshold invariant");
 		
-		if(data.getThreshold() < data.getLowerBound()) {
-			data.setThreshold(data.getLowerBound());
+		if(threshold < lowerBound) {
+			data.setThreshold(lowerBound);
 		}
-		if(data.getThreshold() > data.getUpperBound()) {
-			data.setThreshold(data.getUpperBound());
+		if(threshold > upperBound) {
+			data.setThreshold(upperBound);
 		}
 		
 	}
