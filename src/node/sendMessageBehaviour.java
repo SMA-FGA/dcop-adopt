@@ -28,9 +28,12 @@ public class sendMessageBehaviour extends OneShotBehaviour {
 	public void action() {
 					
 		ACLMessage message = new ACLMessage(ACLMessage.INFORM);
+		
 		for(AID receiver : this.receivers) {
-			message.addReceiver(receiver);
-			System.out.println("[SEND "+adoptMessage.getMessageType()+"     ] "+myAgent.getLocalName()+" send message to: "+receiver.getLocalName());
+			if(receiver != null) {
+				message.addReceiver(receiver);
+				System.out.println("[SEND "+adoptMessage.getMessageType()+"     ] "+myAgent.getLocalName()+" send message to: "+receiver.getLocalName());
+			}
 		}
 		try {
 			message.setContentObject(adoptMessage);

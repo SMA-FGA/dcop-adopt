@@ -1,19 +1,24 @@
 package node;
 
+import invariants.maintainChildThresholdInvariantBehaviour;
+import invariants.maintainThresholdInvariantBehaviour;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import messages.AdoptMessage;
 import messages.CostMessage;
+import models.NodeAgentData;
 
 public class receiveCostMessageBehaviour extends CyclicBehaviour {
 	
 	private static final long serialVersionUID = -6895391790742950856L;
 	private static final int COST_MESSAGE = 1;
+	NodeAgentData data;
 	
-	public receiveCostMessageBehaviour(Agent a) {
+	public receiveCostMessageBehaviour(Agent a, NodeAgentData data) {
         super(a);
+        this.data = data;
     }
 
 	@Override
@@ -26,7 +31,6 @@ public class receiveCostMessageBehaviour extends CyclicBehaviour {
 			try {
 				adoptMessage = (AdoptMessage) message.getContentObject();
 			} catch (UnreadableException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			
@@ -34,6 +38,8 @@ public class receiveCostMessageBehaviour extends CyclicBehaviour {
 				CostMessage cost = null;
 				try {
 					cost = (CostMessage) message.getContentObject();
+					myAgent.addBehaviour(new maintainChildThresholdInvariantBehaviour(myAgent, data));
+					myAgent.addBehaviour(new maintainThresholdInvariantBehaviour(myAgent, data));
 				} catch (UnreadableException e) {
 					e.printStackTrace();
 				}
