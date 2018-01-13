@@ -49,7 +49,7 @@ public class initializeBehaviour extends WakerBehaviour {
         }
         data.setChildrenContexts(childrenContexts);
 
-		data.setChosenValue(data.getDomain().get(0)); // to do: di <- d that minimizes LB(d) 
+		data.setCurrentValue(data.getDomain().get(0)); // to do: di <- d that minimizes LB(d)
 		
 		// Adding behaviours to receive adopt messages
 		myAgent.addBehaviour(new receiveValueMessageBehaviour(myAgent, data));
