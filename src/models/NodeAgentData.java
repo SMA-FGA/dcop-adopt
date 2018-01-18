@@ -3,6 +3,7 @@ package models;
 import java.util.*;
 
 import jade.core.AID;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class NodeAgentData {
     private int lowerBound;
@@ -22,6 +23,21 @@ public class NodeAgentData {
     private List<List<Integer>> childrenThresholds;
     private List<List<Map<String, Integer>>> childrenContexts;
     private Map<String, List<List<Integer>>> constraints;
+
+    public int getLocalCostForVariable(int variable) {
+        int localCost = 0;
+
+        for (Map.Entry<String, Integer> pair : currentContext.entrySet()) {
+            List<List<Integer>> l = getConstraints().get(pair.getKey());
+            localCost += l.get(variable).get(pair.getValue());
+        }
+
+        return localCost;
+    }
+
+    public int calculateConstraint(int di, int dj) {
+        throw new NotImplementedException();
+    }
 
     public List<Integer> getDomain() {
     	return this.domain;
