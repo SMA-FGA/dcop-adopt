@@ -35,9 +35,50 @@ public class NodeAgentData {
         return localCost;
     }
 
-    public int calculateConstraint(int di, int dj) {
-        throw new NotImplementedException();
+    // TODO: Make following methods more generic
+    // (same logic used for both upper and lower bound).
+    public int getUpperBoundForVariable(int variable) {
+        int localCost = getLocalCostForVariable(variable);
+        int upperBound = localCost;
+
+        for (List<Integer> childUpperBound : childrenUpperBounds) {
+            upperBound += childUpperBound.get(variable);
+        }
+
+        return upperBound;
     }
+
+    public int getLowerBoundForVariable(int variable) {
+        int localCost = getLocalCostForVariable(variable);
+        int upperBound = localCost;
+
+        for (List<Integer> childLowerBound : childrenLowerBounds) {
+            upperBound += childLowerBound.get(variable);
+        }
+
+        return upperBound;
+    }
+
+    public int minimizeCurrentValueForUpperBound() {
+        int updatedCurrentValue = Integer.MAX_VALUE;
+
+        for (int i : getDomain()) {
+            updatedCurrentValue = Integer.min(updatedCurrentValue, getUpperBoundForVariable(i));
+        }
+
+        return updatedCurrentValue;
+    }
+
+    public int minimizeCurrentValueForLowerBound() {
+        int updatedCurrentValue = Integer.MAX_VALUE;
+
+        for (int i : getDomain()) {
+            updatedCurrentValue = Integer.min(updatedCurrentValue, getLowerBoundForVariable(i));
+        }
+
+        return updatedCurrentValue;
+    }
+    // TODO ends here.
 
     public List<Integer> getDomain() {
     	return this.domain;
