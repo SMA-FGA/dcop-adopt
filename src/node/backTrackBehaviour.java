@@ -1,9 +1,14 @@
 package node;
 
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
+import messages.CostMessage;
 import messages.ValueMessage;
 import models.NodeAgentData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class backTrackBehaviour extends OneShotBehaviour {
 	
@@ -32,5 +37,11 @@ public class backTrackBehaviour extends OneShotBehaviour {
 		if (data.getThreshold() == data.getUpperBound()) {
 		    // TODO: add termination logic.
         }
+
+        CostMessage message = new CostMessage(data.getUpperBound(), data.getLowerBound(), data.getCurrentContext());
+        List<AID> receiverContainer = new ArrayList<>();
+        receiverContainer.add(data.getParent());
+
+        myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, message, receiverContainer));
 	}
 }

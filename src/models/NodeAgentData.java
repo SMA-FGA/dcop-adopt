@@ -37,6 +37,7 @@ public class NodeAgentData {
 
     // TODO: Make following methods more generic
     // (same logic used for both upper and lower bound).
+
     public int getUpperBoundForVariable(int variable) {
         int localCost = getLocalCostForVariable(variable);
         int upperBound = localCost;
@@ -50,13 +51,13 @@ public class NodeAgentData {
 
     public int getLowerBoundForVariable(int variable) {
         int localCost = getLocalCostForVariable(variable);
-        int upperBound = localCost;
+        int lowerBound = localCost;
 
         for (List<Integer> childLowerBound : childrenLowerBounds) {
-            upperBound += childLowerBound.get(variable);
+            lowerBound += childLowerBound.get(variable);
         }
 
-        return upperBound;
+        return lowerBound;
     }
 
     public int minimizeCurrentValueForUpperBound() {
