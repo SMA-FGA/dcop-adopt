@@ -9,6 +9,7 @@ public class NodeAgentData {
     private int lowerBound;
     private int upperBound;
     private int threshold;
+    private boolean receivedTerminate;
     private Map<String, Integer> currentContext;
     private List<Integer> domain;
     private int currentValue;
@@ -23,6 +24,14 @@ public class NodeAgentData {
     private List<List<Integer>> childrenThresholds;
     private List<List<Map<String, Integer>>> childrenContexts;
     private Map<String, List<List<Integer>>> constraints;
+
+    public boolean hasReceivedTerminate() {
+        return receivedTerminate;
+    }
+
+    public void setReceivedTerminate(boolean receivedTerminate) {
+        this.receivedTerminate = receivedTerminate;
+    }
 
     public int getLocalCostForVariable(int variable) {
         int localCost = 0;

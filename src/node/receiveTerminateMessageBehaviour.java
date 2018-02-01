@@ -6,14 +6,17 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import messages.AdoptMessage;
 import messages.TerminateMessage;
+import models.NodeAgentData;
 
 public class receiveTerminateMessageBehaviour extends CyclicBehaviour {
 	
 	private static final long serialVersionUID = -6895391790742950856L;
 	private static final int TERMINATE_MESSAGE = 3;
+	NodeAgentData data;
 	
-	public receiveTerminateMessageBehaviour(Agent a) {
+	public receiveTerminateMessageBehaviour(Agent a, NodeAgentData data) {
         super(a);
+        this.data = data;
     }
 
 	@Override
@@ -33,6 +36,7 @@ public class receiveTerminateMessageBehaviour extends CyclicBehaviour {
 				TerminateMessage terminate = null;
 				try {
 					terminate = (TerminateMessage) message.getContentObject();
+					data.setReceivedTerminate(true);
 				} catch (UnreadableException e) {
 					e.printStackTrace();
 				}

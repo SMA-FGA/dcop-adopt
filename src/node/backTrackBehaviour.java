@@ -5,6 +5,7 @@ import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
 import messages.CostMessage;
+import messages.TerminateMessage;
 import messages.ValueMessage;
 import models.NodeAgentData;
 
@@ -38,7 +39,11 @@ public class backTrackBehaviour extends OneShotBehaviour {
 		myAgent.addBehaviour(new maintainAllocationInvariantBehaviour(myAgent, data));
 
 		if (data.getThreshold() == data.getUpperBound()) {
-		    // TODO: add termination logic.
+			boolean isRoot = (data.getParent() == null);
+		    if (data.hasReceivedTerminate() || isRoot) {
+		    	myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new TerminateMessage(), data.getChildren()));
+		    	myAgent.doDelete(); // ends execution for this agent
+			}
         }
 
         CostMessage message = new CostMessage(data.getUpperBound(), data.getLowerBound(), data.getCurrentContext());
