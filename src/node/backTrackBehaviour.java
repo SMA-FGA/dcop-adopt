@@ -1,5 +1,6 @@
 package node;
 
+import invariants.maintainAllocationInvariantBehaviour;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
@@ -33,6 +34,8 @@ public class backTrackBehaviour extends OneShotBehaviour {
         }
 		// send value messages to lower neighbours
 		myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new ValueMessage(80), data.getLowerNeighbours()));
+		// Adjust thresholds
+		myAgent.addBehaviour(new maintainAllocationInvariantBehaviour(myAgent, data));
 
 		if (data.getThreshold() == data.getUpperBound()) {
 		    // TODO: add termination logic.
