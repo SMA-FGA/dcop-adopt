@@ -31,8 +31,8 @@ public class backTrackBehaviour extends OneShotBehaviour {
 		    int updatedCurrentValue = data.minimizeCurrentValueForLowerBound();
 		    data.setCurrentValue(updatedCurrentValue);
         }
-		// send value messages to children
-		myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new ValueMessage(80), data.getChildren()));
+		// send value messages to lower neighbours
+		myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new ValueMessage(80), data.getLowerNeighbours()));
 
 		if (data.getThreshold() == data.getUpperBound()) {
 		    // TODO: add termination logic.
