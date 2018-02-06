@@ -55,7 +55,7 @@ public class initializeBehaviour extends WakerBehaviour {
 		myAgent.addBehaviour(new receiveValueMessageBehaviour(myAgent, data));
 		myAgent.addBehaviour(new receiveCostMessageBehaviour(myAgent, data));
 		myAgent.addBehaviour(new receiveThresholdMessageBehaviour(myAgent));
-		myAgent.addBehaviour(new receiveTerminateMessageBehaviour(myAgent));
+		myAgent.addBehaviour(new receiveTerminateMessageBehaviour(myAgent, data));
 		
 		myAgent.addBehaviour(new backTrackBehaviour(myAgent, data));
 	}

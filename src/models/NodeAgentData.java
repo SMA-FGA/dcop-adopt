@@ -51,8 +51,8 @@ public class NodeAgentData {
         int localCost = getLocalCostForVariable(variable);
         int upperBound = localCost;
 
-        for (List<Integer> childUpperBound : childrenUpperBounds) {
-            upperBound += childUpperBound.get(variable);
+        for (int childUpperBound : childrenUpperBounds.get(variable)) {
+            upperBound += childUpperBound;
         }
 
         return upperBound;
@@ -62,8 +62,8 @@ public class NodeAgentData {
         int localCost = getLocalCostForVariable(variable);
         int lowerBound = localCost;
 
-        for (List<Integer> childLowerBound : childrenLowerBounds) {
-            lowerBound += childLowerBound.get(variable);
+        for (int childLowerBound : childrenLowerBounds.get(variable)) {
+            lowerBound += childLowerBound;
         }
 
         return lowerBound;
