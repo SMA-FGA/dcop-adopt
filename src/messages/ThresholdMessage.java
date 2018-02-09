@@ -1,20 +1,24 @@
 package messages;
 
+import java.util.Map;
+
 import jade.util.leap.Serializable;
 
 public class ThresholdMessage extends AdoptMessage implements Serializable{
 	
 	private static final long serialVersionUID = 2130899758727979611L;
 	Integer threshold;
+	Map<String, Integer> context;
 
-	public ThresholdMessage(Integer threshold) {
+	public ThresholdMessage(Integer threshold, Map<String, Integer> context) {
 		super();
 		this.threshold = threshold;
+		this.context = context;
 	}
 	
 	@Override
 	public String toString() {
-		return this.threshold.toString();
+		return "t: "+this.threshold.toString() + " context: " + this.context;
 	}
 
 	@Override

@@ -65,7 +65,7 @@ public class maintainAllocationInvariantBehaviour extends OneShotBehaviour {
             childToSend.add(childrenList.get(i));
 
             myAgent.addBehaviour(new sendMessageBehaviour(myAgent,
-                    data, new ThresholdMessage(valueToSend), childToSend));
+                    data, new ThresholdMessage(valueToSend, data.getCurrentContext()), childToSend));
         }
     }
 }

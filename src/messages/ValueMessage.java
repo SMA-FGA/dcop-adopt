@@ -6,15 +6,17 @@ public class ValueMessage extends AdoptMessage implements Serializable{
 	
 	private static final long serialVersionUID = 2130899758727979611L;
 	Integer value;
+	String xi;
 
-	public ValueMessage(Integer value) {
+	public ValueMessage(String xi, Integer value) {
 		super();
 		this.value = value;
+		this.xi = xi;
 	}
 	
 	@Override
 	public String toString() {
-		return this.value.toString();
+		return "xi: " + this.xi + " value: " + this.value;
 	}
 
 	@Override

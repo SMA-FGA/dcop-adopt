@@ -32,7 +32,7 @@ public class sendMessageBehaviour extends OneShotBehaviour {
 		for(AID receiver : this.receivers) {
 			if(receiver != null) {
 				message.addReceiver(receiver);
-				System.out.println("[SEND "+adoptMessage.getMessageType()+"     ] "+myAgent.getLocalName()+" send message to: "+receiver.getLocalName());
+				System.out.println("[SEND "+adoptMessage.getMessageType()+"     ] "+myAgent.getLocalName()+" send message to: "+receiver.getLocalName()+" content: ["+adoptMessage.toString()+"]");
 			}
 		}
 		try {

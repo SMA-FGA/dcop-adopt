@@ -10,7 +10,9 @@ import messages.ValueMessage;
 import models.NodeAgentData;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class backTrackBehaviour extends OneShotBehaviour {
 	
@@ -34,19 +36,19 @@ public class backTrackBehaviour extends OneShotBehaviour {
 		    data.setCurrentValue(updatedCurrentValue);
         }
 		// send value messages to lower neighbours
-		myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new ValueMessage(80), data.getLowerNeighbours()));
+		myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new ValueMessage(myAgent.getLocalName(), data.getCurrentValue()), data.getLowerNeighbours()));
 		// Adjust thresholds
 		myAgent.addBehaviour(new maintainAllocationInvariantBehaviour(myAgent, data));
 
 		if (data.getThreshold() == data.getUpperBound()) {
 			boolean isRoot = (data.getParent() == null);
 		    if (data.hasReceivedTerminate() || isRoot) {
-		    	myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new TerminateMessage(), data.getChildren()));
+		    	myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new TerminateMessage(data.getCurrentContext()), data.getChildren()));
 		    	myAgent.doDelete(); // ends execution for this agent
 			}
         }
 
-        CostMessage message = new CostMessage(data.getUpperBound(), data.getLowerBound(), data.getCurrentContext());
+        CostMessage message = new CostMessage(data.getCurrentContext(), myAgent.getLocalName(), data.getLowerBound(), data.getUpperBound());
         List<AID> receiverContainer = new ArrayList<>();
         receiverContainer.add(data.getParent());
 
