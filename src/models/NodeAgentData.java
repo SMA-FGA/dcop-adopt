@@ -95,6 +95,19 @@ public class NodeAgentData {
     	return true;
     }
 
+    public boolean isContextCompatible(Map<String, Integer> receivedContext) {
+        for (Map.Entry<String, Integer> entry : currentContext.entrySet()) {
+            boolean hasKey = receivedContext.containsKey(entry.getKey());
+            if (hasKey && entry.getValue() != receivedContext.get(entry.getKey())) {
+                return false;
+            } else {
+                // Do nothing. This means either the received context doesn't
+                // have the pair in its context, or that the values are equal.
+            }
+        }
+        return true;
+    }
+
     public List<Integer> getDomain() {
     	return this.domain;
     }

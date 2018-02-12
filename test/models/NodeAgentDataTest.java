@@ -44,4 +44,88 @@ public class NodeAgentDataTest {
         Assert.assertEquals(2, localCost);
     }
 
+    @Test
+    public void IsContextCompatibleText_ShouldReturnTrueWhenContextsAreEqual() {
+        NodeAgentData data = new NodeAgentData();
+
+        Map<String, Integer> initialContext = new HashMap<>();
+        Map<String, Integer> receivedContext = new HashMap<>();
+
+        initialContext.put("x1", 1);
+        initialContext.put("x2", 0);
+
+        receivedContext.put("x1", 1);
+        receivedContext.put("x2", 0);
+
+        data.setCurrentContext(initialContext);
+
+        boolean result = data.isContextCompatible(receivedContext);
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void IsContextCompatibleText_ShouldReturnTrueWhenCommonValuesAreEqual() {
+        NodeAgentData data = new NodeAgentData();
+
+        Map<String, Integer> initialContext = new HashMap<>();
+        Map<String, Integer> receivedContext = new HashMap<>();
+
+        initialContext.put("x1", 1);
+        initialContext.put("x2", 0);
+
+        receivedContext.put("x1", 1);
+
+        data.setCurrentContext(initialContext);
+
+        boolean result = data.isContextCompatible(receivedContext);
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void IsContextCompatibleText_ShouldReturnTrueWhenCurrentContextIsEmpty() {
+        NodeAgentData data = new NodeAgentData();
+
+        Map<String, Integer> initialContext = new HashMap<>();
+        Map<String, Integer> receivedContext = new HashMap<>();
+
+        receivedContext.put("x1", 1);
+
+        data.setCurrentContext(initialContext);
+
+        boolean result = data.isContextCompatible(receivedContext);
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void IsContextCompatibleText_ShouldReturnTrueWhenReceivedContextIsEmpty() {
+        NodeAgentData data = new NodeAgentData();
+
+        Map<String, Integer> initialContext = new HashMap<>();
+        Map<String, Integer> receivedContext = new HashMap<>();
+
+        initialContext.put("x1", 0);
+
+        data.setCurrentContext(initialContext);
+
+        boolean result = data.isContextCompatible(receivedContext);
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void IsContextCompatibleText_ShouldReturnFalseWhenCommonValuesAreDifferent() {
+        NodeAgentData data = new NodeAgentData();
+
+        Map<String, Integer> initialContext = new HashMap<>();
+        Map<String, Integer> receivedContext = new HashMap<>();
+
+        initialContext.put("x1", 1);
+        initialContext.put("x2", 0);
+
+        receivedContext.put("x1", 0);
+
+        data.setCurrentContext(initialContext);
+
+        boolean result = data.isContextCompatible(receivedContext);
+        Assert.assertFalse(result);
+    }
 }
