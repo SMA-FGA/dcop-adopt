@@ -2,6 +2,7 @@ package node;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import invariants.maintainAllocationInvariantBehaviour;
 import jade.core.AID;
@@ -41,7 +42,9 @@ public class backTrackBehaviour extends OneShotBehaviour {
 		if (data.getThreshold() == data.getUpperBound()) {
 			boolean isRoot = (data.getParent() == null);
 		    if (data.hasReceivedTerminate() || isRoot) {
-		    	myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new TerminateMessage(data.getCurrentContext()), data.getChildren()));
+		    	Map<String, Integer> contextUnionChoice = data.getCurrentContext();
+		    	contextUnionChoice.put(myAgent.getLocalName(), data.getCurrentValue());
+		    	myAgent.addBehaviour(new sendMessageBehaviour(myAgent, data, new TerminateMessage(contextUnionChoice), data.getChildren()));
 		    	myAgent.doDelete(); // ends execution for this agent
 			}
         }
