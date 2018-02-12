@@ -25,4 +25,12 @@ public class ThresholdMessage extends AdoptMessage implements Serializable{
 	public Integer getMessageType() {
 		return super.THRESHOLD_MESSAGE;
 	}
+	
+	public Integer getThreshold() {
+		return this.threshold;
+	}
+
+	public Map<String, Integer> getContext() {
+		return this.context;
+	}
 }

@@ -1,15 +1,14 @@
 package invariants;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
 import messages.ThresholdMessage;
 import models.NodeAgentData;
-import node.NodeAgent;
 import node.sendMessageBehaviour;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class maintainAllocationInvariantBehaviour extends OneShotBehaviour {
 	private static final long serialVersionUID = -1528722360569048677L;

@@ -1,5 +1,8 @@
 package node;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import invariants.maintainAllocationInvariantBehaviour;
 import jade.core.AID;
 import jade.core.Agent;
@@ -8,11 +11,6 @@ import messages.CostMessage;
 import messages.TerminateMessage;
 import messages.ValueMessage;
 import models.NodeAgentData;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class backTrackBehaviour extends OneShotBehaviour {
 	

@@ -2,7 +2,6 @@ package node;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Vector;
 
 import jade.core.Agent;
 import models.NodeAgentData;
