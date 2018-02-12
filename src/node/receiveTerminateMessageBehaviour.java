@@ -33,14 +33,20 @@ public class receiveTerminateMessageBehaviour extends CyclicBehaviour {
 			}
 			
 			if(adoptMessage.getMessageType() == TERMINATE_MESSAGE) {
-				TerminateMessage terminate = null;
 				try {
-					terminate = (TerminateMessage) message.getContentObject();
+					TerminateMessage terminate = (TerminateMessage) message.getContentObject();
+					
+					System.out.println("[REC TERMI  ] "+myAgent.getLocalName()+
+									   " receive terminate message: " + terminate.toString()+
+									   " from "+message.getSender().getLocalName());
+					
 					data.setReceivedTerminate(true);
+					data.setCurrentContext(terminate.getContext());
+					myAgent.addBehaviour(new backTrackBehaviour(myAgent, data));
 				} catch (UnreadableException e) {
 					e.printStackTrace();
 				}
-				System.out.println("[REC TERMI  ] "+myAgent.getLocalName()+" receive terminate message: " + terminate.toString()+" from "+message.getSender().getLocalName());
+				
 			}
 			
 		}else {

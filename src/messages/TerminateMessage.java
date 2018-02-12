@@ -23,4 +23,8 @@ public class TerminateMessage extends AdoptMessage implements Serializable{
 	public Integer getMessageType() {
 		return super.TERMINATE_MESSAGE;
 	}
+
+	public Map<String, Integer> getContext() {
+		return this.context;
+	}
 }
