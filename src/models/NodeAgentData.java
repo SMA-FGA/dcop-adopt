@@ -89,11 +89,6 @@ public class NodeAgentData {
         return updatedCurrentValue;
     }
     // TODO ends here.
-    
-    public boolean isCompatibleContext(Map<String, Integer> contextToCompare) {
-    	// TODO if contextToCompare is compatible with this.currentContext
-    	return true;
-    }
 
     public boolean isContextCompatible(Map<String, Integer> receivedContext) {
         for (Map.Entry<String, Integer> entry : currentContext.entrySet()) {

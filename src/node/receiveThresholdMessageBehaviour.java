@@ -41,7 +41,7 @@ public class receiveThresholdMessageBehaviour extends CyclicBehaviour {
 									   " receive thereshold message: " + thresholdMessage.toString()+
 									   " from "+message.getSender().getLocalName());
 					
-					if(data.isCompatibleContext(thresholdMessage.getContext())) {
+					if(data.isContextCompatible(thresholdMessage.getContext())) {
 						data.setThreshold(thresholdMessage.getThreshold());
 						myAgent.addBehaviour(new maintainThresholdInvariantBehaviour(myAgent, data));
 						myAgent.addBehaviour(new backTrackBehaviour(myAgent, data));
