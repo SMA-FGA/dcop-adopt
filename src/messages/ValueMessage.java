@@ -23,4 +23,12 @@ public class ValueMessage extends AdoptMessage implements Serializable{
 	public Integer getMessageType() {
 		return super.VALUE_MESSAGE;
 	}
+
+	public Integer getValue() {
+		return this.value;
+	}
+
+	public String getXi() {
+		return this.xi;
+	}
 }

@@ -1,5 +1,10 @@
 package node;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import invariants.maintainThresholdInvariantBehaviour;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -34,14 +39,40 @@ public class receiveValueMessageBehaviour extends CyclicBehaviour {
 			}
 			
 			if(adoptMessage.getMessageType() == VALUE_MESSAGE) {
-				ValueMessage value = null;
 				try {
-					value = (ValueMessage) message.getContentObject();
-					myAgent.addBehaviour(new maintainThresholdInvariantBehaviour(myAgent, data));
+					ValueMessage valueMessage = (ValueMessage) message.getContentObject();
+					
+					System.out.println("[REC VALUE  ] "+myAgent.getLocalName()+
+									   " receive value message: " + valueMessage.toString()+
+									   " from "+message.getSender().getLocalName());
+					
+					if(!data.hasReceivedTerminate()) {
+						// Join choice received from value message to currentContext
+						Map<String, Integer> contextUnionValue = data.getCurrentContext();
+				    	//contextUnionValue.put(valueMessage.getXi(), valueMessage.getValue());
+				    	data.setCurrentContext(contextUnionValue);
+				    					    	
+				    	for (int d = 0; d < data.getDomain().size(); d++) {
+				    		for(int c = 0; c < data.getChildren().size(); c++) {
+				    			if(!data.isContextCompatible(data.getChildrenContexts().get(d).get(c))) {
+				    				data.setChildLowerBound(d, c, 0);
+					    			data.setChildThreshold(d, c, 0);
+					    			data.setChildUpperBound(d, c, 0);
+					    			data.setChildContext(d, c, new HashMap<String, Integer>());
+				    			}else {
+				    				//do nothing
+				    			}
+				            }
+				    	}
+
+						myAgent.addBehaviour(new maintainThresholdInvariantBehaviour(myAgent, data));
+						myAgent.addBehaviour(new backTrackBehaviour(myAgent, data));
+					}else {
+						//do nothing
+					}
 				} catch (UnreadableException e) {
 					e.printStackTrace();
 				}
-				System.out.println("[REC VALUE  ] "+myAgent.getLocalName()+" receive value message: " + value.toString()+" from "+message.getSender().getLocalName());
 			}
 			
 		}else {

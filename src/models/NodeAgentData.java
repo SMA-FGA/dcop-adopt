@@ -3,7 +3,7 @@ package models;
 import java.util.*;
 
 import jade.core.AID;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+//import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class NodeAgentData {
     private int lowerBound;
@@ -205,10 +205,39 @@ public class NodeAgentData {
         this.childrenUpperBounds = childrenUpperBounds;
     }
 
-    public void setChildThreshold(Integer i, Integer j, Integer threshold) {
-    	List<Integer> thresholds = this.childrenThresholds.get(i);
-    	thresholds.set(j, threshold);
-    	this.childrenThresholds.set(i, thresholds);
+    public void setChildThreshold(Integer domainIndex, Integer childIndex, Integer thresholdToReplace) {
+    	if(!childrenThresholds.get(0).isEmpty()) { // agent has not children
+    		//System.out.println("domainIndex: "+domainIndex+" ChildIndex:"+ChildIndex+" thresholdToReplace: "+thresholdToReplace);
+            //System.out.println("before: "+this.childrenThresholds);
+            List<Integer> thresholdsForDomain = this.childrenThresholds.get(domainIndex);
+            thresholdsForDomain.set(childIndex, thresholdToReplace);
+            this.childrenThresholds.set(domainIndex, thresholdsForDomain);
+            //System.out.println("then: "+this.childrenThresholds);
+    	}
+    }
+      
+    public void setChildLowerBound(Integer domainIndex, Integer childIndex, Integer lowerBoundToReplace) {
+    	if(!childrenLowerBounds.get(0).isEmpty()) {
+	        List<Integer> lowerBoundsForDomain = this.childrenThresholds.get(domainIndex);
+	        lowerBoundsForDomain.set(childIndex, lowerBoundToReplace);
+	        this.childrenLowerBounds.set(domainIndex, lowerBoundsForDomain);
+    	}
+    }
+      
+    public void setChildUpperBound(Integer domainIndex, Integer childIndex, Integer upperBoundToReplace) {
+    	if(!childrenUpperBounds.get(0).isEmpty()) {
+	        List<Integer> upperBoundsForDomain = this.childrenThresholds.get(domainIndex);
+	        upperBoundsForDomain.set(childIndex, upperBoundToReplace);
+	        this.childrenUpperBounds.set(domainIndex, upperBoundsForDomain);
+    	}
+    }
+    
+    public void setChildContext(Integer domainIndex, Integer childIndex, Map<String, Integer> contextToReplace) {
+    	if(!childrenContexts.get(0).isEmpty()) {
+    		List<Map<String, Integer>> contextsForDomain = this.childrenContexts.get(domainIndex);
+    		contextsForDomain.set(childIndex, contextToReplace);
+	        this.childrenContexts.set(domainIndex, contextsForDomain);
+    	}
     }
 
     public List<List<Integer>> getChildrenThresholds() {
