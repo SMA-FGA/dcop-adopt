@@ -160,14 +160,26 @@ public class NodeAgentData {
     }
 
     public int getLowerBound() {
-        return lowerBound;
+        int minLowerBound = getLowerBoundForVariable(0);
+
+        for (int i = 1; i < domain.size(); i++) {
+            minLowerBound = Math.min(minLowerBound, getLowerBoundForVariable(i));
+        }
+
+        return minLowerBound;
     }
     public void setLowerBound(int lowerBound) {
         this.lowerBound = lowerBound;
     }
 
     public int getUpperBound() {
-        return upperBound;
+        int minUpperBound = getUpperBoundForVariable(0);
+
+        for (int i = 1; i < domain.size(); i++) {
+            minUpperBound = Math.min(minUpperBound, getUpperBoundForVariable(i));
+        }
+
+        return minUpperBound;
     }
     public void setUpperBound(int upperBound) {
         this.upperBound = upperBound;
