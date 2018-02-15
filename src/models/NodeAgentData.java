@@ -6,8 +6,6 @@ import jade.core.AID;
 //import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class NodeAgentData {
-    private int lowerBound;
-    private int upperBound;
     private int threshold;
     private boolean receivedTerminate;
     private Map<String, Integer> currentContext;
@@ -168,9 +166,6 @@ public class NodeAgentData {
 
         return minLowerBound;
     }
-    public void setLowerBound(int lowerBound) {
-        this.lowerBound = lowerBound;
-    }
 
     public int getUpperBound() {
         int minUpperBound = getUpperBoundForVariable(0);
@@ -180,9 +175,6 @@ public class NodeAgentData {
         }
 
         return minUpperBound;
-    }
-    public void setUpperBound(int upperBound) {
-        this.upperBound = upperBound;
     }
 
     public int getThreshold() {
@@ -218,13 +210,10 @@ public class NodeAgentData {
     }
 
     public void setChildThreshold(Integer domainIndex, Integer childIndex, Integer thresholdToReplace) {
-    	if(!childrenThresholds.get(0).isEmpty()) { // agent has not children
-    		//System.out.println("domainIndex: "+domainIndex+" ChildIndex:"+ChildIndex+" thresholdToReplace: "+thresholdToReplace);
-            //System.out.println("before: "+this.childrenThresholds);
+    	if(!childrenThresholds.get(0).isEmpty()) { // agent has no children
             List<Integer> thresholdsForDomain = this.childrenThresholds.get(domainIndex);
             thresholdsForDomain.set(childIndex, thresholdToReplace);
             this.childrenThresholds.set(domainIndex, thresholdsForDomain);
-            //System.out.println("then: "+this.childrenThresholds);
     	}
     }
       

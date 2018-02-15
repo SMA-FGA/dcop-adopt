@@ -26,10 +26,8 @@ public class initializeBehaviour extends WakerBehaviour {
 	@Override
 	public void onWake() {
 		System.out.println("[INITIALIZE ]" + myAgent.getLocalName()+" starting initialize procedure");
-		data.setLowerBound(0);
-        data.setUpperBound(Integer.MAX_VALUE);
         data.setThreshold(0);
-        data.setCurrentContext(new HashMap<>());		
+        data.setCurrentContext(new HashMap<String, Integer>());		
         
         data.setChildrenLowerBounds(initializeChildrenValues(LOWER_BOUND));
         data.setChildrenUpperBounds(initializeChildrenValues(UPPER_BOUND));
