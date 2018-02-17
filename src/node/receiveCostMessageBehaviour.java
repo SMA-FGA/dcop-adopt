@@ -8,12 +8,12 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import messages.AdoptMessage;
 import messages.CostMessage;
+import messages.MessageTypes;
 import models.NodeAgentData;
 
-public class receiveCostMessageBehaviour extends CyclicBehaviour {
+public class receiveCostMessageBehaviour extends CyclicBehaviour  implements MessageTypes{
 	
 	private static final long serialVersionUID = -6895391790742950856L;
-	private static final int COST_MESSAGE = 1;
 	NodeAgentData data;
 	
 	public receiveCostMessageBehaviour(Agent a, NodeAgentData data) {

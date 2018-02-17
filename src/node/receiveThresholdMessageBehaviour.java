@@ -6,13 +6,13 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import messages.AdoptMessage;
+import messages.MessageTypes;
 import messages.ThresholdMessage;
 import models.NodeAgentData;
 
-public class receiveThresholdMessageBehaviour extends CyclicBehaviour {
+public class receiveThresholdMessageBehaviour extends CyclicBehaviour  implements MessageTypes{
 	
 	private static final long serialVersionUID = -6895391790742950856L;
-	private static final int THRESHOLD_MESSAGE = 2;
 	NodeAgentData data;
 	
 	public receiveThresholdMessageBehaviour(Agent a, NodeAgentData data) {

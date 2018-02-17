@@ -9,13 +9,13 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import messages.AdoptMessage;
+import messages.MessageTypes;
 import messages.ValueMessage;
 import models.NodeAgentData;
 
-public class receiveValueMessageBehaviour extends CyclicBehaviour {
+public class receiveValueMessageBehaviour extends CyclicBehaviour  implements MessageTypes{
 	
 	private static final long serialVersionUID = -6895391790742950856L;
-	private static final int VALUE_MESSAGE = 0;
 	NodeAgentData data;
 	
 	public receiveValueMessageBehaviour(Agent a, NodeAgentData data) {
@@ -57,7 +57,7 @@ public class receiveValueMessageBehaviour extends CyclicBehaviour {
 				    			if(!data.isContextCompatible(data.getChildrenContexts().get(d).get(c))) {
 				    				data.setChildLowerBound(d, c, 0);
 					    			data.setChildThreshold(d, c, 0);
-					    			data.setChildUpperBound(d, c, 0);
+					    			data.setChildUpperBound(d, c, Integer.MAX_VALUE);
 					    			data.setChildContext(d, c, new HashMap<String, Integer>());
 				    			}else {
 				    				//do nothing

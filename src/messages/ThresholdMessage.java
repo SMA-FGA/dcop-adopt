@@ -4,7 +4,7 @@ import java.util.Map;
 
 import jade.util.leap.Serializable;
 
-public class ThresholdMessage extends AdoptMessage implements Serializable{
+public class ThresholdMessage extends AdoptMessage implements Serializable, MessageTypes{
 	
 	private static final long serialVersionUID = 2130899758727979611L;
 	Integer threshold;
@@ -23,7 +23,7 @@ public class ThresholdMessage extends AdoptMessage implements Serializable{
 
 	@Override
 	public Integer getMessageType() {
-		return super.THRESHOLD_MESSAGE;
+		return THRESHOLD_MESSAGE;
 	}
 	
 	public Integer getThreshold() {

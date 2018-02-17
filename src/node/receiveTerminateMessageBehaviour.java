@@ -5,13 +5,13 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import messages.AdoptMessage;
+import messages.MessageTypes;
 import messages.TerminateMessage;
 import models.NodeAgentData;
 
-public class receiveTerminateMessageBehaviour extends CyclicBehaviour {
+public class receiveTerminateMessageBehaviour extends CyclicBehaviour  implements MessageTypes{
 	
 	private static final long serialVersionUID = -6895391790742950856L;
-	private static final int TERMINATE_MESSAGE = 3;
 	NodeAgentData data;
 	
 	public receiveTerminateMessageBehaviour(Agent a, NodeAgentData data) {

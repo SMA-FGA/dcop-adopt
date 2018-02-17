@@ -2,7 +2,7 @@ package messages;
 
 import jade.util.leap.Serializable;
 
-public class ValueMessage extends AdoptMessage implements Serializable{
+public class ValueMessage extends AdoptMessage implements Serializable, MessageTypes{
 	
 	private static final long serialVersionUID = 2130899758727979611L;
 	Integer value;
@@ -21,7 +21,7 @@ public class ValueMessage extends AdoptMessage implements Serializable{
 
 	@Override
 	public Integer getMessageType() {
-		return super.VALUE_MESSAGE;
+		return VALUE_MESSAGE;
 	}
 
 	public Integer getValue() {
