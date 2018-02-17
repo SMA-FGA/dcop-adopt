@@ -3,7 +3,6 @@ package models;
 import java.util.*;
 
 import jade.core.AID;
-//import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class NodeAgentData {
     private int threshold;
@@ -68,20 +67,33 @@ public class NodeAgentData {
     }
 
     public int minimizeCurrentValueForUpperBound() {
-        int updatedCurrentValue = Integer.MAX_VALUE;
+        int minUpperBound = Integer.MAX_VALUE;
+        int updatedCurrentValue = currentValue;
 
         for (int i : getDomain()) {
-            updatedCurrentValue = Integer.min(updatedCurrentValue, getUpperBoundForVariable(i));
+            int upperBound = getUpperBoundForVariable(i);
+
+            if (upperBound < minUpperBound) {
+                minUpperBound = upperBound;
+                updatedCurrentValue = i;
+            }
         }
 
         return updatedCurrentValue;
     }
 
     public int minimizeCurrentValueForLowerBound() {
-        int updatedCurrentValue = Integer.MAX_VALUE;
+        int minLowerBound = Integer.MAX_VALUE;
+        int updatedCurrentValue = currentValue;
+
 
         for (int i : getDomain()) {
-            updatedCurrentValue = Integer.min(updatedCurrentValue, getLowerBoundForVariable(i));
+            int lowerBound = getLowerBoundForVariable(i);
+
+            if (lowerBound < minLowerBound) {
+                minLowerBound = lowerBound;
+                updatedCurrentValue = i;
+            }
         }
 
         return updatedCurrentValue;
