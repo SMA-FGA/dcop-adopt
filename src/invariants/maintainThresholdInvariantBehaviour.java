@@ -7,19 +7,19 @@ import models.NodeAgentData;
 public class maintainThresholdInvariantBehaviour extends OneShotBehaviour{
 	
 	private static final long serialVersionUID = -2399456552459121757L;
-	NodeAgentData data = new NodeAgentData();
+	private NodeAgentData data;
 
 	public maintainThresholdInvariantBehaviour(Agent a, NodeAgentData data) {
 		super(a);
 		this.data = data;
 	}
-
-	int lowerBound = data.getLowerBound();
-	int upperBound = data.getUpperBound();
-	int threshold = data.getThreshold();
 	
 	@Override
 	public void action() {
+		int lowerBound = data.getLowerBound();
+		int upperBound = data.getUpperBound();
+		int threshold = data.getThreshold();
+
 		System.out.println("[INV MTI    ] "+myAgent.getLocalName()+" starting maintain threshold invariant");
 		
 		if(threshold < lowerBound) {
