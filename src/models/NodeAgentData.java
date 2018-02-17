@@ -49,6 +49,9 @@ public class NodeAgentData {
         int upperBound = localCost;
 
         for (int childUpperBound : childrenUpperBounds.get(variable)) {
+            if (childUpperBound == Integer.MAX_VALUE) {
+                return Integer.MAX_VALUE;
+            }
             upperBound += childUpperBound;
         }
 
