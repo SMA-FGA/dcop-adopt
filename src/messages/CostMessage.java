@@ -29,4 +29,20 @@ public class CostMessage extends AdoptMessage implements Serializable, MessageTy
 	public Integer getMessageType() {
 		return COST_MESSAGE;
 	}
+
+	public Map<String, Integer> getContext() {
+		return context;
+	}
+
+	public Integer getLowerBound() {
+		return lowerBound;
+	}
+
+	public Integer getUpperBound() {
+		return upperBound;
+	}
+
+	public String getXk() {
+		return xk;
+	}
 }
