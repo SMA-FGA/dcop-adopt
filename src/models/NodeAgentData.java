@@ -16,9 +16,9 @@ public class NodeAgentData {
     private List<String> childrenNames;
     private List<String> lowerNeighboursNames;
     private List<String> upperNeighboursNames;
-    private List<List<Integer>> childrenLowerBounds;
-    private List<List<Integer>> childrenUpperBounds;
-    private List<List<Integer>> childrenThresholds;
+    private Map<String, List<Integer>> childrenLowerBounds;
+    private Map<String, List<Integer>> childrenUpperBounds;
+    private Map<String, List<Integer>> childrenThresholds;
     private List<List<Map<String, Integer>>> childrenContexts;
     private Map<String, List<List<Integer>>> constraints;
 
@@ -48,10 +48,13 @@ public class NodeAgentData {
         int localCost = getLocalCostForVariable(variable);
         int upperBound = localCost;
 
-        for (int childUpperBound : childrenUpperBounds.get(variable)) {
+        for (Map.Entry<String, List<Integer>> child : childrenUpperBounds.entrySet()) {
+            int childUpperBound = child.getValue().get(variable);
+
             if (childUpperBound == Integer.MAX_VALUE) {
                 return Integer.MAX_VALUE;
             }
+
             upperBound += childUpperBound;
         }
 
@@ -62,7 +65,9 @@ public class NodeAgentData {
         int localCost = getLocalCostForVariable(variable);
         int lowerBound = localCost;
 
-        for (int childLowerBound : childrenLowerBounds.get(variable)) {
+        for (Map.Entry<String, List<Integer>> child : childrenLowerBounds.entrySet()) {
+            int childLowerBound = child.getValue().get(variable);
+
             lowerBound += childLowerBound;
         }
 
@@ -206,46 +211,42 @@ public class NodeAgentData {
         this.currentContext = currentContext;
     }
 
-    public List<List<Integer>> getChildrenLowerBounds() {
+    public Map<String, List<Integer>> getChildrenLowerBounds() {
         return childrenLowerBounds;
     }
-    public void setChildrenLowerBounds(List<List<Integer>> childrenLowerBounds) {
+    public void setChildrenLowerBounds(Map<String, List<Integer>> childrenLowerBounds) {
         this.childrenLowerBounds = childrenLowerBounds;
     }
 
-    public Integer getChildLowerBound(int domainIndex, int agentIndex) {
-    	return this.childrenLowerBounds.get(domainIndex).get(agentIndex);
-    }
-
-    public List<List<Integer>> getChildrenUpperBounds() {
+    public Map<String, List<Integer>> getChildrenUpperBounds() {
         return childrenUpperBounds;
     }
-    public void setChildrenUpperBounds(List<List<Integer>> childrenUpperBounds) {
+    public void setChildrenUpperBounds(Map<String, List<Integer>> childrenUpperBounds) {
         this.childrenUpperBounds = childrenUpperBounds;
     }
 
-    public void setChildThreshold(Integer domainIndex, Integer childIndex, Integer thresholdToReplace) {
-    	if(!childrenThresholds.get(0).isEmpty()) { // agent has no children
-            List<Integer> thresholdsForDomain = this.childrenThresholds.get(domainIndex);
-            thresholdsForDomain.set(childIndex, thresholdToReplace);
-            this.childrenThresholds.set(domainIndex, thresholdsForDomain);
+    public void setChildThreshold(Integer domainIndex, String childKey, Integer thresholdToReplace) {
+    	if(!childrenThresholds.isEmpty()) { // agent has no children
+            List<Integer> thresholdsForChild = this.childrenThresholds.get(childKey);
+            thresholdsForChild.set(domainIndex, thresholdToReplace);
+            this.childrenThresholds.put(childKey, thresholdsForChild);
     	}
     }
       
-    public void setChildLowerBound(Integer domainIndex, Integer childIndex, Integer lowerBoundToReplace) {
-    	if(!childrenLowerBounds.get(0).isEmpty()) {
-	        List<Integer> lowerBoundsForDomain = this.childrenThresholds.get(domainIndex);
-	        lowerBoundsForDomain.set(childIndex, lowerBoundToReplace);
-	        this.childrenLowerBounds.set(domainIndex, lowerBoundsForDomain);
-    	}
+    public void setChildLowerBound(Integer domainIndex, String childKey, Integer lowerBoundToReplace) {
+        if(!childrenLowerBounds.isEmpty()) { // agent has no children
+            List<Integer> lowerBoundsForChild = this.childrenLowerBounds.get(childKey);
+            lowerBoundsForChild.set(domainIndex, lowerBoundToReplace);
+            this.childrenThresholds.put(childKey, lowerBoundsForChild);
+        }
     }
       
-    public void setChildUpperBound(Integer domainIndex, Integer childIndex, Integer upperBoundToReplace) {
-    	if(!childrenUpperBounds.get(0).isEmpty()) {
-	        List<Integer> upperBoundsForDomain = this.childrenThresholds.get(domainIndex);
-	        upperBoundsForDomain.set(childIndex, upperBoundToReplace);
-	        this.childrenUpperBounds.set(domainIndex, upperBoundsForDomain);
-    	}
+    public void setChildUpperBound(Integer domainIndex, String childKey, Integer upperBoundToReplace) {
+        if(!childrenThresholds.isEmpty()) { // agent has no children
+            List<Integer> upperBoundsForChild = this.childrenUpperBounds.get(childKey);
+            upperBoundsForChild.set(domainIndex, upperBoundToReplace);
+            this.childrenThresholds.put(childKey, upperBoundsForChild);
+        }
     }
     
     public void setChildContext(Integer domainIndex, Integer childIndex, Map<String, Integer> contextToReplace) {
@@ -256,10 +257,10 @@ public class NodeAgentData {
     	}
     }
 
-    public List<List<Integer>> getChildrenThresholds() {
+    public Map<String, List<Integer>> getChildrenThresholds() {
         return childrenThresholds;
     }
-    public void setChildrenThresholds(List<List<Integer>> childrenThresholds) {
+    public void setChildrenThresholds(Map<String, List<Integer>> childrenThresholds) {
         this.childrenThresholds = childrenThresholds;
     }
 
