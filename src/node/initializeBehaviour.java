@@ -59,33 +59,34 @@ public class initializeBehaviour extends WakerBehaviour {
 		myAgent.addBehaviour(new backTrackBehaviour(myAgent, data));
 	}
 
-    private List<List<Integer>> initializeChildrenValues(int valueType) {
-        List<List<Integer>> values = new ArrayList<>();
+    private Map<String, List<Integer>> initializeChildrenValues(int valueType) {
+        Map<String, List<Integer>> values = new HashMap<>();
 
-        for (int i = 0; i < data.getDomain().size(); i++) {
-            List<Integer> valuesForDomain = new ArrayList<>();
+        for (int i = 0; i < data.getChildren().size(); i++) {
+            String child = data.getChildren().get(i).getLocalName();
+            List<Integer> valuesForChild = new ArrayList<>();
 
-            for (int j = 0; j < data.getChildren().size(); j++) {
+            for (int j = 0; j < data.getDomain().size(); j++) {
                 switch (valueType) {
                     case LOWER_BOUND: {
-                        valuesForDomain.add(0);
-                        System.out.println("[LOWER BOUND] lb(" + i + "," + j + ") = " + valuesForDomain.get(j));
+                        valuesForChild.add(0);
+                        System.out.println("[LOWER BOUND] lb(" + child + "," + j + ") = " + valuesForChild.get(j));
                         break;
                     }
                     case UPPER_BOUND: {
-                        valuesForDomain.add(Integer.MAX_VALUE);
-                        System.out.println("[UPPER BOUND] ub(" + i + "," + j + ") = " + valuesForDomain.get(j));
+                        valuesForChild.add(Integer.MAX_VALUE);
+                        System.out.println("[UPPER BOUND] ub(" + child + "," + j + ") = " + valuesForChild.get(j));
                         break;
                     }
                     case THRESHOLD: {
-                        valuesForDomain.add(0);
-                        System.out.println("[THRESHOLD  ] t(" + i + "," + j + ") = " + valuesForDomain.get(j));
+                        valuesForChild.add(0);
+                        System.out.println("[THRESHOLD  ] t(" + child + "," + j + ") = " + valuesForChild.get(j));
                         break;
                     }
                 }
             }
 
-            values.add(valuesForDomain);
+            values.put(child, valuesForChild);
         }
 
         return values;
