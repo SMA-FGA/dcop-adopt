@@ -41,25 +41,25 @@ public class receiveCostMessageBehaviour extends CyclicBehaviour  implements Mes
 				try {
 					cost = (CostMessage) message.getContentObject();
 
-					Map<String, Integer> contextInMessage = cost.getContext();
-					int valueInMessage = contextInMessage.get(myAgent.getLocalName());
-					data.setCurrentValue(valueInMessage);
-
-					contextInMessage.remove(myAgent.getLocalName());
-
-					if (!data.hasReceivedTerminate()) {
-						// TODO
-					}
-
-					if (data.isContextCompatible(contextInMessage)) {
-						int currentValue = data.getCurrentValue();
-						String xk = cost.getXk();
-
-						// TODO: update bounds and context
-
-						myAgent.addBehaviour(new maintainChildThresholdInvariantBehaviour(myAgent, data));
-						myAgent.addBehaviour(new maintainThresholdInvariantBehaviour(myAgent, data));
-					}
+//					Map<String, Integer> contextInMessage = cost.getContext();
+//					int valueInMessage = contextInMessage.get(myAgent.getLocalName());
+//					data.setCurrentValue(valueInMessage);
+//
+//					contextInMessage.remove(myAgent.getLocalName());
+//
+//					if (!data.hasReceivedTerminate()) {
+//						// TODO
+//					}
+//
+//					if (data.isContextCompatible(contextInMessage)) {
+//						int currentValue = data.getCurrentValue();
+//						String xk = cost.getXk();
+//
+//						// TODO: update bounds and context
+//
+//						myAgent.addBehaviour(new maintainChildThresholdInvariantBehaviour(myAgent, data));
+//						myAgent.addBehaviour(new maintainThresholdInvariantBehaviour(myAgent, data));
+//					}
 
 				} catch (UnreadableException e) {
 					e.printStackTrace();
