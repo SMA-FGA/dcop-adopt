@@ -287,4 +287,22 @@ public class NodeAgentData {
     	
     	this.constraints = constraintsMap;
     }
+
+	public boolean isMyNeighbour(String agentName) {
+		boolean isMyNeighbour = false;
+		
+		for (String upper : upperNeighboursNames) {
+			if(upper.equals(agentName)) {
+				isMyNeighbour = true;
+			}
+    	}
+    	
+    	for (String lower : lowerNeighboursNames) {
+    		if(lower.equals(agentName)) {
+    			isMyNeighbour = true;
+    		}
+    	}
+		
+		return isMyNeighbour;
+	}
 }
