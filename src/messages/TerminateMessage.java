@@ -4,7 +4,7 @@ import java.util.Map;
 
 import jade.util.leap.Serializable;
 
-public class TerminateMessage extends AdoptMessage implements Serializable, MessageTypes{
+public class TerminateMessage extends AdoptMessage implements Serializable{
 	
 	private static final long serialVersionUID = 2130899758727979611L;
 	Map<String, Integer> context;

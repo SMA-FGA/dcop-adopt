@@ -2,21 +2,21 @@ package messages;
 
 import jade.util.leap.Serializable;
 
-public class ValueMessage extends AdoptMessage implements Serializable, MessageTypes{
+public class ValueMessage extends AdoptMessage implements Serializable{
 	
 	private static final long serialVersionUID = 2130899758727979611L;
 	Integer value;
-	String xi;
+	String sender;
 
-	public ValueMessage(String xi, Integer value) {
+	public ValueMessage(String sender, Integer value) {
 		super();
 		this.value = value;
-		this.xi = xi;
+		this.sender = sender;
 	}
 	
 	@Override
 	public String toString() {
-		return "xi: " + this.xi + " value: " + this.value;
+		return "xi: " + this.sender + " value: " + this.value;
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class ValueMessage extends AdoptMessage implements Serializable, MessageT
 		return this.value;
 	}
 
-	public String getXi() {
-		return this.xi;
+	public String getSender() {
+		return this.sender;
 	}
 }

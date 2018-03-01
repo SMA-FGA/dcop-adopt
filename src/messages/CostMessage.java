@@ -4,45 +4,45 @@ import java.util.Map;
 
 import jade.util.leap.Serializable;
 
-public class CostMessage extends AdoptMessage implements Serializable, MessageTypes{
+public class CostMessage extends AdoptMessage implements Serializable{
 	
 	private static final long serialVersionUID = 2130899758727979611L;
 	Map<String, Integer> context;
 	Integer lowerBound;
 	Integer upperBound;
-	String xk;
+	String sender;
 
-	public CostMessage(Map<String, Integer> context, String xk, Integer lowerBound, Integer upperBound) {
+	public CostMessage(Map<String, Integer> context, String sender, Integer lowerBound, Integer upperBound) {
 		super();
 		this.upperBound = upperBound;
 		this.lowerBound = lowerBound;
 		this.context = context;
-		this.xk = xk;
+		this.sender = sender;
 	}
 	
 	@Override
 	public String toString() {
-		return "context: " + this.context + " xk: " + this.xk + " lb: " + this.lowerBound + " ub: "+this.upperBound;
+		return "context: " + this.context + " xk: " + this.sender + " lb: " + this.lowerBound + " ub: "+this.upperBound;
 	}
 
 	@Override
 	public Integer getMessageType() {
 		return COST_MESSAGE;
 	}
-
+	
 	public Map<String, Integer> getContext() {
-		return context;
+		return this.context;
+	}
+	
+	public String getSender() {
+		return this.sender;
 	}
 
 	public Integer getLowerBound() {
-		return lowerBound;
+		return this.lowerBound;
 	}
 
 	public Integer getUpperBound() {
-		return upperBound;
-	}
-
-	public String getXk() {
-		return xk;
+		return this.upperBound;
 	}
 }

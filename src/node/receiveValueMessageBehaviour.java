@@ -47,7 +47,7 @@ public class receiveValueMessageBehaviour extends CyclicBehaviour  implements Me
 					if(!data.hasReceivedTerminate()) {
 						// Join choice received from value message to currentContext
 						Map<String, Integer> contextUnionValue = data.getCurrentContext();
-						String xi = valueMessage.getXi();
+						String xi = valueMessage.getSender();
 						int value = valueMessage.getValue();
 				    	contextUnionValue.put(xi, value);
 				    	data.setCurrentContext(contextUnionValue);
