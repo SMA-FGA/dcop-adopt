@@ -237,15 +237,15 @@ public class NodeAgentData {
         if(!childrenLowerBounds.isEmpty()) { // agent has no children
             List<Integer> lowerBoundsForChild = this.childrenLowerBounds.get(childKey);
             lowerBoundsForChild.set(domainIndex, lowerBoundToReplace);
-            this.childrenThresholds.put(childKey, lowerBoundsForChild);
+            this.childrenLowerBounds.put(childKey, lowerBoundsForChild);
         }
     }
       
     public void setChildUpperBound(Integer domainIndex, String childKey, Integer upperBoundToReplace) {
-        if(!childrenThresholds.isEmpty()) { // agent has no children
+        if(!childrenUpperBounds.isEmpty()) { // agent has no children
             List<Integer> upperBoundsForChild = this.childrenUpperBounds.get(childKey);
             upperBoundsForChild.set(domainIndex, upperBoundToReplace);
-            this.childrenThresholds.put(childKey, upperBoundsForChild);
+            this.childrenUpperBounds.put(childKey, upperBoundsForChild);
         }
     }
     
@@ -258,7 +258,7 @@ public class NodeAgentData {
     }
 
     public Map<String, List<Integer>> getChildrenThresholds() {
-        return childrenThresholds;
+        return this.childrenThresholds;
     }
     public void setChildrenThresholds(Map<String, List<Integer>> childrenThresholds) {
         this.childrenThresholds = childrenThresholds;
