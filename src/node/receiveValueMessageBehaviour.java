@@ -54,13 +54,13 @@ public class receiveValueMessageBehaviour extends CyclicBehaviour  implements Me
 				    					    	
 				    	for (int d = 0; d < data.getDomain().size(); d++) {
 				    		for(int c = 0; c < data.getChildren().size(); c++) {
-				    			if(!data.isContextCompatible(data.getChildrenContexts().get(d).get(c))) {
-				    				String child = data.getChildren().get(c).getLocalName();
-
+				    			String child = data.getChildren().get(c).getLocalName();
+				    			
+				    			if(!data.isContextCompatible(data.getChildrenContexts().get(child).get(d))) {
 				    				data.setChildLowerBound(d, child, 0);
 					    			data.setChildThreshold(d, child, 0);
 					    			data.setChildUpperBound(d, child, Integer.MAX_VALUE);
-					    			data.setChildContext(d, c, new HashMap<String, Integer>());
+					    			data.setChildContext(d, child, new HashMap<String, Integer>());
 				    			}else {
 				    				//do nothing
 				    			}

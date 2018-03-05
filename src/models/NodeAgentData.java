@@ -19,7 +19,7 @@ public class NodeAgentData {
     private Map<String, List<Integer>> childrenLowerBounds;
     private Map<String, List<Integer>> childrenUpperBounds;
     private Map<String, List<Integer>> childrenThresholds;
-    private List<List<Map<String, Integer>>> childrenContexts;
+    private Map<String, List<Map<String, Integer>>> childrenContexts;
     private Map<String, List<List<Integer>>> constraints;
 
     public boolean hasReceivedTerminate() {
@@ -249,11 +249,11 @@ public class NodeAgentData {
         }
     }
     
-    public void setChildContext(Integer domainIndex, Integer childIndex, Map<String, Integer> contextToReplace) {
-    	if(!childrenContexts.get(0).isEmpty()) {
-    		List<Map<String, Integer>> contextsForDomain = this.childrenContexts.get(domainIndex);
-    		contextsForDomain.set(childIndex, contextToReplace);
-	        this.childrenContexts.set(domainIndex, contextsForDomain);
+    public void setChildContext(Integer domainIndex, String childKey, Map<String, Integer> contextToReplace) {
+    	if(!childrenContexts.isEmpty()) {
+    		List<Map<String, Integer>> contextsForDomain = this.childrenContexts.get(childKey);
+    		contextsForDomain.set(domainIndex, contextToReplace);
+	        this.childrenContexts.put(childKey, contextsForDomain);
     	}
     }
 
@@ -264,10 +264,10 @@ public class NodeAgentData {
         this.childrenThresholds = childrenThresholds;
     }
 
-	public List<List<Map<String, Integer>>> getChildrenContexts() {
+	public Map<String, List<Map<String, Integer>>> getChildrenContexts() {
 		return childrenContexts;
 	}
-	public void setChildrenContexts(List<List<Map<String, Integer>>> childrenContexts) {
+	public void setChildrenContexts(Map<String, List<Map<String, Integer>>> childrenContexts) {
 		this.childrenContexts = childrenContexts;
 	}
 

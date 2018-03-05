@@ -34,16 +34,17 @@ public class initializeBehaviour extends WakerBehaviour {
         data.setChildrenThresholds(initializeChildrenValues(THRESHOLD));
         
         // Initialize children contexts
-        List<List<Map<String, Integer>>> childrenContexts = new ArrayList<>();
-        for (int i = 0; i < data.getDomain().size(); i++) {
+        Map<String, List<Map<String, Integer>>> childrenContexts = new HashMap<>();
+        for(int i = 0; i < data.getChildren().size(); i++) {
+        	String child = data.getChildren().get(i).getLocalName();
         	List<Map<String, Integer>> childrenContextsForDomain = new ArrayList<>();
             
-            for(int j = 0; j < data.getChildren().size(); j++) {
+        	for (int j = 0; j < data.getDomain().size(); j++) {
             	childrenContextsForDomain.add(new HashMap<String, Integer>());
-            	System.out.println("[CONTEXT    ] context(" + i + "," + j + ") = " + childrenContextsForDomain.get(j));
+            	System.out.println("[CONTEXT    ] context(" + child + "," + j + ") = " + childrenContextsForDomain.get(j));
             }
             
-            childrenContexts.add(childrenContextsForDomain);
+            childrenContexts.put(child, childrenContextsForDomain);
         }
         data.setChildrenContexts(childrenContexts);
 

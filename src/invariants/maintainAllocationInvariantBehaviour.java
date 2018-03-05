@@ -66,18 +66,33 @@ public class maintainAllocationInvariantBehaviour extends OneShotBehaviour {
 
     @Override
     public void action() {
-        System.out.println("[INV MAIB   ] " + myAgent.getLocalName() +
-                           " starting maintain allocation invariant");
+        
         List<AID> childrenList = data.getChildren();
+        
 
         if (data.getChildren().size() > 0) {
+        	
+        	System.out.println(">>> [INV MAIB   ] " + myAgent.getLocalName() +
+                    " starting maintain allocation invariant "+
+ 				   " cost: "+data.getLocalCostForVariable(currentValue)+
+ 				   " t: "+data.getThreshold()+
+ 				   " t-sum: "+getThresholdsSum());
+        	
             int cost = data.getLocalCostForVariable(currentValue);
 
             while (data.getThreshold() > cost + getThresholdsSum()) {
+            	System.out.println("enter while mai 1 "+
+            			" cost: "+data.getLocalCostForVariable(currentValue)+
+      				   " t: "+data.getThreshold()+
+      				   " t-sum: "+getThresholdsSum());
                 incrementChildWithLowThreshold();
             }
 
             while (data.getThreshold() < cost + getThresholdsSum()) {
+            	System.out.println("enter while mai 2 "+
+            			" cost: "+data.getLocalCostForVariable(currentValue)+
+      				   " t: "+data.getThreshold()+
+      				   " t-sum: "+getThresholdsSum());
                 decrementChildWithHighThreshold();
             }
 
