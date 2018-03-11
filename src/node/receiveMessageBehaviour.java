@@ -31,6 +31,7 @@ public class receiveMessageBehaviour extends CyclicBehaviour implements MessageT
 
             switch (adoptMessage.getMessageType()) {
                 case VALUE_MESSAGE:
+                    myAgent.addBehaviour(new handleValueMessageBehaviour(myAgent, data, message));
                     break;
                 case COST_MESSAGE:
                     break;
