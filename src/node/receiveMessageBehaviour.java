@@ -40,6 +40,7 @@ public class receiveMessageBehaviour extends CyclicBehaviour implements MessageT
                     myAgent.addBehaviour(new handleThresholdMessageBehaviour(myAgent, data, message));
                     break;
                 case TERMINATE_MESSAGE:
+                    myAgent.addBehaviour(new handleTerminateMessageBehaviour(myAgent, data, message));
                     break;
             }
         } else {
