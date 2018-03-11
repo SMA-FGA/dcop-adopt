@@ -53,7 +53,6 @@ public class initializeBehaviour extends WakerBehaviour {
 		
 		// Adding behaviours to receive adopt messages
         myAgent.addBehaviour(new receiveMessageBehaviour(myAgent, data));
-		myAgent.addBehaviour(new receiveCostMessageBehaviour(myAgent, data));
 		myAgent.addBehaviour(new receiveThresholdMessageBehaviour(myAgent, data));
 		myAgent.addBehaviour(new receiveTerminateMessageBehaviour(myAgent, data));
 		

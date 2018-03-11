@@ -34,6 +34,7 @@ public class receiveMessageBehaviour extends CyclicBehaviour implements MessageT
                     myAgent.addBehaviour(new handleValueMessageBehaviour(myAgent, data, message));
                     break;
                 case COST_MESSAGE:
+                    myAgent.addBehaviour(new handleCostMessageBehaviour(myAgent, data, message));
                     break;
                 case THRESHOLD_MESSAGE:
                     break;

@@ -35,7 +35,7 @@ public class handleValueMessageBehaviour extends OneShotBehaviour implements Mes
 					" receive value message: " + valueMessage.toString()+
 					" from "+message.getSender().getLocalName());
 
-			if(!data.hasReceivedTerminate()) {
+			if (!data.hasReceivedTerminate()) {
 				// Join choice received from value message to currentContext
 				Map<String, Integer> contextUnionValue = data.getCurrentContext();
 				String xi = valueMessage.getSender();
@@ -44,15 +44,15 @@ public class handleValueMessageBehaviour extends OneShotBehaviour implements Mes
 				data.setCurrentContext(contextUnionValue);
 
 				for (int d = 0; d < data.getDomain().size(); d++) {
-					for(int c = 0; c < data.getChildren().size(); c++) {
+					for (int c = 0; c < data.getChildren().size(); c++) {
 						String child = data.getChildren().get(c).getLocalName();
 
-						if(!data.isContextCompatible(data.getChildrenContexts().get(child).get(d))) {
+						if (!data.isContextCompatible(data.getChildrenContexts().get(child).get(d))) {
 							data.setChildLowerBound(d, child, 0);
 							data.setChildThreshold(d, child, 0);
 							data.setChildUpperBound(d, child, Integer.MAX_VALUE);
 							data.setChildContext(d, child, new HashMap<String, Integer>());
-						}else {
+						} else {
 							//do nothing
 						}
 					}
