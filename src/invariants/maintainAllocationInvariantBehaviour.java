@@ -3,62 +3,54 @@ package invariants;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
+import jade.util.Logger;
 import messages.ThresholdMessage;
 import models.NodeAgentData;
 import node.sendMessageBehaviour;
 
 public class maintainAllocationInvariantBehaviour extends OneShotBehaviour {
+	private static final Logger LOGGER = Logger.getMyLogger(maintainAllocationInvariantBehaviour.class.getName());
+	
 	private static final long serialVersionUID = -1528722360569048677L;
 	private NodeAgentData data;
     private int currentValue;
-    private Map<String, List<Integer>> childrenThresholdsList;
-    private Map<String, List<Integer>> childrenUpperBoundsList;
-    private Map<String, List<Integer>> childrenLowerBoundsList;
 
     public maintainAllocationInvariantBehaviour(Agent a, NodeAgentData data) {
         super(a);
         this.data = data;
         currentValue = data.getCurrentValue();
-        childrenThresholdsList = data.getChildrenThresholds();
-        childrenUpperBoundsList = data.getChildrenUpperBounds();
-        childrenLowerBoundsList = data.getChildrenLowerBounds();
-    }
-
-    private int getThresholdsSum() {
-        int childrenThresholds = 0;
-
-        for (Map.Entry<String, List<Integer>> child : childrenThresholdsList.entrySet()) {
-            childrenThresholds += child.getValue().get(currentValue);
-        }
-
-        return childrenThresholds;
     }
 
     private void incrementChildWithLowThreshold() {
-        for (Map.Entry<String, List<Integer>> child : childrenThresholdsList.entrySet()) {
-            List<Integer> upperBoundsForChild = childrenUpperBoundsList.get(child.getKey());
+        for (Map.Entry<String, List<Integer>> child : data.getChildrenThresholds().entrySet()) {
+            List<Integer> upperBoundsForChild = data.getChildrenUpperBounds().get(child.getKey());
             int childUpperBound = upperBoundsForChild.get(currentValue);
             int childThreshold = child.getValue().get(currentValue);
 
+            LOGGER.info("child: "+child.getKey()+"ub: "+childUpperBound+" t: "+childThreshold);
             if (childUpperBound > childThreshold) {
-                data.setChildThreshold(currentValue, child.getKey(), childThreshold++);
+            	LOGGER.info("Enter if increment");
+                data.setChildThreshold(currentValue, child.getKey(), childThreshold+1);
                 return;
             }
         }
     }
 
     private void decrementChildWithHighThreshold() {
-        for (Map.Entry<String, List<Integer>> child : childrenThresholdsList.entrySet()) {
-            List<Integer> lowerBoundsForChild = childrenLowerBoundsList.get(child.getKey());
+        for (Map.Entry<String, List<Integer>> child : data.getChildrenThresholds().entrySet()) {
+            List<Integer> lowerBoundsForChild = data.getChildrenLowerBounds().get(child.getKey());
             int childLowerBound = lowerBoundsForChild.get(currentValue);
             int childThreshold = child.getValue().get(currentValue);
 
+            LOGGER.info("child: "+child.getKey()+"lb: "+childLowerBound+" t: "+childThreshold);
             if (childLowerBound < childThreshold) {
-                data.setChildThreshold(currentValue, child.getKey(), childThreshold--);
+            	LOGGER.info("Enter if decrement");
+                data.setChildThreshold(currentValue, child.getKey(), childThreshold-1);
                 return;
             }
         }
@@ -66,40 +58,39 @@ public class maintainAllocationInvariantBehaviour extends OneShotBehaviour {
 
     @Override
     public void action() {
-        
+
+    	LOGGER.setLevel(Level.ALL);
         List<AID> childrenList = data.getChildren();
         
-
+        LOGGER.info("Agent "+myAgent.getLocalName()+" starting maitain allocation invariant");
+        
         if (data.getChildren().size() > 0) {
         	
-        	System.out.println(">>> [INV MAIB   ] " + myAgent.getLocalName() +
-                    " starting maintain allocation invariant "+
- 				   " cost: "+data.getLocalCostForVariable(currentValue)+
- 				   " t: "+data.getThreshold()+
- 				   " t-sum: "+getThresholdsSum());
-        	
             int cost = data.getLocalCostForVariable(currentValue);
+            int threshold = data.getThreshold();
 
-            while (data.getThreshold() > cost + getThresholdsSum()) {
-            	System.out.println("enter while mai 1 "+
-            			" cost: "+data.getLocalCostForVariable(currentValue)+
+            while (threshold > cost + data.getThresholdsSum(currentValue)) {
+            	LOGGER.info("Enter while mai 1 "+
+            			" cost: "+cost+
       				   " t: "+data.getThreshold()+
-      				   " t-sum: "+getThresholdsSum());
+      				   " t-sum: "+data.getThresholdsSum(currentValue));
+            	
                 incrementChildWithLowThreshold();
             }
 
-            while (data.getThreshold() < cost + getThresholdsSum()) {
-            	System.out.println("enter while mai 2 "+
-            			" cost: "+data.getLocalCostForVariable(currentValue)+
+            while (threshold < cost + data.getThresholdsSum(currentValue)) {
+            	LOGGER.info("Enter while mai 2 "+
+            			" cost: "+cost+
       				   " t: "+data.getThreshold()+
-      				   " t-sum: "+getThresholdsSum());
+      				   " t-sum: "+data.getThresholdsSum(currentValue));
+            	
                 decrementChildWithHighThreshold();
             }
 
             for (int i = 0; i < childrenList.size(); i++) {
                 String child = childrenList.get(i).getLocalName();
 
-                int valueToSend = childrenThresholdsList.get(child).get(currentValue);
+                int valueToSend = data.getChildrenThresholds().get(child).get(currentValue);
 
                 List<AID> childToSend = new ArrayList<>();
                 childToSend.add(childrenList.get(i));

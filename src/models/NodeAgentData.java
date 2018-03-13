@@ -305,4 +305,15 @@ public class NodeAgentData {
 		
 		return isMyNeighbour;
 	}
+	
+	public int getThresholdsSum(Integer current) {
+        int childrenThresholdsSum = 0;
+        
+        for (Map.Entry<String, List<Integer>> child : childrenThresholds.entrySet()) {
+            childrenThresholdsSum += child.getValue().get(current);
+        }
+
+        return childrenThresholdsSum;
+    }
+	
 }
