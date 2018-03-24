@@ -13,20 +13,10 @@ import messages.ThresholdMessage;
 import models.NodeAgentData;
 import node.sendMessageBehaviour;
 
-public class maintainAllocationInvariantBehaviour extends OneShotBehaviour {
-	private static final Logger LOGGER = Logger.getMyLogger(maintainAllocationInvariantBehaviour.class.getName());
+public class maintainAllocationInvariant{
+	private static final Logger LOGGER = Logger.getMyLogger(maintainAllocationInvariant.class.getName());
 	
-	private static final long serialVersionUID = -1528722360569048677L;
-	private NodeAgentData data;
-    private int currentValue;
-
-    public maintainAllocationInvariantBehaviour(Agent a, NodeAgentData data) {
-        super(a);
-        this.data = data;
-        currentValue = data.getCurrentValue();
-    }
-
-    private void incrementChildWithLowThreshold() {
+    private void incrementChildWithLowThreshold(NodeAgentData data, int currentValue) {
         for (Map.Entry<String, List<Integer>> child : data.getChildrenThresholds().entrySet()) {
             List<Integer> upperBoundsForChild = data.getChildrenUpperBounds().get(child.getKey());
             int childUpperBound = upperBoundsForChild.get(currentValue);
@@ -41,7 +31,7 @@ public class maintainAllocationInvariantBehaviour extends OneShotBehaviour {
         }
     }
 
-    private void decrementChildWithHighThreshold() {
+    private void decrementChildWithHighThreshold(NodeAgentData data, int currentValue) {
         for (Map.Entry<String, List<Integer>> child : data.getChildrenThresholds().entrySet()) {
             List<Integer> lowerBoundsForChild = data.getChildrenLowerBounds().get(child.getKey());
             int childLowerBound = lowerBoundsForChild.get(currentValue);
@@ -56,11 +46,11 @@ public class maintainAllocationInvariantBehaviour extends OneShotBehaviour {
         }
     }
 
-    @Override
-    public void action() {
-
+    public void maintainAllocationInvariantProcedure(Agent myAgent, NodeAgentData data) {
+    	
     	LOGGER.setLevel(Level.ALL);
         List<AID> childrenList = data.getChildren();
+        int currentValue = data.getCurrentValue();
         
         LOGGER.info("Agent "+myAgent.getLocalName()+" starting maitain allocation invariant");
         
@@ -75,7 +65,7 @@ public class maintainAllocationInvariantBehaviour extends OneShotBehaviour {
       				   " t: "+data.getThreshold()+
       				   " t-sum: "+data.getThresholdsSum(currentValue));
             	
-                incrementChildWithLowThreshold();
+                incrementChildWithLowThreshold(data, currentValue);
             }
 
             while (threshold < cost + data.getThresholdsSum(currentValue)) {
@@ -84,7 +74,7 @@ public class maintainAllocationInvariantBehaviour extends OneShotBehaviour {
       				   " t: "+data.getThreshold()+
       				   " t-sum: "+data.getThresholdsSum(currentValue));
             	
-                decrementChildWithHighThreshold();
+                decrementChildWithHighThreshold(data, currentValue);
             }
 
             for (int i = 0; i < childrenList.size(); i++) {

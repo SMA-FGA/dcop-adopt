@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import invariants.maintainAllocationInvariantBehaviour;
+import invariants.maintainAllocationInvariant;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
@@ -33,7 +33,8 @@ public class backtrack{
 													  new ValueMessage(myAgent.getLocalName(),data.getCurrentValue()),
 													  data.getLowerNeighbours()));
 		// Adjust thresholds
-		myAgent.addBehaviour(new maintainAllocationInvariantBehaviour(myAgent, data));
+		maintainAllocationInvariant maintainAllocationInvariant = new maintainAllocationInvariant();
+		maintainAllocationInvariant.maintainAllocationInvariantProcedure(myAgent, data);
 
 		if (data.getThreshold() == data.getUpperBound()) {
 			boolean isRoot = (data.getParent() == null);
