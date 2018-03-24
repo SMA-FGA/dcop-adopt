@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import invariants.maintainChildThresholdInvariant;
-import invariants.maintainThresholdInvariantBehaviour;
+import invariants.maintainThresholdInvariant;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -86,7 +86,8 @@ public class handleCostMessageBehaviour extends OneShotBehaviour implements Mess
 				maintainChildThresholdInvariant maintainChildThresholdInvariant = new maintainChildThresholdInvariant();
 				maintainChildThresholdInvariant.maintainChildThresholdInvariantProcedure(myAgent, data);
 				
-				myAgent.addBehaviour(new maintainThresholdInvariantBehaviour(myAgent, data));
+				maintainThresholdInvariant maintainThresholdInvariant = new maintainThresholdInvariant();
+				maintainThresholdInvariant.maintainThresholdInvariantProcedure(myAgent, data);
 			}
 
 	        backtrack backtrack = new backtrack();

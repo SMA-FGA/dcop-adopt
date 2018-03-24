@@ -3,7 +3,7 @@ package node;
 import java.util.HashMap;
 import java.util.Map;
 
-import invariants.maintainThresholdInvariantBehaviour;
+import invariants.maintainThresholdInvariant;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
@@ -58,7 +58,8 @@ public class handleValueMessageBehaviour extends OneShotBehaviour implements Mes
 					}
 				}
 
-				myAgent.addBehaviour(new maintainThresholdInvariantBehaviour(myAgent, data));
+				maintainThresholdInvariant maintainThresholdInvariant = new maintainThresholdInvariant();
+				maintainThresholdInvariant.maintainThresholdInvariantProcedure(myAgent, data);
 				
 		        backtrack backtrack = new backtrack();
 		        backtrack.backtrackProcedure(myAgent, data);

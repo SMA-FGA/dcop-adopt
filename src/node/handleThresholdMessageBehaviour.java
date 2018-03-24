@@ -1,6 +1,6 @@
 package node;
 
-import invariants.maintainThresholdInvariantBehaviour;
+import invariants.maintainThresholdInvariant;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
@@ -35,7 +35,9 @@ public class handleThresholdMessageBehaviour extends OneShotBehaviour implements
 
 			if (data.isContextCompatible(thresholdMessage.getContext())) {
 				data.setThreshold(thresholdMessage.getThreshold());
-				myAgent.addBehaviour(new maintainThresholdInvariantBehaviour(myAgent, data));
+				
+				maintainThresholdInvariant maintainThresholdInvariant = new maintainThresholdInvariant();
+				maintainThresholdInvariant.maintainThresholdInvariantProcedure(myAgent, data);
 				
 		        backtrack backtrack = new backtrack();
 		        backtrack.backtrackProcedure(myAgent, data);

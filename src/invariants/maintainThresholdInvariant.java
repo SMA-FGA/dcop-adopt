@@ -4,18 +4,9 @@ import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
 import models.NodeAgentData;
 
-public class maintainThresholdInvariantBehaviour extends OneShotBehaviour{
-	
-	private static final long serialVersionUID = -2399456552459121757L;
-	private NodeAgentData data;
+public class maintainThresholdInvariant{
 
-	public maintainThresholdInvariantBehaviour(Agent a, NodeAgentData data) {
-		super(a);
-		this.data = data;
-	}
-	
-	@Override
-	public void action() {
+	public void maintainThresholdInvariantProcedure(Agent myAgent, NodeAgentData data) {
 		int lowerBound = data.getLowerBound();
 		int upperBound = data.getUpperBound();
 		int threshold = data.getThreshold();
