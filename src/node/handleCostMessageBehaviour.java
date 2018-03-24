@@ -3,14 +3,12 @@ package node;
 import java.util.HashMap;
 import java.util.Map;
 
-import invariants.maintainChildThresholdInvariantBehaviour;
+import invariants.maintainChildThresholdInvariant;
 import invariants.maintainThresholdInvariantBehaviour;
 import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
-import messages.AdoptMessage;
 import messages.CostMessage;
 import messages.MessageTypes;
 import models.NodeAgentData;
@@ -85,7 +83,9 @@ public class handleCostMessageBehaviour extends OneShotBehaviour implements Mess
 				data.setChildUpperBound(value,  sender, costMessage.getUpperBound());
 				data.setChildContext(value,  sender, costMessage.getContext());
 
-				myAgent.addBehaviour(new maintainChildThresholdInvariantBehaviour(myAgent, data));
+				maintainChildThresholdInvariant maintainChildThresholdInvariant = new maintainChildThresholdInvariant();
+				maintainChildThresholdInvariant.maintainChildThresholdInvariantProcedure(myAgent, data);
+				
 				myAgent.addBehaviour(new maintainThresholdInvariantBehaviour(myAgent, data));
 			}
 

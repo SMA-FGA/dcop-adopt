@@ -7,18 +7,9 @@ import models.NodeAgentData;
 import java.util.List;
 import java.util.Map;
 
-public class maintainChildThresholdInvariantBehaviour extends OneShotBehaviour{
+public class maintainChildThresholdInvariant{
 
-	private static final long serialVersionUID = -1491184944608291784L;
-	 NodeAgentData data;
-	 
-	public maintainChildThresholdInvariantBehaviour(Agent a, NodeAgentData data) {
-		super(a);
-		this.data = data;
-	}
-	
-	@Override
-	public void action() {
+	public void maintainChildThresholdInvariantProcedure(Agent myAgent, NodeAgentData data) {
 		System.out.println("[INV MCTI   ] "+myAgent.getLocalName()+" starting maintain child threshold invariant");
 
 		for (Map.Entry<String, List<Integer>> child : data.getChildrenThresholds().entrySet()) {
