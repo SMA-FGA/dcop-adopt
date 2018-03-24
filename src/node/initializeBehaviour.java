@@ -54,7 +54,8 @@ public class initializeBehaviour extends WakerBehaviour {
 		// Adding behaviours to receive adopt messages
         myAgent.addBehaviour(new receiveMessageBehaviour(myAgent, data));
 
-		myAgent.addBehaviour(new backTrackBehaviour(myAgent, data));
+        backtrack backtrack = new backtrack();
+        backtrack.backtrackProcedure(myAgent, data);
 	}
 
     private Map<String, List<Integer>> initializeChildrenValues(int valueType) {

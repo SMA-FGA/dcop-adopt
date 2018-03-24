@@ -89,7 +89,8 @@ public class handleCostMessageBehaviour extends OneShotBehaviour implements Mess
 				myAgent.addBehaviour(new maintainThresholdInvariantBehaviour(myAgent, data));
 			}
 
-			myAgent.addBehaviour(new backTrackBehaviour(myAgent, data));
+	        backtrack backtrack = new backtrack();
+	        backtrack.backtrackProcedure(myAgent, data);
 
 		} catch (UnreadableException ex) {
 			ex.printStackTrace();

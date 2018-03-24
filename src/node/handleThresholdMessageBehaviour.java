@@ -36,7 +36,9 @@ public class handleThresholdMessageBehaviour extends OneShotBehaviour implements
 			if (data.isContextCompatible(thresholdMessage.getContext())) {
 				data.setThreshold(thresholdMessage.getThreshold());
 				myAgent.addBehaviour(new maintainThresholdInvariantBehaviour(myAgent, data));
-				myAgent.addBehaviour(new backTrackBehaviour(myAgent, data));
+				
+		        backtrack backtrack = new backtrack();
+		        backtrack.backtrackProcedure(myAgent, data);
 			}
 		} catch (UnreadableException ex) {
 			ex.printStackTrace();

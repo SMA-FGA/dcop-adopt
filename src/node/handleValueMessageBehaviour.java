@@ -59,7 +59,9 @@ public class handleValueMessageBehaviour extends OneShotBehaviour implements Mes
 				}
 
 				myAgent.addBehaviour(new maintainThresholdInvariantBehaviour(myAgent, data));
-				myAgent.addBehaviour(new backTrackBehaviour(myAgent, data));
+				
+		        backtrack backtrack = new backtrack();
+		        backtrack.backtrackProcedure(myAgent, data);
 			} else {
 				//do nothing
 			}

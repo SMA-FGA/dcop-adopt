@@ -33,7 +33,9 @@ public class handleTerminateMessageBehaviour extends OneShotBehaviour implements
 
 			data.setReceivedTerminate(true);
 			data.setCurrentContext(terminate.getContext());
-			myAgent.addBehaviour(new backTrackBehaviour(myAgent, data));
+			
+	        backtrack backtrack = new backtrack();
+	        backtrack.backtrackProcedure(myAgent, data);
 		} catch (UnreadableException e) {
 			e.printStackTrace();
 		}
