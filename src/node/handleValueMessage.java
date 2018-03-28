@@ -14,20 +14,9 @@ import messages.MessageTypes;
 import messages.ValueMessage;
 import models.NodeAgentData;
 
-public class handleValueMessageBehaviour extends OneShotBehaviour implements MessageTypes{
+public class handleValueMessage {
 	
-	private static final long serialVersionUID = -6895391790742950856L;
-	private NodeAgentData data;
-	private ACLMessage message;
-	
-	public handleValueMessageBehaviour(Agent a, NodeAgentData data, ACLMessage message) {
-        super(a);
-        this.data = data;
-        this.message = message;
-    }
-
-	@Override
-	public void action() {
+	public void handleValueMessageProcedure(Agent myAgent, NodeAgentData data, ACLMessage message) {
 
 		try {
 			ValueMessage valueMessage = (ValueMessage) message.getContentObject();

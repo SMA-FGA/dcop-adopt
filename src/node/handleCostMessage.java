@@ -14,20 +14,9 @@ import messages.MessageTypes;
 import models.NodeAgentData;
 
 
-public class handleCostMessageBehaviour extends OneShotBehaviour implements MessageTypes{
-	
-	private static final long serialVersionUID = -6895391790742950856L;
-	private NodeAgentData data;
-	private ACLMessage message;
-	
-	public handleCostMessageBehaviour(Agent a, NodeAgentData data, ACLMessage message) {
-        super(a);
-        this.data = data;
-        this.message = message;
-    }
+public class handleCostMessage{
 
-	@Override
-	public void action() {
+	public void handleCostMessageProcedure(Agent myAgent, NodeAgentData data, ACLMessage message) {
 
 		try {
 			CostMessage costMessage = (CostMessage) message.getContentObject();

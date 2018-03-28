@@ -10,20 +10,9 @@ import messages.MessageTypes;
 import messages.TerminateMessage;
 import models.NodeAgentData;
 
-public class handleTerminateMessageBehaviour extends OneShotBehaviour implements MessageTypes{
-	
-	private static final long serialVersionUID = -6895391790742950856L;
-	private NodeAgentData data;
-	private ACLMessage message;
-	
-	public handleTerminateMessageBehaviour(Agent a, NodeAgentData data, ACLMessage message) {
-        super(a);
-        this.data = data;
-        this.message = message;
-    }
+public class handleTerminateMessage {
 
-	@Override
-	public void action() {
+	public void handleTerminateMessageProcedure(Agent myAgent, NodeAgentData data, ACLMessage message) {
 		try {
 			TerminateMessage terminate = (TerminateMessage) message.getContentObject();
 

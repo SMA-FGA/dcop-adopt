@@ -9,7 +9,9 @@ import messages.MessageTypes;
 import models.NodeAgentData;
 
 public class receiveMessageBehaviour extends CyclicBehaviour implements MessageTypes {
-    private NodeAgentData data;
+
+	private static final long serialVersionUID = 7797604769937095938L;
+	private NodeAgentData data;
 
     public receiveMessageBehaviour(Agent a, NodeAgentData data) {
         super(a);
@@ -31,16 +33,20 @@ public class receiveMessageBehaviour extends CyclicBehaviour implements MessageT
 
             switch (adoptMessage.getMessageType()) {
                 case VALUE_MESSAGE:
-                    myAgent.addBehaviour(new handleValueMessageBehaviour(myAgent, data, message));
+                	handleValueMessage handleValueMessage = new handleValueMessage();
+                	handleValueMessage.handleValueMessageProcedure(myAgent, data, message);
                     break;
                 case COST_MESSAGE:
-                    myAgent.addBehaviour(new handleCostMessageBehaviour(myAgent, data, message));
+                	handleCostMessage handleCostMessage = new handleCostMessage();
+                	handleCostMessage.handleCostMessageProcedure(myAgent, data, message);
                     break;
                 case THRESHOLD_MESSAGE:
-                    myAgent.addBehaviour(new handleThresholdMessageBehaviour(myAgent, data, message));
+                	handleThresholdMessage handleThresholdMessage = new handleThresholdMessage();
+                	handleThresholdMessage.handleThresholdMessageProcedure(myAgent, data, message);
                     break;
                 case TERMINATE_MESSAGE:
-                    myAgent.addBehaviour(new handleTerminateMessageBehaviour(myAgent, data, message));
+                	handleTerminateMessage handleTerminateMessage = new handleTerminateMessage();
+                	handleTerminateMessage.handleTerminateMessageProcedure(myAgent, data, message);
                     break;
             }
         } else {
