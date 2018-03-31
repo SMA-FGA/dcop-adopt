@@ -7,13 +7,12 @@ import java.util.logging.Level;
 
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.OneShotBehaviour;
 import jade.util.Logger;
 import messages.ThresholdMessage;
 import models.NodeAgentData;
 import node.sendMessageBehaviour;
 
-public class maintainAllocationInvariant{
+public class maintainAllocationInvariant implements maintainInvariant{
 	private static final Logger LOGGER = Logger.getMyLogger(maintainAllocationInvariant.class.getName());
 	
     private void incrementChildWithLowThreshold(NodeAgentData data, int currentValue) {
@@ -46,7 +45,7 @@ public class maintainAllocationInvariant{
         }
     }
 
-    public void maintainAllocationInvariantProcedure(Agent myAgent, NodeAgentData data) {
+    public void maintain(Agent myAgent, NodeAgentData data) {
     	
     	LOGGER.setLevel(Level.ALL);
         List<AID> childrenList = data.getChildren();

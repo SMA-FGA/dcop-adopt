@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import invariants.maintainAllocationInvariant;
+import invariants.maintainInvariant;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
@@ -33,8 +34,8 @@ public class backtrack{
 													  new ValueMessage(myAgent.getLocalName(),data.getCurrentValue()),
 													  data.getLowerNeighbours()));
 		// Adjust thresholds
-		maintainAllocationInvariant maintainAllocationInvariant = new maintainAllocationInvariant();
-		maintainAllocationInvariant.maintainAllocationInvariantProcedure(myAgent, data);
+		maintainInvariant maintainInvariant = new maintainAllocationInvariant();
+		maintainInvariant.maintain(myAgent, data);
 
 		if (data.getThreshold() == data.getUpperBound()) {
 			boolean isRoot = (data.getParent() == null);
@@ -47,7 +48,7 @@ public class backtrack{
 		    												  data,
 		    												  new TerminateMessage(contextUnionChoice),
 		    												  data.getChildren()));
-		    	myAgent.doDelete(); // ends execution for this agent
+	
 			}
         }
 

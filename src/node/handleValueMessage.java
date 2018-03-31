@@ -3,6 +3,7 @@ package node;
 import java.util.HashMap;
 import java.util.Map;
 
+import invariants.maintainInvariant;
 import invariants.maintainThresholdInvariant;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
@@ -43,8 +44,8 @@ public class handleValueMessage implements handleMessage{
 					}
 				}
 
-				maintainThresholdInvariant maintainThresholdInvariant = new maintainThresholdInvariant();
-				maintainThresholdInvariant.maintainThresholdInvariantProcedure(myAgent, data);
+				maintainInvariant maintainInvariant = new maintainThresholdInvariant();
+				maintainInvariant.maintain(myAgent, data);
 				
 		        backtrack backtrack = new backtrack();
 		        backtrack.backtrackProcedure(myAgent, data);

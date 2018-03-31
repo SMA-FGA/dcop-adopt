@@ -1,15 +1,14 @@
 package invariants;
 
-import jade.core.Agent;
-import jade.core.behaviours.OneShotBehaviour;
-import models.NodeAgentData;
-
 import java.util.List;
 import java.util.Map;
 
-public class maintainChildThresholdInvariant{
+import jade.core.Agent;
+import models.NodeAgentData;
 
-	public void maintainChildThresholdInvariantProcedure(Agent myAgent, NodeAgentData data) {
+public class maintainChildThresholdInvariant implements maintainInvariant{
+
+	public void maintain(Agent myAgent, NodeAgentData data) {
 		System.out.println("[INV MCTI   ] "+myAgent.getLocalName()+" starting maintain child threshold invariant");
 
 		for (Map.Entry<String, List<Integer>> child : data.getChildrenThresholds().entrySet()) {

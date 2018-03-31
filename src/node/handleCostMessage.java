@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import invariants.maintainChildThresholdInvariant;
+import invariants.maintainInvariant;
 import invariants.maintainThresholdInvariant;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
@@ -70,11 +71,13 @@ public class handleCostMessage implements handleMessage{
 				data.setChildUpperBound(value,  sender, costMessage.getUpperBound());
 				data.setChildContext(value,  sender, costMessage.getContext());
 
-				maintainChildThresholdInvariant maintainChildThresholdInvariant = new maintainChildThresholdInvariant();
-				maintainChildThresholdInvariant.maintainChildThresholdInvariantProcedure(myAgent, data);
+				maintainInvariant maintainInvariant;
 				
-				maintainThresholdInvariant maintainThresholdInvariant = new maintainThresholdInvariant();
-				maintainThresholdInvariant.maintainThresholdInvariantProcedure(myAgent, data);
+				maintainInvariant = new maintainChildThresholdInvariant();
+				maintainInvariant.maintain(myAgent, data);
+				
+				maintainInvariant = new maintainThresholdInvariant();
+				maintainInvariant.maintain(myAgent, data);
 			}
 
 	        backtrack backtrack = new backtrack();

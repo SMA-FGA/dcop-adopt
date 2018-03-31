@@ -1,12 +1,11 @@
 package invariants;
 
 import jade.core.Agent;
-import jade.core.behaviours.OneShotBehaviour;
 import models.NodeAgentData;
 
-public class maintainThresholdInvariant{
+public class maintainThresholdInvariant implements maintainInvariant{
 
-	public void maintainThresholdInvariantProcedure(Agent myAgent, NodeAgentData data) {
+	public void maintain (Agent myAgent, NodeAgentData data) {
 		int lowerBound = data.getLowerBound();
 		int upperBound = data.getUpperBound();
 		int threshold = data.getThreshold();

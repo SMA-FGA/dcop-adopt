@@ -1,5 +1,6 @@
 package node;
 
+import invariants.maintainInvariant;
 import invariants.maintainThresholdInvariant;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
@@ -21,8 +22,8 @@ public class handleThresholdMessage implements handleMessage{
 			if (data.isContextCompatible(thresholdMessage.getContext())) {
 				data.setThreshold(thresholdMessage.getThreshold());
 				
-				maintainThresholdInvariant maintainThresholdInvariant = new maintainThresholdInvariant();
-				maintainThresholdInvariant.maintainThresholdInvariantProcedure(myAgent, data);
+				maintainInvariant maintainInvariant = new maintainThresholdInvariant();
+				maintainInvariant.maintain(myAgent, data);
 				
 		        backtrack backtrack = new backtrack();
 		        backtrack.backtrackProcedure(myAgent, data);
