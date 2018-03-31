@@ -5,18 +5,14 @@ import java.util.Map;
 
 import invariants.maintainThresholdInvariant;
 import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
-import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
-import messages.AdoptMessage;
-import messages.MessageTypes;
 import messages.ValueMessage;
 import models.NodeAgentData;
 
-public class handleValueMessage {
+public class handleValueMessage implements handleMessage{
 	
-	public void handleValueMessageProcedure(Agent myAgent, NodeAgentData data, ACLMessage message) {
+	public void handle (Agent myAgent, NodeAgentData data, ACLMessage message) {
 
 		try {
 			ValueMessage valueMessage = (ValueMessage) message.getContentObject();

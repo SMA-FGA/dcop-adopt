@@ -1,18 +1,14 @@
 package node;
 
 import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
-import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
-import messages.AdoptMessage;
-import messages.MessageTypes;
 import messages.TerminateMessage;
 import models.NodeAgentData;
 
-public class handleTerminateMessage {
+public class handleTerminateMessage implements handleMessage{
 
-	public void handleTerminateMessageProcedure(Agent myAgent, NodeAgentData data, ACLMessage message) {
+	public void handle(Agent myAgent, NodeAgentData data, ACLMessage message) {
 		try {
 			TerminateMessage terminate = (TerminateMessage) message.getContentObject();
 

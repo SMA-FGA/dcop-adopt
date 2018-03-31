@@ -30,23 +30,24 @@ public class receiveMessageBehaviour extends CyclicBehaviour implements MessageT
             } catch (UnreadableException ex) {
                 ex.printStackTrace();
             }
-
+            
+            handleMessage handleMessage;
             switch (adoptMessage.getMessageType()) {
                 case VALUE_MESSAGE:
-                	handleValueMessage handleValueMessage = new handleValueMessage();
-                	handleValueMessage.handleValueMessageProcedure(myAgent, data, message);
+                	handleMessage = new handleValueMessage();
+                	handleMessage.handle(myAgent, data, message);
                     break;
                 case COST_MESSAGE:
-                	handleCostMessage handleCostMessage = new handleCostMessage();
-                	handleCostMessage.handleCostMessageProcedure(myAgent, data, message);
+                	handleMessage = new handleCostMessage();
+                	handleMessage.handle(myAgent, data, message);
                     break;
                 case THRESHOLD_MESSAGE:
-                	handleThresholdMessage handleThresholdMessage = new handleThresholdMessage();
-                	handleThresholdMessage.handleThresholdMessageProcedure(myAgent, data, message);
+                	handleMessage = new handleThresholdMessage();
+                	handleMessage.handle(myAgent, data, message);
                     break;
                 case TERMINATE_MESSAGE:
-                	handleTerminateMessage handleTerminateMessage = new handleTerminateMessage();
-                	handleTerminateMessage.handleTerminateMessageProcedure(myAgent, data, message);
+                	handleMessage = new handleTerminateMessage();
+                	handleMessage.handle(myAgent, data, message);
                     break;
             }
         } else {

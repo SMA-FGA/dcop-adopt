@@ -2,18 +2,14 @@ package node;
 
 import invariants.maintainThresholdInvariant;
 import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
-import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
-import messages.AdoptMessage;
-import messages.MessageTypes;
 import messages.ThresholdMessage;
 import models.NodeAgentData;
 
-public class handleThresholdMessage{
+public class handleThresholdMessage implements handleMessage{
 	
-	public void handleThresholdMessageProcedure(Agent myAgent, NodeAgentData data, ACLMessage message) {
+	public void handle(Agent myAgent, NodeAgentData data, ACLMessage message) {
 
 		try {
 			ThresholdMessage thresholdMessage = (ThresholdMessage) message.getContentObject();

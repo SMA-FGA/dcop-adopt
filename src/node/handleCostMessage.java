@@ -6,17 +6,15 @@ import java.util.Map;
 import invariants.maintainChildThresholdInvariant;
 import invariants.maintainThresholdInvariant;
 import jade.core.Agent;
-import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import messages.CostMessage;
-import messages.MessageTypes;
 import models.NodeAgentData;
 
 
-public class handleCostMessage{
+public class handleCostMessage implements handleMessage{
 
-	public void handleCostMessageProcedure(Agent myAgent, NodeAgentData data, ACLMessage message) {
+	public void handle (Agent myAgent, NodeAgentData data, ACLMessage message) {
 
 		try {
 			CostMessage costMessage = (CostMessage) message.getContentObject();
