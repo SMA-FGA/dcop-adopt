@@ -25,68 +25,67 @@ public class initializeBehaviour extends WakerBehaviour {
 
 	@Override
 	public void onWake() {
-		System.out.println("[INITIALIZE ]" +myAgent.getLocalName()+" starting initialize procedure");
-		data.setLowerBound(0);
-        data.setUpperBound(Integer.MAX_VALUE);
+		System.out.println("[INITIALIZE ]" + myAgent.getLocalName()+" starting initialize procedure");
         data.setThreshold(0);
-        data.setCurrentContext(new HashMap<>());		
+        data.setCurrentContext(new HashMap<String, Integer>());		
         
         data.setChildrenLowerBounds(initializeChildrenValues(LOWER_BOUND));
         data.setChildrenUpperBounds(initializeChildrenValues(UPPER_BOUND));
         data.setChildrenThresholds(initializeChildrenValues(THRESHOLD));
         
         // Initialize children contexts
-        List<List<Map<String, Integer>>> childrenContexts = new ArrayList<>();
-        for (int i = 0; i < data.getDomain().size(); i++) {
+        Map<String, List<Map<String, Integer>>> childrenContexts = new HashMap<>();
+        for(int i = 0; i < data.getChildren().size(); i++) {
+        	String child = data.getChildren().get(i).getLocalName();
         	List<Map<String, Integer>> childrenContextsForDomain = new ArrayList<>();
             
-            for(int j = 0; j < data.getChildren().size(); j++) {
+        	for (int j = 0; j < data.getDomain().size(); j++) {
             	childrenContextsForDomain.add(new HashMap<String, Integer>());
-            	System.out.println("[CONTEXT    ] context(" + i + "," + j + ") = " + childrenContextsForDomain.get(j));
+            	System.out.println("[CONTEXT    ] context(" + child + "," + j + ") = " + childrenContextsForDomain.get(j));
             }
             
-            childrenContexts.add(childrenContextsForDomain);
+            childrenContexts.put(child, childrenContextsForDomain);
         }
         data.setChildrenContexts(childrenContexts);
 
-		data.setCurrentValue(data.getDomain().get(0)); // to do: di <- d that minimizes LB(d)
+        //di <- d that minimizes LB(d)
+		data.setCurrentValue(data.minimizeCurrentValueForLowerBound());
 		
 		// Adding behaviours to receive adopt messages
-		myAgent.addBehaviour(new receiveValueMessageBehaviour(myAgent, data));
-		myAgent.addBehaviour(new receiveCostMessageBehaviour(myAgent, data));
-		myAgent.addBehaviour(new receiveThresholdMessageBehaviour(myAgent));
-		myAgent.addBehaviour(new receiveTerminateMessageBehaviour(myAgent, data));
-		
-		myAgent.addBehaviour(new backTrackBehaviour(myAgent, data));
+        myAgent.addBehaviour(new receiveMessageBehaviour(myAgent, data));
+
+        backtrack backtrack = new backtrack();
+        backtrack.backtrackProcedure(myAgent, data);
 	}
 
-    private List<List<Integer>> initializeChildrenValues(int valueType) {
-        List<List<Integer>> values = new ArrayList<>();
+    private Map<String, List<Integer>> initializeChildrenValues(int valueType) {
+        Map<String, List<Integer>> values = new HashMap<>();
 
-        for (int i = 0; i < data.getDomain().size(); i++) {
-            List<Integer> valuesForDomain = new ArrayList<>();
+        for (int i = 0; i < data.getChildren().size(); i++) {
+            String child = data.getChildren().get(i).getLocalName();
+            List<Integer> valuesForChild = new ArrayList<>();
 
-            for (int j = 0; j < data.getChildren().size(); j++) {
+            for (int j = 0; j < data.getDomain().size(); j++) {
                 switch (valueType) {
                     case LOWER_BOUND: {
-                        valuesForDomain.add(0);
-                        System.out.println("[LOWER BOUND] lb(" + i + "," + j + ") = " + valuesForDomain.get(j));
+                        valuesForChild.add(0);
+                        System.out.println("[LOWER BOUND] lb(" + child + "," + j + ") = " + valuesForChild.get(j));
                         break;
                     }
                     case UPPER_BOUND: {
-                        valuesForDomain.add(Integer.MAX_VALUE);
-                        System.out.println("[UPPER BOUND] ub(" + i + "," + j + ") = " + valuesForDomain.get(j));
+                        valuesForChild.add(Integer.MAX_VALUE);
+                        System.out.println("[UPPER BOUND] ub(" + child + "," + j + ") = " + valuesForChild.get(j));
                         break;
                     }
                     case THRESHOLD: {
-                        valuesForDomain.add(0);
-                        System.out.println("[THRESHOLD  ] t(" + i + "," + j + ") = " + valuesForDomain.get(j));
+                        valuesForChild.add(0);
+                        System.out.println("[THRESHOLD  ] t(" + child + "," + j + ") = " + valuesForChild.get(j));
                         break;
                     }
                 }
             }
 
-            values.add(valuesForDomain);
+            values.put(child, valuesForChild);
         }
 
         return values;

@@ -7,24 +7,42 @@ import jade.util.leap.Serializable;
 public class CostMessage extends AdoptMessage implements Serializable{
 	
 	private static final long serialVersionUID = 2130899758727979611L;
-	Integer upperBound;
+	Map<String, Integer> context;
 	Integer lowerBound;
-	Map<String, Integer> currentContext;
+	Integer upperBound;
+	String sender;
 
-	public CostMessage(Integer upperBound, Integer lowerBound, Map<String, Integer> currentContext) {
+	public CostMessage(Map<String, Integer> context, String sender, Integer lowerBound, Integer upperBound) {
 		super();
 		this.upperBound = upperBound;
 		this.lowerBound = lowerBound;
-		this.currentContext = currentContext;
+		this.context = context;
+		this.sender = sender;
 	}
 	
 	@Override
 	public String toString() {
-		return "ub: "+this.upperBound+" lb: "+this.lowerBound+" context: "+this.currentContext;
+		return "context: " + this.context + " xk: " + this.sender + " lb: " + this.lowerBound + " ub: "+this.upperBound;
 	}
 
 	@Override
 	public Integer getMessageType() {
-		return super.COST_MESSAGE;
+		return COST_MESSAGE;
+	}
+	
+	public Map<String, Integer> getContext() {
+		return this.context;
+	}
+	
+	public String getSender() {
+		return this.sender;
+	}
+
+	public Integer getLowerBound() {
+		return this.lowerBound;
+	}
+
+	public Integer getUpperBound() {
+		return this.upperBound;
 	}
 }

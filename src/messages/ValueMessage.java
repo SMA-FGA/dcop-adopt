@@ -6,19 +6,29 @@ public class ValueMessage extends AdoptMessage implements Serializable{
 	
 	private static final long serialVersionUID = 2130899758727979611L;
 	Integer value;
+	String sender;
 
-	public ValueMessage(Integer value) {
+	public ValueMessage(String sender, Integer value) {
 		super();
 		this.value = value;
+		this.sender = sender;
 	}
 	
 	@Override
 	public String toString() {
-		return this.value.toString();
+		return "xi: " + this.sender + " value: " + this.value;
 	}
 
 	@Override
 	public Integer getMessageType() {
-		return super.VALUE_MESSAGE;
+		return VALUE_MESSAGE;
+	}
+
+	public Integer getValue() {
+		return this.value;
+	}
+
+	public String getSender() {
+		return this.sender;
 	}
 }
