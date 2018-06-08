@@ -8,7 +8,6 @@ import invariants.maintainAllocationInvariant;
 import invariants.maintainInvariant;
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.OneShotBehaviour;
 import messages.CostMessage;
 import messages.TerminateMessage;
 import messages.ValueMessage;
@@ -49,6 +48,10 @@ public class backtrack{
 		    												  new TerminateMessage(contextUnionChoice),
 		    												  data.getChildren()));
 	
+		    	//ends agent receive messages
+		    	System.out.println(myAgent.getLocalName()+" does not receive message");
+		    	System.out.println("My choose: "+data.getCurrentValue()+" children contexts: "+data.getChildrenContexts());
+		    	data.setWasKilled(true);
 			}
         }
 

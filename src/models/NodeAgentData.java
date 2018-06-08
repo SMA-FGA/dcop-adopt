@@ -7,6 +7,7 @@ import jade.core.AID;
 public class NodeAgentData {
     private int threshold;
     private boolean receivedTerminate;
+    private boolean wasKilled = false;
     private Map<String, Integer> currentContext;
     private List<Integer> domain;
     private int currentValue;
@@ -29,14 +30,22 @@ public class NodeAgentData {
     public void setReceivedTerminate(boolean receivedTerminate) {
         this.receivedTerminate = receivedTerminate;
     }
+    
+    public boolean wasKilled() {
+    	return this.wasKilled;
+    }
+    
+    public void setWasKilled(boolean wasKilled) {
+    	this.wasKilled = wasKilled;
+    }
 
     public int getLocalCostForVariable(int variable) {
         int localCost = 0;
 
-        for (Map.Entry<String, Integer> pair : currentContext.entrySet()) {
-            List<List<Integer>> l = getConstraints().get(pair.getKey());
-            localCost += l.get(variable).get(pair.getValue());
-        }
+//        for (Map.Entry<String, Integer> pair : currentContext.entrySet()) {
+//            List<List<Integer>> l = getConstraints().get(pair.getKey());
+//            localCost += l.get(variable).get(pair.getValue());
+//        }
 
         return localCost;
     }

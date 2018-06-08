@@ -22,7 +22,7 @@ public class receiveMessageBehaviour extends CyclicBehaviour implements MessageT
     public void action() {
         ACLMessage message = myAgent.receive();
 
-        if (message != null) {
+        if (message != null && !data.wasKilled()) {
             AdoptMessage adoptMessage = null;
 
             try {
