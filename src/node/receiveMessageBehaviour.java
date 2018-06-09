@@ -23,33 +23,33 @@ public class receiveMessageBehaviour extends CyclicBehaviour implements MessageT
         ACLMessage message = myAgent.receive();
 
         if (message != null && !data.wasKilled()) {
-            AdoptMessage adoptMessage = null;
-
             try {
-                adoptMessage = (AdoptMessage) message.getContentObject();
+            	AdoptMessage adoptMessage = (AdoptMessage) message.getContentObject();
+                
+                handleMessage handleMessage;
+                switch (adoptMessage.getMessageType()) {
+                    case VALUE_MESSAGE:
+                    	handleMessage = new handleValueMessage();
+                    	handleMessage.handle(myAgent, data, message);
+                        break;
+                    case COST_MESSAGE:
+                    	handleMessage = new handleCostMessage();
+                    	handleMessage.handle(myAgent, data, message);
+                        break;
+                    case THRESHOLD_MESSAGE:
+                    	handleMessage = new handleThresholdMessage();
+                    	handleMessage.handle(myAgent, data, message);
+                        break;
+                    case TERMINATE_MESSAGE:
+                    	handleMessage = new handleTerminateMessage();
+                    	handleMessage.handle(myAgent, data, message);
+                        break;
+                }
             } catch (UnreadableException ex) {
                 ex.printStackTrace();
             }
             
-            handleMessage handleMessage;
-            switch (adoptMessage.getMessageType()) {
-                case VALUE_MESSAGE:
-                	handleMessage = new handleValueMessage();
-                	handleMessage.handle(myAgent, data, message);
-                    break;
-                case COST_MESSAGE:
-                	handleMessage = new handleCostMessage();
-                	handleMessage.handle(myAgent, data, message);
-                    break;
-                case THRESHOLD_MESSAGE:
-                	handleMessage = new handleThresholdMessage();
-                	handleMessage.handle(myAgent, data, message);
-                    break;
-                case TERMINATE_MESSAGE:
-                	handleMessage = new handleTerminateMessage();
-                	handleMessage.handle(myAgent, data, message);
-                    break;
-            }
+            
         } else {
             block();
         }
