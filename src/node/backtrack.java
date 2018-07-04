@@ -21,9 +21,11 @@ public class backtrack{
 
 		if (data.getThreshold() == data.getUpperBound()) {
 		    int updatedCurrentValue = data.minimizeCurrentValueForUpperBound();
+		    System.out.println("minimize current value for Upper Bound"+updatedCurrentValue);
             data.setCurrentValue(updatedCurrentValue);
 		} else if (data.getLowerBoundForVariable(data.getCurrentValue()) > data.getThreshold()) {
 		    int updatedCurrentValue = data.minimizeCurrentValueForLowerBound();
+		    System.out.println("minimize current value for Lower Bound"+updatedCurrentValue);
 		    data.setCurrentValue(updatedCurrentValue);
         }
 		
@@ -50,18 +52,21 @@ public class backtrack{
 	
 		    	//ends agent receive messages
 		    	System.out.println(myAgent.getLocalName()+" does not receive message");
-		    	System.out.println("My choose: "+data.getCurrentValue()+" children contexts: "+data.getChildrenContexts());
+		    	System.out.println("My choose: "+data.getCurrentValue());
 		    	data.setWasKilled(true);
 			}
         }
 
-        CostMessage message = new CostMessage(data.getCurrentContext(), myAgent.getLocalName(), data.getLowerBound(), data.getUpperBound());
-        List<AID> receiverContainer = new ArrayList<>();
-        receiverContainer.add(data.getParent());
+		if(!data.getCurrentContext().isEmpty()) {
+			CostMessage message = new CostMessage(data.getCurrentContext(), myAgent.getLocalName(), data.getLowerBound(), data.getUpperBound());
+	        List<AID> receiverContainer = new ArrayList<>();
+	        receiverContainer.add(data.getParent());
 
-        myAgent.addBehaviour(new sendMessageBehaviour(myAgent,
-        											  data,
-        											  message,
-        											  receiverContainer));
+	        myAgent.addBehaviour(new sendMessageBehaviour(myAgent,
+	        											  data,
+	        											  message,
+	        											  receiverContainer));
+		}
+        
 	}
 }

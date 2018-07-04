@@ -49,31 +49,31 @@ public class NodeAgentData {
 //    	System.out.println("cost: "+cost);
     	
         // Simulates the constraint matrix
-    	System.out.println("MY CHICE: "+myChoice+", STORED: "+this.currentValue);
-    	System.out.println("My choice: "+myChoice+ " upper choice: "+upperNeighbourChice);
-    	if((myChoice == 0) && (upperNeighbourChice == 0)) {
-    		cost = 1;
-    	}else if((myChoice == 1) && (upperNeighbourChice == 1)){
-    		cost = 0;
+    	//System.out.println("MY CHICE: "+myChoice+", STORED: "+this.currentValue);
+    	//System.out.println("My choice: "+myChoice+ " upper choice: "+upperNeighbourChice);
+    	if((myChoice == 1) && (upperNeighbourChice == 1)) {
+    		cost = 5;
+    	}else if((myChoice == 0) && (upperNeighbourChice == 0)){
+    		cost = 16;
     	}else {
-    		cost = 2;
+    		cost = 20;
     	}
     	
     	return cost;
     }
 
     public int getLocalCostForVariable(int myChoice) {
-    	System.out.println("MY CHICE: "+myChoice+", STORED: "+this.currentValue);
+    	//System.out.println("MY CHICE: "+myChoice+", STORED: "+this.currentValue);
         int localCost = 0;
         
         if(!this.currentContext.isEmpty()) {
-        	System.out.println("My context: "+this.currentContext);
+        	//System.out.println("My context: "+this.currentContext);
         	for (Map.Entry<String, Integer> upperNeighBourInCurrentContext: this.currentContext.entrySet()) {
             	localCost += getConstraintCost(myChoice, upperNeighBourInCurrentContext.getKey(), upperNeighBourInCurrentContext.getValue());
             }
         }
         
-        System.out.println("[LOCAL COST] local cost: "+localCost);
+        //System.out.println("[LOCAL COST] local cost: "+localCost);
         return localCost;
     }
 
@@ -145,7 +145,7 @@ public class NodeAgentData {
     // TODO ends here.
 
     public boolean isContextCompatible(Map<String, Integer> receivedContext) {
-        for (Map.Entry<String, Integer> entry : currentContext.entrySet()) {
+        for (Map.Entry<String, Integer> entry : this.currentContext.entrySet()) {
             boolean hasKey = receivedContext.containsKey(entry.getKey());
             if (hasKey && entry.getValue() != receivedContext.get(entry.getKey())) {
                 return false;
