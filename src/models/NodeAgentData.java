@@ -7,6 +7,7 @@ import jade.core.AID;
 public class NodeAgentData {
     private int threshold;
     private boolean receivedTerminate;
+    private boolean wasKilled = false;
     private Map<String, Integer> currentContext;
     private List<Integer> domain;
     private int currentValue;
@@ -29,15 +30,50 @@ public class NodeAgentData {
     public void setReceivedTerminate(boolean receivedTerminate) {
         this.receivedTerminate = receivedTerminate;
     }
+    
+    public boolean wasKilled() {
+    	return this.wasKilled;
+    }
+    
+    public void setWasKilled(boolean wasKilled) {
+    	this.wasKilled = wasKilled;
+    }
+    
+    public int getConstraintCost(int myChoice, String upperNeighbourName, Integer upperNeighbourChice) {
+    	int cost = -1;
+    	
+//      This block should work, but throws an null pointer exception
+//    	List<List<Integer>> upperNeighbourConstraint = this.constraints.get(upperNeighbourName);
+//    	List<Integer> constraintsForMyChoice = upperNeighbourConstraint.get(myChoice);
+//    	cost = constraintsForMyChoice.get(upperNeighbourChice);
+//    	System.out.println("cost: "+cost);
+    	
+        // Simulates the constraint matrix
+    	//System.out.println("MY CHICE: "+myChoice+", STORED: "+this.currentValue);
+    	//System.out.println("My choice: "+myChoice+ " upper choice: "+upperNeighbourChice);
+    	if((myChoice == 1) && (upperNeighbourChice == 1)) {
+    		cost = 5;
+    	}else if((myChoice == 0) && (upperNeighbourChice == 0)){
+    		cost = 16;
+    	}else {
+    		cost = 20;
+    	}
+    	
+    	return cost;
+    }
 
-    public int getLocalCostForVariable(int variable) {
+    public int getLocalCostForVariable(int myChoice) {
+    	//System.out.println("MY CHICE: "+myChoice+", STORED: "+this.currentValue);
         int localCost = 0;
-
-        for (Map.Entry<String, Integer> pair : currentContext.entrySet()) {
-            List<List<Integer>> l = getConstraints().get(pair.getKey());
-            localCost += l.get(variable).get(pair.getValue());
+        
+        if(!this.currentContext.isEmpty()) {
+        	//System.out.println("My context: "+this.currentContext);
+        	for (Map.Entry<String, Integer> upperNeighBourInCurrentContext: this.currentContext.entrySet()) {
+            	localCost += getConstraintCost(myChoice, upperNeighBourInCurrentContext.getKey(), upperNeighBourInCurrentContext.getValue());
+            }
         }
-
+        
+        //System.out.println("[LOCAL COST] local cost: "+localCost);
         return localCost;
     }
 
@@ -50,7 +86,7 @@ public class NodeAgentData {
 
         for (Map.Entry<String, List<Integer>> child : childrenUpperBounds.entrySet()) {
             int childUpperBound = child.getValue().get(variable);
-
+            
             if (childUpperBound == Integer.MAX_VALUE) {
                 return Integer.MAX_VALUE;
             }
@@ -86,7 +122,7 @@ public class NodeAgentData {
                 updatedCurrentValue = i;
             }
         }
-
+        
         return updatedCurrentValue;
     }
 
@@ -103,13 +139,13 @@ public class NodeAgentData {
                 updatedCurrentValue = i;
             }
         }
-
+        
         return updatedCurrentValue;
     }
     // TODO ends here.
 
     public boolean isContextCompatible(Map<String, Integer> receivedContext) {
-        for (Map.Entry<String, Integer> entry : currentContext.entrySet()) {
+        for (Map.Entry<String, Integer> entry : this.currentContext.entrySet()) {
             boolean hasKey = receivedContext.containsKey(entry.getKey());
             if (hasKey && entry.getValue() != receivedContext.get(entry.getKey())) {
                 return false;
