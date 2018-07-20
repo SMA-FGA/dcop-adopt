@@ -8,6 +8,7 @@ import invariants.maintainAllocationInvariant;
 import invariants.maintainInvariant;
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.TickerBehaviour;
 import messages.CostMessage;
 import messages.TerminateMessage;
 import messages.ValueMessage;
@@ -30,7 +31,7 @@ public class backtrack{
         }
 		
 		// send value messages to lower neighbours
-		myAgent.addBehaviour(new sendMessageBehaviour(myAgent, 
+		myAgent.addBehaviour(new sendMessageBehaviour(myAgent,
 													  data,
 													  new ValueMessage(myAgent.getLocalName(),data.getCurrentValue()),
 													  data.getLowerNeighbours()));
@@ -38,22 +39,35 @@ public class backtrack{
 		maintainInvariant maintainInvariant = new maintainAllocationInvariant();
 		maintainInvariant.maintain(myAgent, data);
 
+		System.out.println("t: "+data.getThreshold()+"ub: "+data.getUpperBound());
+		
 		if (data.getThreshold() == data.getUpperBound()) {
 			boolean isRoot = (data.getParent() == null);
+			
+			System.out.println("terminate status: "+data.hasReceivedTerminate());
 			
 		    if (data.hasReceivedTerminate() || isRoot) {
 		    	Map<String, Integer> contextUnionChoice = data.getCurrentContext();
 		    	contextUnionChoice.put(myAgent.getLocalName(), data.getCurrentValue());
 		    	
-		    	myAgent.addBehaviour(new sendMessageBehaviour(myAgent,
-		    												  data,
-		    												  new TerminateMessage(contextUnionChoice),
-		    												  data.getChildren()));
-	
 		    	//ends agent receive messages
-		    	System.out.println(myAgent.getLocalName()+" does not receive message");
+		    	System.out.println("  >>>  "+myAgent.getLocalName()+" does not receive message");
 		    	System.out.println("My choose: "+data.getCurrentValue());
 		    	data.setWasKilled(true);
+		    	
+//		    	myAgent.addBehaviour(new TickerBehaviour(myAgent, 10000) {
+//
+//					private static final long serialVersionUID = -357521226883531746L;
+//
+//					@Override
+//					protected void onTick() {
+						myAgent.addBehaviour(new sendMessageBehaviour(myAgent,
+								  data,
+								  new TerminateMessage(contextUnionChoice),
+								  data.getChildren()));
+//					}
+//				});	    	
+		    	
 			}
         }
 

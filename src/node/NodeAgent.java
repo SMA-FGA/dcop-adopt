@@ -20,7 +20,6 @@ public class NodeAgent extends Agent {
 
         data = new NodeAgentData();
         Object[] setupArgs = getArguments();
-        data.setReceivedTerminate(false);
         data.setChildrenNames(Arrays.asList((String[])setupArgs[0]));
         data.setLowerNeighboursNames(Arrays.asList((String[])setupArgs[1]));
         data.setDomain(Arrays.asList((Integer[])setupArgs[2]));

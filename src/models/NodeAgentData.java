@@ -6,7 +6,7 @@ import jade.core.AID;
 
 public class NodeAgentData {
     private int threshold;
-    private boolean receivedTerminate;
+    private boolean receivedTerminate = false;
     private boolean wasKilled = false;
     private Map<String, Integer> currentContext;
     private List<Integer> domain;
@@ -24,7 +24,7 @@ public class NodeAgentData {
     private Map<String, List<List<Integer>>> constraints;
 
     public boolean hasReceivedTerminate() {
-        return receivedTerminate;
+        return this.receivedTerminate;
     }
 
     public void setReceivedTerminate(boolean receivedTerminate) {
@@ -52,11 +52,11 @@ public class NodeAgentData {
     	//System.out.println("MY CHICE: "+myChoice+", STORED: "+this.currentValue);
     	//System.out.println("My choice: "+myChoice+ " upper choice: "+upperNeighbourChice);
     	if((myChoice == 1) && (upperNeighbourChice == 1)) {
-    		cost = 5;
+    		cost = 15;
     	}else if((myChoice == 0) && (upperNeighbourChice == 0)){
-    		cost = 16;
-    	}else {
     		cost = 20;
+    	}else {
+    		cost = 5;
     	}
     	
     	return cost;
@@ -68,8 +68,12 @@ public class NodeAgentData {
         
         if(!this.currentContext.isEmpty()) {
         	//System.out.println("My context: "+this.currentContext);
-        	for (Map.Entry<String, Integer> upperNeighBourInCurrentContext: this.currentContext.entrySet()) {
-            	localCost += getConstraintCost(myChoice, upperNeighBourInCurrentContext.getKey(), upperNeighBourInCurrentContext.getValue());
+        	
+        	for (Map.Entry<String, Integer> agentInContext: this.currentContext.entrySet()) {
+        		
+        		if(this.upperNeighboursNames.contains(agentInContext.getKey())) {
+        			localCost += getConstraintCost(myChoice, agentInContext.getKey(), agentInContext.getValue());
+        		}
             }
         }
         
