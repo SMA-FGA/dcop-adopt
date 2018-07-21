@@ -54,7 +54,7 @@ public class NodeAgentData {
     	if((myChoice == 1) && (upperNeighbourChice == 1)) {
     		cost = 15;
     	}else if((myChoice == 0) && (upperNeighbourChice == 0)){
-    		cost = 20;
+    		cost = 15;
     	}else {
     		cost = 5;
     	}
@@ -149,16 +149,21 @@ public class NodeAgentData {
     // TODO ends here.
 
     public boolean isContextCompatible(Map<String, Integer> receivedContext) {
+    	boolean isCompatible = true;
+    			
         for (Map.Entry<String, Integer> entry : this.currentContext.entrySet()) {
-            boolean hasKey = receivedContext.containsKey(entry.getKey());
-            if (hasKey && entry.getValue() != receivedContext.get(entry.getKey())) {
-                return false;
-            } else {
-                // Do nothing. This means either the received context doesn't
-                // have the pair in its context, or that the values are equal.
+            
+            for(Map.Entry<String, Integer> received : receivedContext.entrySet()) {
+            	if(received.getKey() == entry.getKey()) {
+                	if(entry.getValue() != received.getValue()) {
+                		isCompatible = false;
+                	}
+                }
             }
         }
-        return true;
+        
+        System.out.println("Teste compatibilidade "+receivedContext+" and "+this.currentContext+": "+isCompatible);
+        return isCompatible;
     }
 
     public List<Integer> getDomain() {
