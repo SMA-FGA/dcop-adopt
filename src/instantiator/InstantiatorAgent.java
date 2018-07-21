@@ -51,6 +51,7 @@ public class InstantiatorAgent extends Agent {
         // Add arguments to create x1
         children.add("x2");
         lowerNeighbours.add("x2");
+        lowerNeighbours.add("x3");
         domain.add(0);
         domain.add(1);
         Object x1Args[] = new Object[5];
@@ -68,6 +69,8 @@ public class InstantiatorAgent extends Agent {
         upperNeighbours.add("x1");
         children.add("x3");
         lowerNeighbours.add("x3");
+        children.add("x4");
+        lowerNeighbours.add("x4");
         domain.add(0);
         domain.add(1);
         Object x2Args[] = new Object[5];
@@ -83,6 +86,7 @@ public class InstantiatorAgent extends Agent {
 
        // Add arguments to create x3
         upperNeighbours.add("x2");
+        upperNeighbours.add("x1");
         domain.add(0);
         domain.add(1);
         Object x3Args[] = new Object[5];
@@ -96,10 +100,26 @@ public class InstantiatorAgent extends Agent {
         upperNeighbours.clear();
         domain.clear();
 
+        // Add arguments to create x4
+        upperNeighbours.add("x2");
+        domain.add(0);
+        domain.add(1);
+        Object x4Args[] = new Object[5];
+        x4Args[0] = children.toArray(new String[]{});
+        x4Args[1] = lowerNeighbours.toArray(new String[]{});
+        x4Args[2] = domain.toArray(new Integer[]{});
+        x4Args[3] = upperNeighbours.toArray(new String[]{});
+        x4Args[4] = constraints;
+        children.clear();
+        lowerNeighbours.clear();
+        upperNeighbours.clear();
+        domain.clear();
+
         try {
             getContainerController().createNewAgent("x1", "node.NodeAgent", x1Args).start();
             getContainerController().createNewAgent("x2", "node.NodeAgent", x2Args).start();
             getContainerController().createNewAgent("x3", "node.NodeAgent", x3Args).start();
+            getContainerController().createNewAgent("x4", "node.NodeAgent", x4Args).start();
         } catch (StaleProxyException e) {
             e.printStackTrace();
         }

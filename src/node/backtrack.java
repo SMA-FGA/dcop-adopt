@@ -50,23 +50,17 @@ public class backtrack{
 		    	Map<String, Integer> contextUnionChoice = data.getCurrentContext();
 		    	contextUnionChoice.put(myAgent.getLocalName(), data.getCurrentValue());
 		    	
-		    	//ends agent receive messages
-		    	System.out.println("  >>>  "+myAgent.getLocalName()+" does not receive message");
-		    	System.out.println("My choose: "+data.getCurrentValue());
-		    	data.setWasKilled(true);
-		    	
 //		    	myAgent.addBehaviour(new TickerBehaviour(myAgent, 10000) {
-//
-//					private static final long serialVersionUID = -357521226883531746L;
-//
-//					@Override
-//					protected void onTick() {
-						myAgent.addBehaviour(new sendMessageBehaviour(myAgent,
-								  data,
-								  new TerminateMessage(contextUnionChoice),
-								  data.getChildren()));
-//					}
-//				});	    	
+		    	
+				myAgent.addBehaviour(new sendMessageBehaviour(myAgent,
+																data,
+																new TerminateMessage(contextUnionChoice),
+																data.getChildren()));
+
+				//ends agent receive messages
+				System.out.println("  >>>  "+myAgent.getLocalName()+" does not receive message");
+				System.out.println("My choose: "+data.getCurrentValue());
+				data.setWasKilled(true);
 		    	
 			}
         }
