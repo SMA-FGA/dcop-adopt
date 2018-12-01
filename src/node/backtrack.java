@@ -8,11 +8,11 @@ import invariants.maintainAllocationInvariant;
 import invariants.maintainInvariant;
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.TickerBehaviour;
 import messages.CostMessage;
 import messages.TerminateMessage;
 import messages.ValueMessage;
 import models.NodeAgentData;
+import solution.DCOPSolutionAgent;
 
 public class backtrack{
 	
@@ -58,10 +58,10 @@ public class backtrack{
 																data.getChildren()));
 
 				//ends agent receive messages
-				System.out.println("  >>>  "+myAgent.getLocalName()+" does not receive message");
-				System.out.println("My choose: "+data.getCurrentValue());
-				data.setWasKilled(true);
-		    	
+				System.out.println(myAgent.getLocalName()+" does not receive message");
+				DCOPSolutionAgent dcopSolution = DCOPSolutionAgent.getInstance();
+				dcopSolution.addAgentSolution(myAgent.getLocalName(), data.getCurrentValue());	
+				data.setWasKilled(true);    	
 			}
         }
 
