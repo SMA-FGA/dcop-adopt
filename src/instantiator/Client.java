@@ -15,17 +15,24 @@ public class Client {
 		
 		for(Node v : n.getAdjacence()) {
 			if(v.getParent() == null && !v.isRoot()) {
+				System.out.println(n.getName()+" set "+v.getName()+"as child");
+				System.out.println(n.getName()+" set "+v.getName()+"as lower neigh");
+				System.out.println(v.getName()+" set "+n.getName()+"as upper neigh");
 				v.setParent(n);
 			}
 
 			if(v.wasVisited() && n.getParent() != v) {
 				if(v.getPre() < n.getPre()) {
+					System.out.println(v.getName()+"set "+n.getName()+" as lower neigh");
+					System.out.println(n.getName()+"set "+v.getName()+" as upper neigh");
 					System.out.println("pseudo aresta: "+n.getName()+ "-" + v.getName());
 				}
 			}
 			
 			dfs(v, pre);
 		}
+		
+		System.out.println("create "+n.getName());
 	}
 
 	public static void main(String[] args) {
@@ -47,13 +54,11 @@ public class Client {
         Edge b = new Edge(x2, x3, "nothing");
         Edge c = new Edge(x3, x1, "nothing");
         Edge d = new Edge(x2, x4, "nothing");
-        Edge e = new Edge(x3, x4, "nothing");
         List<Edge> edges = new ArrayList<Edge>();
         edges.add(a);
         edges.add(d);
         edges.add(b);
         edges.add(c);
-        edges.add(e);
         
         Graph graph = new Graph(nodes, edges);
         
