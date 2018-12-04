@@ -5,7 +5,6 @@ import jade.wrapper.StaleProxyException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 /*
  * Creates the agents that will be used in the DCOP.
@@ -15,6 +14,43 @@ import java.util.Vector;
 public class InstantiatorAgent extends Agent {
 
 	private static final long serialVersionUID = -7764996125444199018L;
+	
+	
+	public void dfs(Node n, int pre) {
+		if(n.wasVisited()) {
+			return;
+		}
+		
+		pre++;
+		n.setPre(pre);
+		n.setVisited(true);
+		
+		for(Node v : n.getAdjacence()) {
+			if(v.getParent() == null && !v.isRoot()) {
+				n.addChild(v);
+				n.addLowerNeighbour(v);
+				v.addUpperNeighbour(n);
+				v.setParent(n);
+			}
+
+			if(v.wasVisited() && n.getParent() != v) {
+				if(v.getPre() < n.getPre()) {
+					v.addLowerNeighbour(n);
+					n.addUpperNeighbour(v);
+					System.out.println("pseudo aresta: "+n.getName()+ "-" + v.getName());
+				}
+			}
+			
+			dfs(v, pre);
+		}
+		
+		//create agent
+		try {
+            getContainerController().createNewAgent(n.getName(), "node.NodeAgent", n.getArgs()).start();
+        } catch (StaleProxyException e) {
+            e.printStackTrace();
+        }
+	}
 
 	/*
      * Each created agent contains a list with the names of its children.
@@ -27,102 +63,52 @@ public class InstantiatorAgent extends Agent {
          * ArrayList as an argument in the agent's creation. So we convert it
          * to a regular array, then convert it back once inside the DcopAgent.
          */
-        List<String> children = new ArrayList<>();
-        List<String> lowerNeighbours = new ArrayList<>();
-        List<String> upperNeighbours = new ArrayList<>();
-        List<Integer> domain = new ArrayList<>(); // In the example, the domain's range is [0, 1]
-
-        // Constraints map is as follows:
-        // (di, dj) = f(di, dj)
-        // (0, 0) = 1
-        // (0, 1) = 2
-        // (1, 0) = 2
-        // (1, 1) = 0
-        List<List<Integer>> constraints = new Vector<>();
-        List<Integer> constraintLine1 = new Vector<>();
-        List<Integer> constraintLine2 = new Vector<>();
-        constraintLine1.add(1);
-        constraintLine1.add(2);
-        constraintLine2.add(2);
-        constraintLine2.add(0);
-        constraints.add(constraintLine1);
-        constraints.add(constraintLine2);
-
-        // Add arguments to create x1
-        children.add("x2");
-        lowerNeighbours.add("x2");
-        lowerNeighbours.add("x3");
+        
+    	List<Integer> domain = new ArrayList<>(); // In the example, the domain's range is [0, 1]
         domain.add(0);
         domain.add(1);
-        Object x1Args[] = new Object[5];
-        x1Args[0] = children.toArray(new String[]{});
-        x1Args[1] = lowerNeighbours.toArray(new String[]{});
-        x1Args[2] = domain.toArray(new Integer[]{});
-        x1Args[3] = upperNeighbours.toArray(new String[]{});
-        x1Args[4] = constraints;
-        children.clear();
-        lowerNeighbours.clear();
-        upperNeighbours.clear();
-        domain.clear();
-
-        // Add arguments to create x2
-        upperNeighbours.add("x1");
-        children.add("x3");
-        lowerNeighbours.add("x3");
-        children.add("x4");
-        lowerNeighbours.add("x4");
-        domain.add(0);
-        domain.add(1);
-        Object x2Args[] = new Object[5];
-        x2Args[0] = children.toArray(new String[]{});
-        x2Args[1] = lowerNeighbours.toArray(new String[]{});
-        x2Args[2] = domain.toArray(new Integer[]{});
-        x2Args[3] = upperNeighbours.toArray(new String[]{});
-        x2Args[4] = constraints;
-        children.clear();
-        lowerNeighbours.clear();
-        upperNeighbours.clear();
-        domain.clear();
-
-       // Add arguments to create x3
-        upperNeighbours.add("x2");
-        upperNeighbours.add("x1");
-        domain.add(0);
-        domain.add(1);
-        Object x3Args[] = new Object[5];
-        x3Args[0] = children.toArray(new String[]{});
-        x3Args[1] = lowerNeighbours.toArray(new String[]{});
-        x3Args[2] = domain.toArray(new Integer[]{});
-        x3Args[3] = upperNeighbours.toArray(new String[]{});
-        x3Args[4] = constraints;
-        children.clear();
-        lowerNeighbours.clear();
-        upperNeighbours.clear();
-        domain.clear();
-
-        // Add arguments to create x4
-        upperNeighbours.add("x2");
-        domain.add(0);
-        domain.add(1);
-        Object x4Args[] = new Object[5];
-        x4Args[0] = children.toArray(new String[]{});
-        x4Args[1] = lowerNeighbours.toArray(new String[]{});
-        x4Args[2] = domain.toArray(new Integer[]{});
-        x4Args[3] = upperNeighbours.toArray(new String[]{});
-        x4Args[4] = constraints;
-        children.clear();
-        lowerNeighbours.clear();
-        upperNeighbours.clear();
-        domain.clear();
-
-        try {
-            getContainerController().createNewAgent("x1", "node.NodeAgent", x1Args).start();
-            getContainerController().createNewAgent("x2", "node.NodeAgent", x2Args).start();
-            getContainerController().createNewAgent("x3", "node.NodeAgent", x3Args).start();
-            getContainerController().createNewAgent("x4", "node.NodeAgent", x4Args).start();
-        } catch (StaleProxyException e) {
-            e.printStackTrace();
+        
+        Node x1 = new Node("x1", domain);
+        Node x2 = new Node("x2", domain);
+        Node x3 = new Node("x3", domain);
+        Node x4 = new Node("x4", domain);
+        Node x5 = new Node("x5", domain);
+        List<Node> nodes = new ArrayList<Node>();
+        nodes.add(x1);
+        nodes.add(x2);
+        nodes.add(x3);
+        nodes.add(x4);
+        nodes.add(x5);
+        
+        Edge a = new Edge(x1, x2, "nothing");
+        Edge b = new Edge(x2, x3, "nothing");
+        Edge c = new Edge(x2, x5, "nothing");
+        Edge d = new Edge(x1, x4, "nothing");
+        Edge e = new Edge(x5, x4, "nothing");
+        Edge f = new Edge(x3, x4, "nothing");
+        Edge g = new Edge(x2, x4, "nothing");
+        List<Edge> edges = new ArrayList<Edge>();
+        edges.add(a);
+        edges.add(b);
+        edges.add(c);
+        edges.add(d);
+        edges.add(e);
+        edges.add(f);
+        edges.add(g);
+        
+        Graph graph = new Graph(nodes, edges);
+        
+        for(Edge edge : graph.getEdges()) {
+        	Node first = edge.getFirst();
+        	Node second = edge.getSecond();
+        	second.addAdjacentNode(first);
+        	first.addAdjacentNode(second);
         }
+        
+        int pre = 0;
+        x1.setRoot();
+        graph.resetVisited();
+        this.dfs(x1, pre);
 
         // We won't be needing this agent during the actual algorithm's execution
         doDelete();
