@@ -10,6 +10,38 @@ public class Graph {
 		this.edges = edges;
 	}
 	
+	/*
+	 *Add neighbors to nodes given its class in pseudo-tree
+	 */
+	public void dfs(Node n, int pre) {
+		if(n.wasVisited()) {
+			return;
+		}
+		
+		pre++;
+		n.setPre(pre);
+		n.setVisited(true);
+		
+		for(Node v : n.getAdjacence()) {
+			if(v.getParent() == null && !v.isRoot()) {
+				n.addChild(v);
+				n.addLowerNeighbour(v);
+				v.addUpperNeighbour(n);
+				v.setParent(n);
+			}
+
+			if(v.wasVisited() && n.getParent() != v) {
+				if(v.getPre() < n.getPre()) {
+					v.addLowerNeighbour(n);
+					n.addUpperNeighbour(v);
+					System.out.println("pseudo aresta: "+n.getName()+ "-" + v.getName());
+				}
+			}
+			
+			dfs(v, pre);
+		}
+	}
+	
 	public List<Node> getNodes() {
 		return nodes;
 	}

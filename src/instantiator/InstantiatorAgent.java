@@ -15,43 +15,6 @@ public class InstantiatorAgent extends Agent {
 
 	private static final long serialVersionUID = -7764996125444199018L;
 	
-	
-	public void dfs(Node n, int pre) {
-		if(n.wasVisited()) {
-			return;
-		}
-		
-		pre++;
-		n.setPre(pre);
-		n.setVisited(true);
-		
-		for(Node v : n.getAdjacence()) {
-			if(v.getParent() == null && !v.isRoot()) {
-				n.addChild(v);
-				n.addLowerNeighbour(v);
-				v.addUpperNeighbour(n);
-				v.setParent(n);
-			}
-
-			if(v.wasVisited() && n.getParent() != v) {
-				if(v.getPre() < n.getPre()) {
-					v.addLowerNeighbour(n);
-					n.addUpperNeighbour(v);
-					System.out.println("pseudo aresta: "+n.getName()+ "-" + v.getName());
-				}
-			}
-			
-			dfs(v, pre);
-		}
-		
-		//create agent
-		try {
-            getContainerController().createNewAgent(n.getName(), "node.NodeAgent", n.getArgs()).start();
-        } catch (StaleProxyException e) {
-            e.printStackTrace();
-        }
-	}
-
 	/*
      * Each created agent contains a list with the names of its children.
      */
