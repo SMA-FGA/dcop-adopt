@@ -14,7 +14,7 @@ import java.util.List;
 public class InstantiatorAgent extends Agent {
 
 	private static final long serialVersionUID = -7764996125444199018L;
-	
+
 	/*
      * Each created agent contains a list with the names of its children.
      */
@@ -68,10 +68,20 @@ public class InstantiatorAgent extends Agent {
         	first.addAdjacentNode(second);
         }
         
+        graph.resetVisited();
         int pre = 0;
         x1.setRoot();
-        graph.resetVisited();
-        this.dfs(x1, pre);
+        graph.dfs(x1, pre);
+        
+		//Launch nodes as agents on platform
+        for(Node node : nodes) {
+        	try {
+                getContainerController().createNewAgent(node.getName(), "node.NodeAgent", node.getArgs()).start();
+            } catch (StaleProxyException stale) {
+            	System.out.println("Could not start agent\n");
+                stale.printStackTrace();
+            }
+        }
 
         // We won't be needing this agent during the actual algorithm's execution
         doDelete();
