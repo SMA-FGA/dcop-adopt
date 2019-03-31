@@ -1,0 +1,65 @@
+{
+  "domains": [
+    {
+      "id": "d1",
+      "value": [
+        0,
+        1
+      ]
+    }
+  ],
+  "constraints": [
+    {
+      "id": "c1",
+      "value": [
+        [
+          7,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "c2",
+      "value": [
+        [
+          15,
+          2
+        ],
+        [
+          2,
+          9
+        ]
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "x1",
+      "domain": "d1"
+    },
+    {
+      "id": "x2",
+      "domain": "d1"
+    },
+    {
+      "id": "x3",
+      "domain": "d1"
+    }
+  ],
+  "edges": [
+    {
+      "source": "x1",
+      "target": "x2",
+      "constraint": "c1"
+    },
+    {
+      "source": "x2",
+      "target": "x3",
+      "constraint": "c2"
+    }
+  ]
+}
