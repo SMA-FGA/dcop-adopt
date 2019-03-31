@@ -1,13 +1,22 @@
-package instantiator;
+package graph;
 import java.util.List;
 
 public class Graph {
 	private List<Node> nodes;
 	private List<Edge> edges;
 	
-	public Graph(List<Node> nodes, List<Edge> edges) {
+	public Graph(List<Node> nodes, List<Edge> edges, boolean isBidirected) {
 		this.nodes = nodes;
 		this.edges = edges;
+		
+		if(isBidirected) {
+	        for(Edge edge : edges) {
+	        	Node first = edge.getFirst();
+	        	Node second = edge.getSecond();
+	        	second.addAdjacentNode(first);
+	        	first.addAdjacentNode(second);
+	        }
+		}
 	}
 	
 	/*

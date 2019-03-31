@@ -6,17 +6,19 @@ import jade.wrapper.StaleProxyException;
 import java.util.ArrayList;
 import java.util.List;
 
+import graph.Edge;
+import graph.Graph;
+import graph.Node;
+
 /*
  * Creates the agents that will be used in the DCOP.
- * In the moment uses hardcoded values, but should be
- * able to create agents from the DFS tree in the future.
  */
 public class InstantiatorAgent extends Agent {
 
 	private static final long serialVersionUID = -7764996125444199018L;
 
 	/*
-     * Each created agent contains a list with the names of its children.
+     * Each created agent contains a list with the names of its children, lower neighbours, upper neighbours.
      */
     @Override
     protected void setup() {
@@ -31,43 +33,30 @@ public class InstantiatorAgent extends Agent {
         domain.add(0);
         domain.add(1);
         
+        // Creating graph
         Node x1 = new Node("x1", domain);
         Node x2 = new Node("x2", domain);
         Node x3 = new Node("x3", domain);
         Node x4 = new Node("x4", domain);
-        Node x5 = new Node("x5", domain);
         List<Node> nodes = new ArrayList<Node>();
         nodes.add(x1);
         nodes.add(x2);
         nodes.add(x3);
         nodes.add(x4);
-        nodes.add(x5);
         
         Edge a = new Edge(x1, x2, "nothing");
         Edge b = new Edge(x2, x3, "nothing");
-        Edge c = new Edge(x2, x5, "nothing");
-        Edge d = new Edge(x1, x4, "nothing");
-        Edge e = new Edge(x5, x4, "nothing");
-        Edge f = new Edge(x3, x4, "nothing");
+        Edge d = new Edge(x1, x3, "nothing");
         Edge g = new Edge(x2, x4, "nothing");
         List<Edge> edges = new ArrayList<Edge>();
         edges.add(a);
         edges.add(b);
-        edges.add(c);
         edges.add(d);
-        edges.add(e);
-        edges.add(f);
         edges.add(g);
         
-        Graph graph = new Graph(nodes, edges);
+        Graph graph = new Graph(nodes, edges, true);
         
-        for(Edge edge : graph.getEdges()) {
-        	Node first = edge.getFirst();
-        	Node second = edge.getSecond();
-        	second.addAdjacentNode(first);
-        	first.addAdjacentNode(second);
-        }
-        
+        //Execute dfs and add neighbours informations to the nodes
         graph.resetVisited();
         int pre = 0;
         x1.setRoot();

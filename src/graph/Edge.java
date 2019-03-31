@@ -1,4 +1,4 @@
-package instantiator;
+package graph;
 
 public class Edge {
 	private Node first;
