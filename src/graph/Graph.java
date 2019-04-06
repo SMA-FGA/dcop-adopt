@@ -43,7 +43,7 @@ public class Graph {
 				if(v.getPre() < n.getPre()) {
 					v.addLowerNeighbour(n);
 					n.addUpperNeighbour(v);
-					System.out.println("pseudo aresta: "+n.getName()+ "-" + v.getName());
+					System.out.println("pseudo aresta: "+n.getID()+ "-" + v.getID());
 				}
 			}
 			

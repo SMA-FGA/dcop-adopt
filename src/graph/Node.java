@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Vector;
 
 public class Node {
-	private String name;
+	private String id;
 	private List<Integer> domain;
 	private List<Node> adjacence;
 	private Boolean wasVisited;
@@ -16,8 +16,8 @@ public class Node {
     private List<String> upperNeighbours;
     private List<List<Integer>> constraints;
 	
-	public Node(String name, List<Integer> domain) {
-		this.name = name;
+	public Node(String id, List<Integer> domain) {
+		this.id = id;
 		this.domain = domain;
 		this.wasVisited = false;
 		this.adjacence = new ArrayList<Node>();
@@ -38,11 +38,11 @@ public class Node {
 	    constraints.add(constraintLine2);
 	}
 	
-	public String getName() {
-		return name;
+	public String getID() {
+		return id;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setID(String name) {
+		this.id = name;
 	}
 	public List<Integer> getDomain() {
 		return domain;
@@ -86,7 +86,7 @@ public class Node {
 	}
 
 	public void addChild(Node child) {
-		this.children.add(child.getName());
+		this.children.add(child.getID());
 	}
 
 	public List<String> getLowerNeighbours() {
@@ -94,7 +94,7 @@ public class Node {
 	}
 
 	public void addLowerNeighbour(Node lower) {
-		this.lowerNeighbours.add(lower.getName());
+		this.lowerNeighbours.add(lower.getID());
 	}
 
 	public List<String> getUpperNeighbours() {
@@ -102,7 +102,7 @@ public class Node {
 	}
 
 	public void addUpperNeighbour(Node upper) {
-		this.upperNeighbours.add(upper.getName());
+		this.upperNeighbours.add(upper.getID());
 	}
 	
 	public List<List<Integer>> getConstraints() {
