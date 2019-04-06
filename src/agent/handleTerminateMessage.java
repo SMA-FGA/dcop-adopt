@@ -1,4 +1,4 @@
-package node;
+package agent;
 
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;

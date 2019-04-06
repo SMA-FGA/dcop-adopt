@@ -1,4 +1,4 @@
-package node;
+package agent;
 
 import java.util.HashMap;
 import java.util.Map;

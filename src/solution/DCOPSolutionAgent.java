@@ -20,6 +20,7 @@ public class DCOPSolutionAgent extends Agent {
 		System.out.println("  >>> Solution: "+agentsChoices);
 	}
 	
+	//this agent use singleton design pattern
 	public static DCOPSolutionAgent getInstance() {
 		if(instance == null) {
 			instance = new DCOPSolutionAgent();

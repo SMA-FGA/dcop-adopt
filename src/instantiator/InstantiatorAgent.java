@@ -17,14 +17,6 @@ public class InstantiatorAgent extends Agent {
      */
     @Override
     protected void setup() {
-
-        /*
-         * For some unfortunate reason, nothing happens when passing the
-         * ArrayList as an argument in the agent's creation. So we convert it
-         * to a regular array, then convert it back once inside the DcopAgent.
-         */
-        
-    	//
     	String filePath = "./DCOPJson/graphTaylor.json";
     	
     	ParseJSONtoGraph parseJSON = new ParseJSONtoGraph();

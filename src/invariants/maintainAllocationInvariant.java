@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
+import agent.sendMessageBehaviour;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.util.Logger;
 import messages.ThresholdMessage;
 import models.NodeAgentData;
-import node.sendMessageBehaviour;
 
 public class maintainAllocationInvariant implements maintainInvariant{
 	private static final Logger LOGGER = Logger.getMyLogger(maintainAllocationInvariant.class.getName());

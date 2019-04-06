@@ -1,4 +1,4 @@
-package node;
+package agent;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,9 +8,9 @@ import jade.core.Agent;
 import jade.util.Logger;
 import models.NodeAgentData;
 
-public class NodeAgent extends Agent {
+public class DCOPAgent extends Agent {
 	private static final long serialVersionUID = 783786161678161415L;
-	private static final Logger LOGGER = Logger.getMyLogger(NodeAgent.class.getName());
+	private static final Logger LOGGER = Logger.getMyLogger(DCOPAgent.class.getName());
 	private NodeAgentData data;
 	
     @Override

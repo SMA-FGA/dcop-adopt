@@ -110,6 +110,11 @@ public class Node {
 	}
 	
 	public Object[] getArgs() {
+		/*
+         * For some unfortunate reason, nothing happens when passing the
+         * ArrayList as an argument in the agent's creation. So we convert it
+         * to a regular array, then convert it back once inside the DcopAgent.
+         */
 		Object agentArgs[] = new Object[5];
 	    agentArgs[0] = this.children.toArray(new String[]{});
 	    agentArgs[1] = this.lowerNeighbours.toArray(new String[]{});

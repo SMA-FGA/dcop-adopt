@@ -1,4 +1,4 @@
-package node;
+package agent;
 
 import invariants.maintainInvariant;
 import invariants.maintainThresholdInvariant;
