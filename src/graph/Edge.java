@@ -3,9 +3,9 @@ package graph;
 public class Edge {
 	private Node first;
 	private Node second;
-	private String constraint;
+	private Constraint constraint;
 	
-	public Edge(Node first, Node second, String constraint) {
+	public Edge(Node first, Node second, Constraint constraint) {
 		this.first = first;
 		this.second = second;
 		this.constraint = constraint;
@@ -27,14 +27,11 @@ public class Edge {
 		this.second = second;
 	}
 
-	public String getConstraint() {
+	public Constraint getConstraint() {
 		return constraint;
 	}
 
-	public void setConstraint(String constraint) {
+	public void setConstraint(Constraint constraint) {
 		this.constraint = constraint;
 	}
-	
-	
-
 }

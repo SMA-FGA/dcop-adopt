@@ -3,6 +3,8 @@ package models;
 import org.junit.Assert;
 import org.junit.Test;
 
+import graph.Constraint;
+
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -29,15 +31,17 @@ public class NodeAgentDataTest {
         currentContext.put("x2", 0);
         data.setCurrentContext(currentContext);
 
-        List<List<Integer>> constraints = new Vector<>();
+        List<List<Integer>> constraintsList = new Vector<>();
         List<Integer> constraintLine1 = new Vector<>();
         List<Integer> constraintLine2 = new Vector<>();
         constraintLine1.add(1);
         constraintLine1.add(2);
         constraintLine2.add(2);
         constraintLine2.add(0);
-        constraints.add(constraintLine1);
-        constraints.add(constraintLine2);
+        constraintsList.add(constraintLine1);
+        constraintsList.add(constraintLine2);
+        
+        Constraint constraints = new Constraint("c1", constraintsList);
         data.setConstraints(constraints);
 
         int localCost = data.getLocalCostForVariable(0);

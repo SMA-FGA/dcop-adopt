@@ -2,6 +2,7 @@ package models;
 
 import java.util.*;
 
+import graph.Constraint;
 import jade.core.AID;
 
 public class NodeAgentData {
@@ -21,7 +22,7 @@ public class NodeAgentData {
     private Map<String, List<Integer>> childrenUpperBounds;
     private Map<String, List<Integer>> childrenThresholds;
     private Map<String, List<Map<String, Integer>>> childrenContexts;
-    private Map<String, List<List<Integer>>> constraints;
+    private Map<String, Constraint> constraints;
 
     public boolean hasReceivedTerminate() {
         return this.receivedTerminate;
@@ -316,11 +317,11 @@ public class NodeAgentData {
 		this.childrenContexts = childrenContexts;
 	}
 
-    public Map<String, List<List<Integer>>> getConstraints() {
+    public Map<String, Constraint> getConstraints() {
         return this.constraints;
     }
-    public void setConstraints(List<List<Integer>> constraint) {
-    	Map<String, List<List<Integer>>> constraintsMap = new HashMap<>();
+    public void setConstraints(Constraint constraint) {
+    	Map<String, Constraint> constraintsMap = new HashMap<>();
 
     	for (String upper : upperNeighboursNames) {
 	        constraintsMap.put(upper, constraint);
