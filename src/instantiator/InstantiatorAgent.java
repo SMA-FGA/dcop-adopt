@@ -34,7 +34,7 @@ public class InstantiatorAgent extends Agent {
 		//Launch nodes as agents on platform
         for(Node node : graph.getNodes()) {
         	try {
-                getContainerController().createNewAgent(node.getID(), "node.NodeAgent", node.getArgs()).start();
+                getContainerController().createNewAgent(node.getID(), "agent.DCOPAgent", node.getArgs()).start();
             } catch (StaleProxyException stale) {
             	System.out.println("Could not start agent\n");
                 stale.printStackTrace();

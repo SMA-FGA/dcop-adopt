@@ -9,6 +9,8 @@ import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import graph.Domain;
+import graph.DomainsList;
 import graph.Edge;
 import graph.EdgesList;
 import graph.Graph;
@@ -18,13 +20,6 @@ import graph.NodesList;
 public class ParseJSONtoGraph {
 
 	public Graph parse(String filePath) {
-//String resourceName = "./graphModi.json";
-//		System.out.println("teste");
-//		InputStream is = Parse.class.getResourceAsStream(fileName);
-//		if (is == null) {
-//			System.out.println("null");
-//		}
-		
 		File file = new File(filePath);
 		
 		String fileContent = null;
@@ -37,25 +32,33 @@ public class ParseJSONtoGraph {
 		
         JSONObject object = new JSONObject(fileContent);
         
-//        JSONArray domains = (JSONArray) object.get("domains");
+        JSONArray domains = (JSONArray) object.get("domains");
 //        JSONArray constraints = (JSONArray) object.get("constraints");
         JSONArray nodes = (JSONArray) object.get("nodes");
         JSONArray edges = (JSONArray) object.get("edges");
         
-//        for (Object domain : domains) {
-//        	JSONObject d = (JSONObject) domain;
-//        	System.out.println(d.get("id"));
-//		}
+        //parse constraints
         
-    	List<Integer> domain = new ArrayList<>(); // In the example, the domain's range is [0, 1]
-        domain.add(0);
-        domain.add(1);
+        DomainsList allDomains = new DomainsList();
+        for (Object domain : domains) {
+        	JSONObject d = (JSONObject) domain;
+        	ArrayList<Integer> domainValue = new ArrayList<Integer>();
+        	
+        	JSONArray valueArray = (JSONArray) d.get("value");
+        	if (valueArray != null) {
+        	   for (int i=0; i < valueArray.length(); i++){ 
+        		   domainValue.add(valueArray.getInt(i));
+        	   } 
+        	}
+        	
+        	allDomains.addDomain(new Domain((String) d.get("id"), domainValue));
+		}
         
         NodesList allNodes = new NodesList();
         for (Object node : nodes) {
         	JSONObject n = (JSONObject) node;
         	//System.out.println(n.get("id"));
-        	allNodes.addNode(new Node((String) n.get("id"), domain));
+        	allNodes.addNode(new Node((String) n.get("id"), allDomains.getNodeByID((String) n.get("domain"))));
 		}
         
         EdgesList allEdges = new EdgesList();
@@ -70,8 +73,6 @@ public class ParseJSONtoGraph {
         
         Graph graph = new Graph(allNodes.getNodes(), allEdges.getEdges(), true);
         return graph;
-       
-        //constraints
 
 	}
 

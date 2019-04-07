@@ -5,7 +5,7 @@ import java.util.Vector;
 
 public class Node {
 	private String id;
-	private List<Integer> domain;
+	private Domain domain;
 	private List<Node> adjacence;
 	private Boolean wasVisited;
 	private Node parent;
@@ -16,7 +16,7 @@ public class Node {
     private List<String> upperNeighbours;
     private List<List<Integer>> constraints;
 	
-	public Node(String id, List<Integer> domain) {
+	public Node(String id, Domain domain) {
 		this.id = id;
 		this.domain = domain;
 		this.wasVisited = false;
@@ -44,10 +44,10 @@ public class Node {
 	public void setID(String name) {
 		this.id = name;
 	}
-	public List<Integer> getDomain() {
+	public Domain getDomain() {
 		return domain;
 	}
-	public void setDomain(List<Integer> domain) {
+	public void setDomain(Domain domain) {
 		this.domain = domain;
 	}
 	public List<Node> getAdjacence() {
@@ -118,7 +118,7 @@ public class Node {
 		Object agentArgs[] = new Object[5];
 	    agentArgs[0] = this.children.toArray(new String[]{});
 	    agentArgs[1] = this.lowerNeighbours.toArray(new String[]{});
-	    agentArgs[2] = this.domain.toArray(new Integer[]{});
+	    agentArgs[2] = this.domain.getDomainArray().toArray(new Integer[]{});
 	    agentArgs[3] = this.upperNeighbours.toArray(new String[]{});
 	    agentArgs[4] = this.constraints;
 	    
