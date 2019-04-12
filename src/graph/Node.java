@@ -120,7 +120,18 @@ public class Node {
 	    agentArgs[1] = this.lowerNeighbours.toArray(new String[]{});
 	    agentArgs[2] = this.domain.getDomainArray().toArray(new Integer[]{});
 	    agentArgs[3] = this.upperNeighbours.toArray(new String[]{});
-	    agentArgs[4] = this.constraints;
+	    
+	    List<List<List<Integer>>> taporra = new Vector<>();
+	    
+	    for(int i = 0; i < this.upperNeighbours.size(); i++) {
+	    	taporra.add(this.constraints);
+	    }
+	    
+	    for(int i = 0; i < this.lowerNeighbours.size(); i++) {
+	    	taporra.add(this.constraints);
+	    }
+	    
+	    agentArgs[4] = taporra;
 	    
 	    return agentArgs;
 	}

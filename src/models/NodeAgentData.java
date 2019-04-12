@@ -43,22 +43,7 @@ public class NodeAgentData {
     public int getConstraintCost(int myChoice, String upperNeighbourName, Integer upperNeighbourChice) {
     	int cost = -1;
     	
-//      This block should work, but throws an null pointer exception
-//    	List<List<Integer>> upperNeighbourConstraint = this.constraints.get(upperNeighbourName);
-//    	List<Integer> constraintsForMyChoice = upperNeighbourConstraint.get(myChoice);
-//    	cost = constraintsForMyChoice.get(upperNeighbourChice);
-//    	System.out.println("cost: "+cost);
-    	
-        // Simulates the constraint matrix
-    	//System.out.println("MY CHICE: "+myChoice+", STORED: "+this.currentValue);
-    	//System.out.println("My choice: "+myChoice+ " upper choice: "+upperNeighbourChice);
-    	if((myChoice == 1) && (upperNeighbourChice == 1)) {
-    		cost = 15;
-    	}else if((myChoice == 0) && (upperNeighbourChice == 0)){
-    		cost = 15;
-    	}else {
-    		cost = 5;
-    	}
+    	cost = constraints.get(upperNeighbourName).getConstraint().get(myChoice).get(upperNeighbourChice);
     	
     	return cost;
     }
@@ -320,18 +305,8 @@ public class NodeAgentData {
     public Map<String, Constraint> getConstraints() {
         return this.constraints;
     }
-    public void setConstraints(Constraint constraint) {
-    	Map<String, Constraint> constraintsMap = new HashMap<>();
-
-    	for (String upper : upperNeighboursNames) {
-	        constraintsMap.put(upper, constraint);
-    	}
-    	
-    	for (String lower : lowerNeighboursNames) {
-	        constraintsMap.put(lower, constraint);
-    	}
-    	
-    	this.constraints = constraintsMap;
+    public void setConstraints(Map<String, Constraint> constraints) {
+    	this.constraints = constraints;
     }
 
 	public boolean isMyNeighbour(String agentName) {

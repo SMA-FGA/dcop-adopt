@@ -17,7 +17,7 @@ public class InstantiatorAgent extends Agent {
      */
     @Override
     protected void setup() {
-    	String filePath = "./DCOPJson/graphTaylor.json";
+    	String filePath = "./DCOPJson/graphModi.json";
     	
     	ParseJSONtoGraph parseJSON = new ParseJSONtoGraph();
     	Graph graph = parseJSON.parse(filePath);
