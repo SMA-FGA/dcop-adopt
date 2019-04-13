@@ -1,6 +1,8 @@
 package graph;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 public class Node {
@@ -14,7 +16,8 @@ public class Node {
 	private List<String> children;
     private List<String> lowerNeighbours;
     private List<String> upperNeighbours;
-    private List<List<Integer>> constraints;
+    //private List<List<Integer>> constraints;
+    private Map<String, Constraint> constraints;
 	
 	public Node(String id, Domain domain) {
 		this.id = id;
@@ -27,15 +30,7 @@ public class Node {
 		this.children = new ArrayList<>();
 		this.lowerNeighbours = new ArrayList<>();
 		this.upperNeighbours = new ArrayList<>();
-		this.constraints = new Vector<>();
-	    List<Integer> constraintLine1 = new Vector<>();
-	    List<Integer> constraintLine2 = new Vector<>();
-	    constraintLine1.add(1);
-	    constraintLine1.add(2);
-	    constraintLine2.add(2);
-	    constraintLine2.add(0);
-	    constraints.add(constraintLine1);
-	    constraints.add(constraintLine2);
+		this.constraints = new HashMap<String, Constraint>();
 	}
 	
 	public String getID() {
@@ -105,8 +100,12 @@ public class Node {
 		this.upperNeighbours.add(upper.getID());
 	}
 	
-	public List<List<Integer>> getConstraints() {
+	public Map<String, Constraint> getConstraints() {
 		return this.constraints;
+	}
+	
+	public void addConstraint(String agentName, Constraint agentConstraint) {
+		this.constraints.put(agentName, agentConstraint);
 	}
 	
 	public Object[] getArgs() {
@@ -115,23 +114,21 @@ public class Node {
          * ArrayList as an argument in the agent's creation. So we convert it
          * to a regular array, then convert it back once inside the DcopAgent.
          */
-		Object agentArgs[] = new Object[5];
+		Object agentArgs[] = new Object[6];
 	    agentArgs[0] = this.children.toArray(new String[]{});
 	    agentArgs[1] = this.lowerNeighbours.toArray(new String[]{});
 	    agentArgs[2] = this.domain.getDomainArray().toArray(new Integer[]{});
 	    agentArgs[3] = this.upperNeighbours.toArray(new String[]{});
 	    
-	    List<List<List<Integer>>> taporra = new Vector<>();
-	    
-	    for(int i = 0; i < this.upperNeighbours.size(); i++) {
-	    	taporra.add(this.constraints);
+	    List<String> agentsWithConstraints = new ArrayList<>(); 
+	    List<List<List<Integer>>> constraintsList = new Vector<>();
+	    for (Map.Entry<String, Constraint> constraintMap: this.constraints.entrySet()) {
+	    	constraintsList.add(constraintMap.getValue().getConstraint());
+	    	agentsWithConstraints.add(constraintMap.getKey());
 	    }
 	    
-	    for(int i = 0; i < this.lowerNeighbours.size(); i++) {
-	    	taporra.add(this.constraints);
-	    }
-	    
-	    agentArgs[4] = taporra;
+	    agentArgs[4] = constraintsList;
+	    agentArgs[5] = agentsWithConstraints.toArray(new String[]{});
 	    
 	    return agentArgs;
 	}

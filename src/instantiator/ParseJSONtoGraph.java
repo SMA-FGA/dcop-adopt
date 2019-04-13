@@ -99,6 +99,9 @@ public class ParseJSONtoGraph {
         	Node nodeSource = allNodes.getNodeByID((String) e.get("source"));
             Node nodeTarget = allNodes.getNodeByID((String) e.get("target"));
         	
+            nodeSource.addConstraint(nodeTarget.getID(), allConstraints.getConstraintByID((String) e.get("constraint")));
+            nodeTarget.addConstraint(nodeSource.getID(), allConstraints.getConstraintByID((String) e.get("constraint")));
+            
             allEdges.addEdge(new Edge(nodeSource, nodeTarget, allConstraints.getConstraintByID((String) e.get("constraint"))));
 		}
         

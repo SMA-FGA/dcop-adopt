@@ -28,20 +28,16 @@ public class DCOPAgent extends Agent {
         List<Integer> domain = Arrays.asList((Integer[])setupArgs[2]);
         List<String> upperNeighboursNames = Arrays.asList((String[])setupArgs[3]);
         
-        List<List<List<Integer>>> constraintsEmbacadas = (List<List<List<Integer>>>)setupArgs[4];
+        List<List<List<Integer>>> constraintsList = (List<List<List<Integer>>>)setupArgs[4];
+        List<String> agentsWithConstraints = Arrays.asList((String[])setupArgs[5]);
         
-        System.out.println(constraintsEmbacadas);
+        System.out.println(constraintsList);
         
         Map<String, Constraint> constraintsMap = new HashMap<>();
         
-        for(int i = 0; i < upperNeighboursNames.size(); i++) {
-        	System.out.println("put: "+upperNeighboursNames.get(i)+" "+constraintsEmbacadas.get(i));
-        	constraintsMap.put(upperNeighboursNames.get(i), new Constraint("a", constraintsEmbacadas.get(i)));
-	    }
-        
-        for(int i = 0; i < lowerNeighboursNames.size(); i++) {
-        	System.out.println("put: "+lowerNeighboursNames.get(i)+" "+constraintsEmbacadas.get(i));
-	    	constraintsMap.put(lowerNeighboursNames.get(i), new Constraint("a", constraintsEmbacadas.get(i+upperNeighboursNames.size())));
+        for(int i = 0; i < agentsWithConstraints.size(); i++) {
+        	System.out.println("put: "+agentsWithConstraints.get(i)+" "+constraintsList.get(i));
+        	constraintsMap.put(agentsWithConstraints.get(i), new Constraint("a", constraintsList.get(i)));
 	    }
         
         //System.out.println(constraintsMap);
