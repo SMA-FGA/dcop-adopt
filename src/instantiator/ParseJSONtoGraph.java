@@ -3,6 +3,7 @@ package instantiator;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -44,8 +45,6 @@ public class ParseJSONtoGraph {
         for (Object constraint : constraintsArray) {
         	JSONObject c = (JSONObject) constraint;
         	
-        	System.out.println(c.get("value"));
-        	
         	List<List<Integer>> constraintComplete = new ArrayList<List<Integer>>();
         	
         	JSONArray valueConstraintArray = (JSONArray) c.get("value");
@@ -54,7 +53,7 @@ public class ParseJSONtoGraph {
         		   ArrayList<Integer> listdata = new ArrayList<Integer>();
         		   JSONArray jArray2 = (JSONArray) valueConstraintArray.get(i);
         		   for (int j=0;j<jArray2.length();j++){
-        			   System.out.println(jArray2.get(j));
+        			   //System.out.println(jArray2.get(j));
         			   listdata.add(jArray2.getInt(j));
         		   }
         		   
@@ -98,9 +97,29 @@ public class ParseJSONtoGraph {
         	//System.out.println(e.get("id"));
         	Node nodeSource = allNodes.getNodeByID((String) e.get("source"));
             Node nodeTarget = allNodes.getNodeByID((String) e.get("target"));
+            
+            List<List<Integer>> constraint = allConstraints.getConstraintByID((String) e.get("constraint")).getConstraint(); 
+            Integer[][] constraintTransposed = new Integer[constraint.get(0).size()][constraint.size()];
+            
+            //transpose matrix
+            for(int i=0; i<constraint.size(); i++) {
+	            for(int j=0; j<constraint.get(i).size(); j++) {
+	            	constraintTransposed[j][i] = constraint.get(i).get(j);
+	            }
+            }
         	
+            //transform constraintTranspose in a list type
+            List<List<Integer>> constraintTransposedAsList = new ArrayList<>();
+            for(int i=0; i<constraintTransposed.length; i++) {
+            	List<Integer> teste = Arrays.asList(constraintTransposed[i]);
+            	constraintTransposedAsList.add(teste);
+            }
+            
+            System.out.println("Matrix: "+constraint);
+            System.out.println("Transposed: "+constraintTransposedAsList);
+            
             nodeSource.addConstraint(nodeTarget.getID(), allConstraints.getConstraintByID((String) e.get("constraint")));
-            nodeTarget.addConstraint(nodeSource.getID(), allConstraints.getConstraintByID((String) e.get("constraint")));
+            nodeTarget.addConstraint(nodeSource.getID(), new Constraint((String) e.get("constraint")+"-transposed", constraintTransposedAsList));
             
             allEdges.addEdge(new Edge(nodeSource, nodeTarget, allConstraints.getConstraintByID((String) e.get("constraint"))));
 		}
