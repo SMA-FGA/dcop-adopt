@@ -17,8 +17,16 @@ public class InstantiatorAgent extends Agent {
      */
     @Override
     protected void setup() {
-    	Object[] setupArgs = getArguments();
-    	String filePath = (String)setupArgs[0]; //"./DCOPJson/graphTaylor.json";
+    	String filePath = null;
+    	
+    	try {
+    		Object[] setupArgs = getArguments();
+        	filePath = (String)setupArgs[0]; //"./DCOPJson/graphTaylor.json";
+    	}catch (IndexOutOfBoundsException argsException) {
+    		System.out.println("Instantiator args not properly seted\n");
+    		argsException.printStackTrace();
+    		System.exit(D_SUSPENDED);
+		}
     	
     	ParseJSONtoGraph parseJSON = new ParseJSONtoGraph();
     	Graph graph = parseJSON.parse(filePath);
