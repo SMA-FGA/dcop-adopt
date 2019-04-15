@@ -27,7 +27,7 @@ public class DCOPAgent extends Agent {
         List<String> lowerNeighboursNames = Arrays.asList((String[])setupArgs[1]);
         List<Integer> domain = Arrays.asList((Integer[])setupArgs[2]);
         List<String> upperNeighboursNames = Arrays.asList((String[])setupArgs[3]);
-        List<List<List<Integer>>> constraintsList = (List<List<List<Integer>>>)setupArgs[4];
+        List<Integer[][]> constraintsList = (List<Integer[][]>)setupArgs[4];
         List<String> agentsWithConstraints = Arrays.asList((String[])setupArgs[5]);
 
         Map<String, Constraint> constraintsMap = new HashMap<>();

@@ -21,7 +21,7 @@ public class InstantiatorAgent extends Agent {
     	
     	try {
     		Object[] setupArgs = getArguments();
-        	filePath = (String)setupArgs[0]; //"./DCOPJson/graphTaylor.json";
+        	filePath = (String)setupArgs[0]; //Ex: "./DCOPJson/graphTaylor.json";
     	}catch (IndexOutOfBoundsException argsException) {
     		System.out.println("Instantiator args not properly seted\n");
     		argsException.printStackTrace();

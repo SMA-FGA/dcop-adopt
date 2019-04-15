@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Constraint {
 	private String id;
-	private List<List<Integer>> constraint;
+	private Integer[][] constraint;
 	
-	public Constraint(String id, List<List<Integer>> constraint) {
+	public Constraint(String id, Integer[][] constraint) {
 		this.id = id;
 		this.constraint = constraint;
 	}
@@ -19,11 +19,11 @@ public class Constraint {
 		this.id = id;
 	}
 
-	public List<List<Integer>> getConstraint() {
+	public Integer[][] getConstraint() {
 		return constraint;
 	}
 
-	public void setConstraint(List<List<Integer>> constraint) {
+	public void setConstraint(Integer[][] constraint) {
 		this.constraint = constraint;
 	}
 }

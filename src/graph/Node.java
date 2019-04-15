@@ -121,7 +121,7 @@ public class Node {
 	    agentArgs[3] = this.upperNeighbours.toArray(new String[]{});
 	    
 	    List<String> agentsWithConstraints = new ArrayList<>(); 
-	    List<List<List<Integer>>> constraintsList = new Vector<>();
+	    List<Integer[][]> constraintsList = new Vector<>();
 	    for (Map.Entry<String, Constraint> constraintMap: this.constraints.entrySet()) {
 	    	constraintsList.add(constraintMap.getValue().getConstraint());
 	    	agentsWithConstraints.add(constraintMap.getKey());

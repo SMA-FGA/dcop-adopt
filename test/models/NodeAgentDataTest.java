@@ -25,23 +25,17 @@ public class NodeAgentDataTest {
 
         List<String> lowerNeighbours = new ArrayList<>();
         data.setLowerNeighboursNames(lowerNeighbours);
-
+        
         Map<String, Integer> currentContext = new HashMap<>();
         currentContext.put("x1", 0);
         currentContext.put("x2", 0);
         data.setCurrentContext(currentContext);
-
-        List<List<Integer>> constraintsList = new Vector<>();
-        List<Integer> constraintLine1 = new Vector<>();
-        List<Integer> constraintLine2 = new Vector<>();
-        constraintLine1.add(1);
-        constraintLine1.add(2);
-        constraintLine2.add(2);
-        constraintLine2.add(0);
-        constraintsList.add(constraintLine1);
-        constraintsList.add(constraintLine2);
         
-        Constraint constraints = new Constraint("c1", constraintsList);
+        Integer[][] constraintArray = new Integer[][]{{1,2},{2,0}};
+        Constraint constraint = new Constraint("c1", constraintArray);
+        Map<String, Constraint> constraints = new HashMap<>();
+        constraints.put("x2", constraint);
+        constraints.put("x2", constraint);
         data.setConstraints(constraints);
 
         int localCost = data.getLocalCostForVariable(0);

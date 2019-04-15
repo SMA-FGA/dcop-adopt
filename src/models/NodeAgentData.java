@@ -43,7 +43,7 @@ public class NodeAgentData {
     public int getConstraintCost(int myChoice, String upperNeighbourName, Integer upperNeighbourChice) {
     	int cost = -1;
     	
-    	cost = constraints.get(upperNeighbourName).getConstraint().get(myChoice).get(upperNeighbourChice);
+    	cost = constraints.get(upperNeighbourName).getConstraint()[myChoice][upperNeighbourChice];
     	
     	return cost;
     }
