@@ -1,34 +1,20 @@
 package graph;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DomainsList {
-	private List<Domain> domains;
+	private Map<String, Domain> domains;
 	
 	public DomainsList() {
-		domains = new ArrayList<Domain>();
+		this.domains = new HashMap<String, Domain>();
 	}
 
-	public List<Domain> getDomains() {
-		return domains;
-	}
-
-	public void setDomains(List<Domain> domains) {
-		this.domains = domains;
-	}
-	
 	public void addDomain(Domain domain) {
-		domains.add(domain);
+		this.domains.put(domain.getID(), domain);
 	}
 	
 	public Domain getNodeByID(String id) {
-		//to do: use hash instead list
-		for (Domain domain : domains) {
-			if(domain.getID().equals(id)) {
-				return domain;
-			}
-		}
-		return null;
+		return this.domains.get(id);
 	}
 }

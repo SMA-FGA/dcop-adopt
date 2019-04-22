@@ -101,11 +101,10 @@ public class ParseJSONtoGraph {
             for(int i=0; i<constraint.length; i++) {
 	            for(int j=0; j<constraint[i].length; j++) {
 	            	constraintTransposed[j][i] = constraint[i][j];
+	            	System.out.println("Matrix: "+constraint[i][j]);
+	                System.out.println("Transposed: "+constraintTransposed[j][i]);
 	            }
             }
-            
-            System.out.println("Matrix: "+constraint);
-            System.out.println("Transposed: "+constraintTransposed);
             
             nodeSource.addConstraint(nodeTarget.getID(), allConstraints.getConstraintByID((String) e.get("constraint")));
             nodeTarget.addConstraint(nodeSource.getID(), new Constraint((String) e.get("constraint")+"-transposed", constraintTransposed));

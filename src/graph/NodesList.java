@@ -1,34 +1,29 @@
 package graph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class NodesList {
 	private List<Node> nodes;
+	private Map<String, Node> nodesMap;
 	
 	public NodesList() {
-		nodes = new ArrayList<Node>();
+		this.nodes = new ArrayList<Node>();
+		this.nodesMap = new HashMap<String, Node>();
 	}
 
 	public List<Node> getNodes() {
-		return nodes;
+		return this.nodes;
 	}
 
-	public void setNodes(List<Node> nodes) {
-		this.nodes = nodes;
-	}
-	
 	public void addNode(Node node) {
-		nodes.add(node);
+		this.nodes.add(node);
+		this.nodesMap.put(node.getID(), node);
 	}
 	
 	public Node getNodeByID(String id) {
-		//to do: use hash instead list
-		for (Node node : nodes) {
-			if(node.getID().equals(id)) {
-				return node;
-			}
-		}
-		return null;
+		return this.nodesMap.get(id);
 	}
 }
