@@ -3,6 +3,12 @@
   <groupId>dcop-adopt</groupId>
   <artifactId>dcop-adopt</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <repositories>
+	   <repository> 
+	      <id>tilab</id> 
+	  	  <url>https://jade.tilab.com/maven/</url> 
+	  </repository>
+  </repositories>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>test</testSourceDirectory>
@@ -36,5 +42,10 @@
   		<artifactId>commons-io</artifactId>
   		<version>2.6</version>
   	</dependency>
+  	<dependency>  
+        <groupId>com.tilab.jade</groupId> 
+        <artifactId>jade</artifactId> 
+        <version>4.5.0</version>  
+    </dependency>
   </dependencies>
 </project>
