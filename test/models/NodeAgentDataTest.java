@@ -1,13 +1,14 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 import graph.Constraint;
-
-import java.util.*;
-
-import static org.junit.Assert.*;
 
 public class NodeAgentDataTest {
 
@@ -28,18 +29,18 @@ public class NodeAgentDataTest {
         
         Map<String, Integer> currentContext = new HashMap<>();
         currentContext.put("x1", 0);
-        currentContext.put("x2", 0);
+        currentContext.put("x2", 1);
         data.setCurrentContext(currentContext);
         
         Integer[][] constraintArray = new Integer[][]{{1,2},{2,0}};
         Constraint constraint = new Constraint("c1", constraintArray);
         Map<String, Constraint> constraints = new HashMap<>();
-        constraints.put("x2", constraint);
+        constraints.put("x1", constraint);
         constraints.put("x2", constraint);
         data.setConstraints(constraints);
 
         int localCost = data.getLocalCostForVariable(0);
-        Assert.assertEquals(2, localCost);
+        Assert.assertEquals(3, localCost); //2+1
     }
 
     @Test
