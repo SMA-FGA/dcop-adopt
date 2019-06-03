@@ -6,11 +6,11 @@ import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import messages.ThresholdMessage;
-import models.NodeAgentData;
+import models.DCOPAgentData;
 
 public class handleThresholdMessage implements handleMessage{
 	
-	public void handle(Agent myAgent, NodeAgentData data, ACLMessage message) {
+	public void handle(Agent myAgent, DCOPAgentData data, ACLMessage message) {
 
 		try {
 			ThresholdMessage thresholdMessage = (ThresholdMessage) message.getContentObject();

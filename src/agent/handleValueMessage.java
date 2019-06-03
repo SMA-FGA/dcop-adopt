@@ -9,11 +9,11 @@ import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import messages.ValueMessage;
-import models.NodeAgentData;
+import models.DCOPAgentData;
 
 public class handleValueMessage implements handleMessage{
 	
-	public void handle (Agent myAgent, NodeAgentData data, ACLMessage message) {
+	public void handle (Agent myAgent, DCOPAgentData data, ACLMessage message) {
 
 		try {
 			ValueMessage valueMessage = (ValueMessage) message.getContentObject();

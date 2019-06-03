@@ -5,7 +5,7 @@ import java.util.*;
 import graph.Constraint;
 import jade.core.AID;
 
-public class NodeAgentData {
+public class DCOPAgentData {
     private int threshold;
     private boolean receivedTerminate = false;
     private boolean wasKilled = false;

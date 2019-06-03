@@ -7,7 +7,7 @@ import java.util.Map;
 
 import jade.core.Agent;
 import jade.core.behaviours.WakerBehaviour;
-import models.NodeAgentData;
+import models.DCOPAgentData;
 
 public class initializeBehaviour extends WakerBehaviour {
 	private static final long serialVersionUID = -2905010008367981124L;
@@ -17,8 +17,8 @@ public class initializeBehaviour extends WakerBehaviour {
 	private static final int UPPER_BOUND = 1;
 	private static final int THRESHOLD = 2;
 
-	NodeAgentData data = new NodeAgentData();
-	public initializeBehaviour(Agent a, long period, NodeAgentData data) {
+	DCOPAgentData data = new DCOPAgentData();
+	public initializeBehaviour(Agent a, long period, DCOPAgentData data) {
 		super(a, period);
 		this.data = data;
 	}

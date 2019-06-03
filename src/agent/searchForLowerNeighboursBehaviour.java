@@ -6,14 +6,14 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
-import models.NodeAgentData;
+import models.DCOPAgentData;
 
 public class searchForLowerNeighboursBehaviour extends WakerBehaviour {
 	
 	private static final long serialVersionUID = 2788042325314110781L;
-	NodeAgentData data = new NodeAgentData();
+	DCOPAgentData data = new DCOPAgentData();
 	
-    public searchForLowerNeighboursBehaviour(Agent a, long period, NodeAgentData data) {
+    public searchForLowerNeighboursBehaviour(Agent a, long period, DCOPAgentData data) {
         super(a, period);
         this.data = data;
     }

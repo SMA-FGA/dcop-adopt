@@ -6,14 +6,14 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
-import models.NodeAgentData;
+import models.DCOPAgentData;
 
 public class registerChilrenBehaviour extends OneShotBehaviour {
 
 	private static final long serialVersionUID = 1L;
-	NodeAgentData data = new NodeAgentData();
+	DCOPAgentData data = new DCOPAgentData();
 	
-	public registerChilrenBehaviour(Agent a, NodeAgentData data) {
+	public registerChilrenBehaviour(Agent a, DCOPAgentData data) {
 		super(a);
 		this.data = data;
 	}

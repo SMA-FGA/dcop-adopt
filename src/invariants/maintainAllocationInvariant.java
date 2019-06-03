@@ -10,12 +10,12 @@ import jade.core.AID;
 import jade.core.Agent;
 import jade.util.Logger;
 import messages.ThresholdMessage;
-import models.NodeAgentData;
+import models.DCOPAgentData;
 
 public class maintainAllocationInvariant implements maintainInvariant{
 	private static final Logger LOGGER = Logger.getMyLogger(maintainAllocationInvariant.class.getName());
 	
-    private void incrementChildWithLowThreshold(NodeAgentData data, int currentValue) {
+    private void incrementChildWithLowThreshold(DCOPAgentData data, int currentValue) {
         for (Map.Entry<String, List<Integer>> child : data.getChildrenThresholds().entrySet()) {
             List<Integer> upperBoundsForChild = data.getChildrenUpperBounds().get(child.getKey());
             int childUpperBound = upperBoundsForChild.get(currentValue);
@@ -30,7 +30,7 @@ public class maintainAllocationInvariant implements maintainInvariant{
         }
     }
 
-    private void decrementChildWithHighThreshold(NodeAgentData data, int currentValue) {
+    private void decrementChildWithHighThreshold(DCOPAgentData data, int currentValue) {
         for (Map.Entry<String, List<Integer>> child : data.getChildrenThresholds().entrySet()) {
             List<Integer> lowerBoundsForChild = data.getChildrenLowerBounds().get(child.getKey());
             int childLowerBound = lowerBoundsForChild.get(currentValue);
@@ -45,7 +45,7 @@ public class maintainAllocationInvariant implements maintainInvariant{
         }
     }
 
-    public void maintain(Agent myAgent, NodeAgentData data) {
+    public void maintain(Agent myAgent, DCOPAgentData data) {
     	
     	LOGGER.setLevel(Level.ALL);
         List<AID> childrenList = data.getChildren();

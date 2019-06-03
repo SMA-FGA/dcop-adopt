@@ -9,19 +9,19 @@ import java.util.logging.Level;
 import graph.Constraint;
 import jade.core.Agent;
 import jade.util.Logger;
-import models.NodeAgentData;
+import models.DCOPAgentData;
 
 public class DCOPAgent extends Agent {
 	private static final long serialVersionUID = 783786161678161415L;
 	private static final Logger LOGGER = Logger.getMyLogger(DCOPAgent.class.getName());
-	private NodeAgentData data;
+	private DCOPAgentData data;
 	
     @Override
     protected void setup() {
     	LOGGER.setLevel(Level.OFF);
     	LOGGER.info("[CREATE     ] Agent " + getLocalName() + " was created.");
 
-        data = new NodeAgentData();
+        data = new DCOPAgentData();
         Object[] setupArgs = getArguments();
         List<String> childrenNames = Arrays.asList((String[])setupArgs[0]);
         List<String> lowerNeighboursNames = Arrays.asList((String[])setupArgs[1]);

@@ -2,9 +2,9 @@ package agent;
 
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
-import models.NodeAgentData;
+import models.DCOPAgentData;
 
 public interface handleMessage {
 	
-	public void handle(Agent myAgent, NodeAgentData data, ACLMessage message);
+	public void handle(Agent myAgent, DCOPAgentData data, ACLMessage message);
 }

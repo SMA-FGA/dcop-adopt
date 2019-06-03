@@ -8,16 +8,16 @@ import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import messages.AdoptMessage;
-import models.NodeAgentData;
+import models.DCOPAgentData;
 
 public class sendMessageBehaviour extends OneShotBehaviour {
 	
 	private static final long serialVersionUID = 2659869091649149638L;
-	NodeAgentData data = new NodeAgentData();
+	DCOPAgentData data = new DCOPAgentData();
 	AdoptMessage adoptMessage;
 	List<AID> receivers;
 	
-	public sendMessageBehaviour(Agent a, NodeAgentData data, AdoptMessage adoptMessage, List<AID> receivers) {
+	public sendMessageBehaviour(Agent a, DCOPAgentData data, AdoptMessage adoptMessage, List<AID> receivers) {
         super(a);
         this.data = data;
         this.adoptMessage = adoptMessage;

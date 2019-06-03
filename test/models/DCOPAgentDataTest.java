@@ -10,14 +10,14 @@ import org.junit.Test;
 
 import graph.Constraint;
 
-public class NodeAgentDataTest {
+public class DCOPAgentDataTest {
 
     /*
      * Uses values presented in adopt's article example.
      */
     @Test
     public void getLocalCostForVariable() throws Exception {
-        NodeAgentData data = new NodeAgentData();
+        DCOPAgentData data = new DCOPAgentData();
 
         List<String> upperNeighbours = new ArrayList<>();
         upperNeighbours.add("x1");
@@ -45,7 +45,7 @@ public class NodeAgentDataTest {
 
     @Test
     public void IsContextCompatibleText_ShouldReturnTrueWhenContextsAreEqual() {
-        NodeAgentData data = new NodeAgentData();
+        DCOPAgentData data = new DCOPAgentData();
 
         Map<String, Integer> initialContext = new HashMap<>();
         Map<String, Integer> receivedContext = new HashMap<>();
@@ -64,7 +64,7 @@ public class NodeAgentDataTest {
 
     @Test
     public void IsContextCompatibleText_ShouldReturnTrueWhenCommonValuesAreEqual() {
-        NodeAgentData data = new NodeAgentData();
+        DCOPAgentData data = new DCOPAgentData();
 
         Map<String, Integer> initialContext = new HashMap<>();
         Map<String, Integer> receivedContext = new HashMap<>();
@@ -82,7 +82,7 @@ public class NodeAgentDataTest {
 
     @Test
     public void IsContextCompatibleText_ShouldReturnTrueWhenCurrentContextIsEmpty() {
-        NodeAgentData data = new NodeAgentData();
+        DCOPAgentData data = new DCOPAgentData();
 
         Map<String, Integer> initialContext = new HashMap<>();
         Map<String, Integer> receivedContext = new HashMap<>();
@@ -97,7 +97,7 @@ public class NodeAgentDataTest {
 
     @Test
     public void IsContextCompatibleText_ShouldReturnTrueWhenReceivedContextIsEmpty() {
-        NodeAgentData data = new NodeAgentData();
+        DCOPAgentData data = new DCOPAgentData();
 
         Map<String, Integer> initialContext = new HashMap<>();
         Map<String, Integer> receivedContext = new HashMap<>();
@@ -112,7 +112,7 @@ public class NodeAgentDataTest {
 
     @Test
     public void IsContextCompatibleText_ShouldReturnFalseWhenCommonValuesAreDifferent() {
-        NodeAgentData data = new NodeAgentData();
+        DCOPAgentData data = new DCOPAgentData();
 
         Map<String, Integer> initialContext = new HashMap<>();
         Map<String, Integer> receivedContext = new HashMap<>();

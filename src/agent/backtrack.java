@@ -11,12 +11,12 @@ import jade.core.Agent;
 import messages.CostMessage;
 import messages.TerminateMessage;
 import messages.ValueMessage;
-import models.NodeAgentData;
+import models.DCOPAgentData;
 import solution.DCOPSolutionAgent;
 
 public class backtrack{
 	
-	public void backtrackProcedure(Agent myAgent, NodeAgentData data) {
+	public void backtrackProcedure(Agent myAgent, DCOPAgentData data) {
 		System.out.println("[BACK TRACK ] "+myAgent.getLocalName()+
 						   " starting backTrack procedure");
 

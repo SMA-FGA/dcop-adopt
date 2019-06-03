@@ -6,14 +6,14 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import messages.AdoptMessage;
 import messages.MessageTypes;
-import models.NodeAgentData;
+import models.DCOPAgentData;
 
 public class receiveMessageBehaviour extends CyclicBehaviour implements MessageTypes {
 
 	private static final long serialVersionUID = 7797604769937095938L;
-	private NodeAgentData data;
+	private DCOPAgentData data;
 
-    public receiveMessageBehaviour(Agent a, NodeAgentData data) {
+    public receiveMessageBehaviour(Agent a, DCOPAgentData data) {
         super(a);
         this.data = data;
     }

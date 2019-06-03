@@ -1,9 +1,9 @@
 package invariants;
 
 import jade.core.Agent;
-import models.NodeAgentData;
+import models.DCOPAgentData;
 
 public interface maintainInvariant {
 	
-	public void maintain(Agent myAgent, NodeAgentData data);
+	public void maintain(Agent myAgent, DCOPAgentData data);
 }
