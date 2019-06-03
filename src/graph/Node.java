@@ -115,10 +115,10 @@ public class Node {
          * to a regular array, then convert it back once inside the DcopAgent.
          */
 		Object agentArgs[] = new Object[6];
-	    agentArgs[0] = this.children;
-	    agentArgs[1] = this.lowerNeighbours;
-	    agentArgs[2] = this.domain.getDomainArray();
-	    agentArgs[3] = this.upperNeighbours;
+	    agentArgs[0] = this.children.toArray(new String[]{}); 
+	    agentArgs[1] = this.lowerNeighbours.toArray(new String[]{}); 
+	    agentArgs[2] = this.domain.getDomainArray().toArray(new Integer[]{}); 
+	    agentArgs[3] = this.upperNeighbours.toArray(new String[]{});
 	    
 	    List<String> agentsWithConstraints = new ArrayList<>(); 
 	    List<Integer[][]> constraintsList = new Vector<>();
@@ -128,7 +128,7 @@ public class Node {
 	    }
 	    
 	    agentArgs[4] = constraintsList;
-	    agentArgs[5] = agentsWithConstraints;
+	    agentArgs[5] = agentsWithConstraints.toArray(new String[]{}); 
 	    
 	    return agentArgs;
 	}

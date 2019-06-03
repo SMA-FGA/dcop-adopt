@@ -2,6 +2,7 @@ package instantiator;
 
 import graph.Graph;
 import graph.Node;
+import graph.ParseJSONtoGraph;
 import jade.core.Agent;
 import jade.wrapper.StaleProxyException;
 

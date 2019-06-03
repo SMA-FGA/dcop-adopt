@@ -1,24 +1,12 @@
-package instantiator;
+package graph;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import graph.Constraint;
-import graph.ConstraintsList;
-import graph.Domain;
-import graph.DomainsList;
-import graph.Edge;
-import graph.EdgesList;
-import graph.Graph;
-import graph.Node;
-import graph.NodesList;
 
 public class ParseJSONtoGraph {
 
@@ -101,8 +89,6 @@ public class ParseJSONtoGraph {
             for(int i=0; i<constraint.length; i++) {
 	            for(int j=0; j<constraint[i].length; j++) {
 	            	constraintTransposed[j][i] = constraint[i][j];
-	            	System.out.println("Matrix: "+constraint[i][j]);
-	                System.out.println("Transposed: "+constraintTransposed[j][i]);
 	            }
             }
             
