@@ -1,0 +1,169 @@
+{
+  "domains": [
+    {
+      "id": "d1",
+      "value": [
+        0,
+        1
+      ]
+    }
+  ],
+  "constraints": [
+    {
+      "id": "c1",
+      "value": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          2
+        ]
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "x1",
+      "domain": "d1"
+    },
+    {
+      "id": "x2",
+      "domain": "d1"
+    },
+    {
+      "id": "x3",
+      "domain": "d1"
+    },
+    {
+      "id": "x4",
+      "domain": "d1"
+    },
+    {
+      "id": "x5",
+      "domain": "d1"
+    },
+    {
+      "id": "x6",
+      "domain": "d1"
+    },
+    {
+      "id": "x7",
+      "domain": "d1"
+    },
+    {
+      "id": "x8",
+      "domain": "d1"
+    },
+    {
+      "id": "x9",
+      "domain": "d1"
+    },
+    {
+      "id": "x10",
+      "domain": "d1"
+    },
+    {
+      "id": "x11",
+      "domain": "d1"
+    },
+    {
+      "id": "x12",
+      "domain": "d1"
+    },
+    {
+      "id": "x13",
+      "domain": "d1"
+    },
+    {
+      "id": "x14",
+      "domain": "d1"
+    },
+    {
+      "id": "x15",
+      "domain": "d1"
+    },
+    {
+      "id": "x16",
+      "domain": "d1"
+    }
+  ],
+  "edges": [
+    {
+      "source": "x1",
+      "target": "x2",
+      "constraint": "c1"
+    },
+    {
+      "source": "x1",
+      "target": "x3",
+      "constraint": "c1"
+    },
+    {
+      "source": "x1",
+      "target": "x4",
+      "constraint": "c1"
+    },
+    {
+      "source": "x1",
+      "target": "x5",
+      "constraint": "c1"
+    },
+    {
+      "source": "x1",
+      "target": "x6",
+      "constraint": "c1"
+    },
+    {
+      "source": "x1",
+      "target": "x7",
+      "constraint": "c1"
+    },
+    {
+      "source": "x1",
+      "target": "x8",
+      "constraint": "c1"
+    },
+    {
+      "source": "x1",
+      "target": "x9",
+      "constraint": "c1"
+    },
+    {
+      "source": "x2",
+      "target": "x10",
+      "constraint": "c1"
+    },
+    {
+      "source": "x2",
+      "target": "x11",
+      "constraint": "c1"
+    },
+    {
+      "source": "x2",
+      "target": "x12",
+      "constraint": "c1"
+    },
+    {
+      "source": "x2",
+      "target": "x13",
+      "constraint": "c1"
+    },
+    {
+      "source": "x2",
+      "target": "x14",
+      "constraint": "c1"
+    },
+    {
+      "source": "x2",
+      "target": "x15",
+      "constraint": "c1"
+    },
+    {
+      "source": "x2",
+      "target": "x16",
+      "constraint": "c1"
+    }
+  ]
+}
