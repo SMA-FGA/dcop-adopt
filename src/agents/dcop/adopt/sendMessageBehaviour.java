@@ -1,4 +1,4 @@
-package agent;
+package agents.dcop.adopt;
 
 import java.io.IOException;
 import java.util.List;

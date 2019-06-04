@@ -1,4 +1,4 @@
-package agent;
+package agents.dcop.preinit;
 
 import jade.core.Agent;
 import jade.core.behaviours.WakerBehaviour;
@@ -8,22 +8,22 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import models.DCOPAgentData;
 
-public class searchForChildrenBehaviour extends WakerBehaviour {
+public class searchForLowerNeighboursBehaviour extends WakerBehaviour {
 	
-	private static final long serialVersionUID = -3081227894323949053L;
+	private static final long serialVersionUID = 2788042325314110781L;
 	DCOPAgentData data = new DCOPAgentData();
 	
-    public searchForChildrenBehaviour(Agent a, long period, DCOPAgentData data) {
+    public searchForLowerNeighboursBehaviour(Agent a, long period, DCOPAgentData data) {
         super(a, period);
         this.data = data;
     }
 
     @Override
     protected void onWake() {
-        for (String childName : data.getChildrenNames()) {
+        for (String lowerNeighbourName : data.getLowerNeighboursNames()) {
             DFAgentDescription template = new DFAgentDescription();
             ServiceDescription serviceTemplate = new ServiceDescription();
-            serviceTemplate.setType("agent-" + childName);
+            serviceTemplate.setType("agent-" + lowerNeighbourName);
             template.addServices(serviceTemplate);
 
             DFAgentDescription []resultSearch = null;
@@ -35,10 +35,10 @@ public class searchForChildrenBehaviour extends WakerBehaviour {
             }
 
             if (resultSearch.length != 0) {
-                data.setChild(resultSearch[0].getName());
-                System.out.println("[CHILD      ] Registering agent " +
-                                    resultSearch[0].getName().getLocalName() +
-                                    " as " + myAgent.getLocalName() + "'s child");
+                data.setLowerNeighbour(resultSearch[0].getName());
+                System.out.println("[NEIGH      ] Registering agent " +
+                        resultSearch[0].getName().getLocalName() +
+                        " as " + myAgent.getLocalName() + "'s lower neighbour");
             }
         }
     }

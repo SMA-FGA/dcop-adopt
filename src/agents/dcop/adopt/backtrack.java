@@ -1,18 +1,16 @@
-package agent;
+package agents.dcop.adopt;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import invariants.maintainAllocationInvariant;
-import invariants.maintainInvariant;
+import agents.solution.DCOPSolutionAgent;
 import jade.core.AID;
 import jade.core.Agent;
 import messages.CostMessage;
 import messages.TerminateMessage;
 import messages.ValueMessage;
 import models.DCOPAgentData;
-import solution.DCOPSolutionAgent;
 
 public class backtrack{
 	

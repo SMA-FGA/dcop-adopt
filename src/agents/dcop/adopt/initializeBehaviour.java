@@ -1,4 +1,4 @@
-package agent;
+package agents.dcop.adopt;
 
 import java.util.ArrayList;
 import java.util.HashMap;

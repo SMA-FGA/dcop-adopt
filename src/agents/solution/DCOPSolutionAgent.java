@@ -1,4 +1,4 @@
-package solution;
+package agents.solution;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ import jade.core.Agent;
 public class DCOPSolutionAgent extends Agent {
 
 	private static final long serialVersionUID = -415680438462570144L;
-	Map<String, Integer> agentsChoices = new HashMap<>();
+	private Map<String, Integer> agentsChoices = new HashMap<>();
 	private static DCOPSolutionAgent instance;
 	
 	protected void setup() {

@@ -1,4 +1,4 @@
-package invariants;
+package agents.dcop.adopt;
 
 import java.util.List;
 import java.util.Map;

@@ -1,11 +1,10 @@
-package invariants;
+package agents.dcop.adopt;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
-import agent.sendMessageBehaviour;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.util.Logger;

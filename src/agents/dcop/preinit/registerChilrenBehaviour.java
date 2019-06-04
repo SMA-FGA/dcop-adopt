@@ -1,4 +1,4 @@
-package agent;
+package agents.dcop.preinit;
 
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;

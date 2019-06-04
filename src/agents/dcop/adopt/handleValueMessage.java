@@ -1,10 +1,8 @@
-package agent;
+package agents.dcop.adopt;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import invariants.maintainInvariant;
-import invariants.maintainThresholdInvariant;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;

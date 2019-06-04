@@ -1,7 +1,5 @@
-package agent;
+package agents.dcop.adopt;
 
-import invariants.maintainInvariant;
-import invariants.maintainThresholdInvariant;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;

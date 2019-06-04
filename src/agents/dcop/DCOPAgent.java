@@ -1,4 +1,4 @@
-package agent;
+package agents.dcop;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -6,6 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
+import agents.dcop.adopt.initializeBehaviour;
+import agents.dcop.preinit.registerChilrenBehaviour;
+import agents.dcop.preinit.searchForChildrenBehaviour;
+import agents.dcop.preinit.searchForLowerNeighboursBehaviour;
+import agents.dcop.preinit.searchForParentBehaviour;
 import graph.Constraint;
 import jade.core.Agent;
 import jade.util.Logger;

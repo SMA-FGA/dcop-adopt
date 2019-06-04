@@ -1,4 +1,4 @@
-package agent;
+package agents.dcop.adopt;
 
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;

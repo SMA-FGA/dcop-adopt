@@ -1,4 +1,4 @@
-package invariants;
+package agents.dcop.adopt;
 
 import jade.core.Agent;
 import models.DCOPAgentData;
