@@ -44,6 +44,9 @@ public class sendMessageBehaviour extends OneShotBehaviour {
 		
 		try {
 			myAgent.send(message);
+			if(adoptMessage.getMessageType() == 3) {
+				myAgent.doDelete();
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}	
