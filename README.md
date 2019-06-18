@@ -23,6 +23,10 @@ install dependencies:
 `
 mvn install
 `
+or, if jade repository is unavaliable:
+`
+mvn install:install-file -Dfile=jade.jar -DgroupId=com.tilab.jade -DartifactId=jade -Dversion=4.5.0 -Dpackaging=jar
+`
 
 compile the code:
 
@@ -33,7 +37,7 @@ mvn compile
 execute a dcop simulation based on the `a.json` configuration file:
 
 ```
-mvn exec:java -D exec.mainClass="jade.Boot" -D exec.args="-agents instantiator:instantiator.InstantiatorAgent(./DCOPJson/a.json)"
+mvn exec:java -D exec.mainClass="jade.Boot"D exec.args="-agents instantiator:agents.instantiator.InstantiatorAgent(./dcop-json-files/a.json)"
 ```
 
 >## run tests

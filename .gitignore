@@ -9,6 +9,7 @@ dcop-adopt.iml
 
 # Binaries
 /bin/
+/bin1/
 /out/
 
 # JADE files

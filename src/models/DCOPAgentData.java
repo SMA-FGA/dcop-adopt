@@ -40,6 +40,24 @@ public class DCOPAgentData {
     	this.wasKilled = wasKilled;
     }
     
+    public boolean isContextCompatible(Map<String, Integer> receivedContext) {
+    	Map<String, Integer> context = this.currentContext;
+    			
+        for (Map.Entry<String, Integer> entry : context.entrySet()) {
+        	String agent = entry.getKey();
+        	Integer receivedValue = receivedContext.get(agent);
+        	Integer storedValue = entry.getValue();
+        	
+        	if(receivedValue != null && !receivedValue.equals(storedValue)) {
+        		System.out.println("Teste compatibilidade "+receivedContext+" and "+context+": "+false);
+        		return false;
+        	}
+        }
+        
+        System.out.println("Teste compatibilidade "+receivedContext+" and "+context+": "+true);
+        return true;
+    }
+    
     public int getConstraintCost(int myChoice, String upperNeighbourName, Integer upperNeighbourChice) {
     	int cost = -1;
     	
@@ -131,25 +149,6 @@ public class DCOPAgentData {
         }
         
         return updatedCurrentValue;
-    }
-    // TODO ends here.
-
-    public boolean isContextCompatible(Map<String, Integer> receivedContext) {
-    	boolean isCompatible = true;
-    			
-        for (Map.Entry<String, Integer> entry : this.currentContext.entrySet()) {
-            
-            for(Map.Entry<String, Integer> received : receivedContext.entrySet()) {
-            	if(received.getKey() == entry.getKey()) {
-                	if(entry.getValue() != received.getValue()) {
-                		isCompatible = false;
-                	}
-                }
-            }
-        }
-        
-        System.out.println("Teste compatibilidade "+receivedContext+" and "+this.currentContext+": "+isCompatible);
-        return isCompatible;
     }
 
     public List<Integer> getDomain() {
