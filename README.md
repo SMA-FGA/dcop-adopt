@@ -6,23 +6,28 @@ An implementation of the algorithm _`ADOPT`_[1] to solve _Distributed Constraint
 
 >### with docker
 
+clone this repository:
+
+```
+git clone https://github.com/SMA-FGA/dcop-adopt.git
+```
+
 go to repository path:
 
 `
 cd my/path/dcop-adopt
 `
 
-run a docker container with maven:
+pull docker image:
 
 ```
-sudo docker run --name dcop -it -v $PWD:/code -p 1099:1099 --workdir /code maven:3.6.1-jdk-11 bash
+sudo docker pull jefersonalves/dcop
 ```
 
-install dependencies:
-
-`
-mvn install
-`
+run a docker container:
+```
+sudo docker run --name dcop -it -v $PWD:/dcop -p 1099:1099 jefersonalves/dcop bash
+```
 
 compile the code:
 
